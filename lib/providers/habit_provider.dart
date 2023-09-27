@@ -7,6 +7,7 @@ class HabitProvider extends ChangeNotifier {
   final List<String> items = [];
   final double progress = 3;
   bool toggle = false;
+  bool toggle2 = false;
 
   Widget mark() {
     return GestureDetector(
@@ -15,6 +16,16 @@ class HabitProvider extends ChangeNotifier {
         notifyListeners();
       },
       child: toggle ? const Icon(Icons.check) : const Icon(Icons.close),
+    );
+  }
+
+  Widget mark2() {
+    return GestureDetector(
+      onTap: () {
+        toggle2 = !toggle2;
+        notifyListeners();
+      },
+      child: toggle2 ? const Icon(Icons.check) : const Icon(Icons.close),
     );
   }
 
@@ -35,7 +46,7 @@ class HabitProvider extends ChangeNotifier {
           const SizedBox(
             width: 20,
           ),
-          mark(),
+          mark2(),
           const SizedBox(
             width: 20,
           ),
