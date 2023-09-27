@@ -7,11 +7,8 @@ class HabitProvider extends ChangeNotifier {
   final List<String> items = [];
   final double progress = 3;
   bool toggle = false;
-  bool toggle2 = false;
-  bool toggle3 = false;
-  bool toggle4 = false;
 
-  Widget mark(bool toggle) {
+  Widget mark() {
     return GestureDetector(
       onTap: () {
         toggle = !toggle;
@@ -34,19 +31,19 @@ class HabitProvider extends ChangeNotifier {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          mark(toggle),
+          mark(),
           const SizedBox(
             width: 20,
           ),
-          mark(toggle2),
+          mark(),
           const SizedBox(
             width: 20,
           ),
-          mark(toggle3),
+          mark(),
           const SizedBox(
             width: 20,
           ),
-          mark(toggle4),
+          mark(),
         ],
       ),
     );
