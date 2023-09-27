@@ -8,9 +8,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  Widget build(BuildContext context) {
-    final List<int> items = List<int>.generate(30, (int index) => index);
+   final List<int> items = List<int>.generate(30, (int index) => index);
 
     void onReorder(int oldIndex, int newIndex) {
       setState(() {
@@ -21,6 +19,9 @@ class _HomePageState extends State<HomePage> {
         items.insert(newIndex, item);
       });
     }
+
+  @override
+  Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
