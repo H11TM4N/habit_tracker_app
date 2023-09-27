@@ -28,10 +28,16 @@ class HomePage extends StatelessWidget {
           )
         ],
       ),
-      body: ReorderableListView(
-        onReorder: habitProvider.onReorder,
-        children: habitProvider.customList(),
-        
+      body: Column(
+        children: [
+          const ListTile(),
+          Expanded(
+            child: ReorderableListView(
+              onReorder: habitProvider.onReorder,
+              children: habitProvider.customList(),
+            ),
+          ),
+        ],
       ),
     );
   }

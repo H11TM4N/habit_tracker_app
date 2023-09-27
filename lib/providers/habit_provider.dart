@@ -4,12 +4,27 @@ import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
 import '../widgets/progress_painter.dart';
 
 class HabitProvider extends ChangeNotifier {
-  final List<String> items = ['1'];
+  final List<String> items = [];
   final double progress = 3;
   bool toggle = false;
+  bool toggle2 = false;
+  bool toggle3 = false;
+  bool toggle4 = false;
+
+  Widget mark(bool toggle) {
+    return GestureDetector(
+      onTap: () {
+        toggle = !toggle;
+        notifyListeners();
+      },
+      child: toggle ? const Icon(Icons.check) : const Icon(Icons.close),
+    );
+  }
 
   Widget customListTile(int index) {
     return ListTile(
+      contentPadding: const EdgeInsets.all(9),
+      tileColor: Colors.black26,
       key: Key('$index'),
       title: Text(items[index]),
       leading: CustomPaint(
@@ -19,25 +34,19 @@ class HabitProvider extends ChangeNotifier {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          GestureDetector(
-            onLongPress: () {
-              toggle = !toggle;
-              notifyListeners();
-            },
-            child: toggle ? const Icon(Icons.check) : const Icon(Icons.close),
-          ),
+          mark(toggle),
           const SizedBox(
             width: 20,
           ),
-          const Icon(Icons.close),
+          mark(toggle2),
           const SizedBox(
             width: 20,
           ),
-          const Icon(Icons.check),
+          mark(toggle3),
           const SizedBox(
             width: 20,
           ),
-          const Icon(Icons.close),
+          mark(toggle4),
         ],
       ),
     );
