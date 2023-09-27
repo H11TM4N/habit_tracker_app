@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
@@ -13,7 +18,9 @@ class HomePage extends StatelessWidget {
         title: const Text('Habits'),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              habitProvider.onPressed('new habit');
+            },
             icon: const Icon(Icons.add),
           ),
           IconButton(
@@ -28,14 +35,7 @@ class HomePage extends StatelessWidget {
       ),
       body: ReorderableListView(
         onReorder: habitProvider.onReorder,
-        children: List.generate(
-          habitProvider.items.length,
-          (index) => ListTile(
-            key: Key('$index'),
-            title: Text('Item ${habitProvider.items[index]}'),
-            trailing: const Icon(Icons.drag_handle_sharp),
-          ),
-        ),
+        children: habitProvider.customList(),
       ),
     );
   }
