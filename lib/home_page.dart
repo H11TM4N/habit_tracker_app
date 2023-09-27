@@ -1,28 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/providers/habit_provider.dart';
+import 'package:provider/provider.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-   final List<int> items = List<int>.generate(30, (int index) => index);
-
-    void onReorder(int oldIndex, int newIndex) {
-      setState(() {
-        if (oldIndex < newIndex) {
-          newIndex -= 1;
-        }
-        final item = items.removeAt(oldIndex);
-        items.insert(newIndex, item);
-      });
-    }
-
-  @override
   Widget build(BuildContext context) {
-
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Habits'),
@@ -42,12 +27,12 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       body: ReorderableListView(
-        onReorder: onReorder,
+        onReorder: habitProvider.onReorder,
         children: List.generate(
-          items.length,
+          habitProvider.items.length,
           (index) => ListTile(
             key: Key('$index'),
-            title: Text('Item ${items[index]}'),
+            title: Text('Item ${habitProvider.items[index]}'),
             trailing: const Icon(Icons.drag_handle_sharp),
           ),
         ),
