@@ -15,16 +15,19 @@ class YesOrNoScreen extends StatelessWidget {
         title: const Text('Create habit'),
         actions: [ElevatedButton(onPressed: () {}, child: const Text('SAVE'))],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            CustomTextField(
-              title: 'Name',
-              controller: habitProvider.textController,
-            )
-          ],
-        ),
+      body: Column(
+        children: [
+          CustomTextField(
+            title: 'Name',
+            hintText: 'Exercise',
+            controller: habitProvider.textController,
+          ),
+          CustomTextField(
+            title: 'Question',
+            hintText: 'Did you exercise today?',
+            controller: habitProvider.textController,
+          ),
+        ],
       ),
     );
   }
