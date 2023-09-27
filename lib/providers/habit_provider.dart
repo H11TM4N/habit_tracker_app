@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/functions/dialogs.dart';
+import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
 
 class HabitProvider extends ChangeNotifier {
   final List<String> items = ['1', '2', '3'];
+  final TextEditingController textController = TextEditingController();
 
   List<Widget> customList() {
     return List.generate(

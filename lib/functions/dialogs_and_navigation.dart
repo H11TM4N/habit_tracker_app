@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/screens/measurable_screen.dart';
 
 import '../screens/yes_or_no_screen.dart';
 import '../widgets/custom_page_route_transition.dart';
@@ -23,7 +24,7 @@ Widget measureableAlertDialog(BuildContext context) {
     onTap: () {
       Navigator.of(context).pop();
       Navigator.of(context).push(
-        MyCustomRouteTransition(route: const YesOrNoScreen()),
+        MyCustomRouteTransition(route: const MeasurableScreen()),
       );
     },
     child: const AlertDialog(
