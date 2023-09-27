@@ -4,14 +4,13 @@ import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
 class HabitProvider extends ChangeNotifier {
   final List<String> items = ['1'];
 
-
   List<Widget> customList() {
     return List.generate(
       items.length,
       (index) => ListTile(
         key: Key('$index'),
         title: Text(items[index]),
-        trailing: const Icon(Icons.drag_handle_sharp),
+        leading: const Icon(Icons.ac_unit),
       ),
     );
   }
