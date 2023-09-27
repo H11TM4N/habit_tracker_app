@@ -14,7 +14,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-              habitProvider.onPressed('new habit');
+              habitProvider.onPressed(context);
             },
             icon: const Icon(Icons.add),
           ),

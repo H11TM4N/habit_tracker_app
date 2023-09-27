@@ -6,7 +6,10 @@ class YesOrNoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: const Text('Create habit'),
+        actions: [ElevatedButton(onPressed: () {}, child: const Text('SAVE'))],
+      ),
     );
   }
 }

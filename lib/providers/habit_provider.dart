@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/functions/dialogs.dart';
+import 'package:habit_tracker_app/screens/yes_or_no_screen.dart';
+import 'package:habit_tracker_app/widgets/custom_page_route_transition.dart';
 
 class HabitProvider extends ChangeNotifier {
   final List<String> items = ['1', '2', '3'];
@@ -14,12 +17,6 @@ class HabitProvider extends ChangeNotifier {
     );
   }
 
-  Widget alertDialog() {
-    return AlertDialog(
-      
-    );
-  }
-
   void onReorder(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;
@@ -29,8 +26,18 @@ class HabitProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void onPressed(String value) {
-    items.add(value);
+  void onPressed(BuildContext context) {
+    // items.add(value);
+    showDialog(
+      context: context,
+      builder: (context) => Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          yesOrNoAlertDialog(context),
+          measureableAlertDialog(context),
+        ],
+      ),
+    );
     notifyListeners();
   }
 }
