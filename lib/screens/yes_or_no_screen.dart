@@ -20,12 +20,12 @@ class YesOrNoScreen extends StatelessWidget {
           CustomTextField(
             title: 'Name',
             hintText: 'Exercise',
-            controller: habitProvider.textController,
+            controller: habitProvider.nameController,
           ),
           CustomTextField(
             title: 'Question',
             hintText: 'Did you exercise today?',
-            controller: habitProvider.textController,
+            controller: habitProvider.questionController,
           ),
         ],
       ),

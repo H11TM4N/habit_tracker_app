@@ -3,7 +3,10 @@ import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
 
 class HabitProvider extends ChangeNotifier {
   final List<String> items = ['1', '2', '3'];
-  final TextEditingController textController = TextEditingController();
+  final nameController = TextEditingController();
+   final questionController = TextEditingController();
+    final unitController = TextEditingController();
+     final targetController = TextEditingController();
 
   List<Widget> customList() {
     return List.generate(

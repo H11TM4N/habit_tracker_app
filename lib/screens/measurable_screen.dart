@@ -19,22 +19,22 @@ class MeasurableScreen extends StatelessWidget {
           CustomTextField(
             title: 'Name',
             hintText: 'Run',
-            controller: habitProvider.textController,
+            controller: habitProvider.nameController,
           ),
           CustomTextField(
             title: 'Question',
             hintText: 'How many miles did you run today?',
-            controller: habitProvider.textController,
+            controller: habitProvider.questionController,
           ),
           CustomTextField(
             title: 'Unit',
             hintText: 'miles',
-            controller: habitProvider.textController,
+            controller: habitProvider.unitController,
           ),
           CustomTextField(
             title: 'Target',
             hintText: '15',
-            controller: habitProvider.textController,
+            controller: habitProvider.targetController,
           ),
         ],
       ),
