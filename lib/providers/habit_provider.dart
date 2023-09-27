@@ -14,6 +14,12 @@ class HabitProvider extends ChangeNotifier {
     );
   }
 
+  Widget alertDialog() {
+    return AlertDialog(
+      
+    );
+  }
+
   void onReorder(int oldIndex, int newIndex) {
     if (oldIndex < newIndex) {
       newIndex -= 1;
