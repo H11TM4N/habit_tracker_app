@@ -2,18 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
 
 class HabitProvider extends ChangeNotifier {
-  final List<String> items = ['1', '2', '3'];
-  final nameController = TextEditingController();
-   final questionController = TextEditingController();
-    final unitController = TextEditingController();
-     final targetController = TextEditingController();
+  final List<String> items = ['1'];
+
 
   List<Widget> customList() {
     return List.generate(
       items.length,
       (index) => ListTile(
         key: Key('$index'),
-        title: Text('Item ${items[index]}'),
+        title: Text(items[index]),
         trailing: const Icon(Icons.drag_handle_sharp),
       ),
     );
@@ -40,6 +37,12 @@ class HabitProvider extends ChangeNotifier {
         ],
       ),
     );
+    notifyListeners();
+  }
+
+  void saveButtonOnpressed(BuildContext context, value) {
+    Navigator.of(context).pop();
+    items.add(value);
     notifyListeners();
   }
 }

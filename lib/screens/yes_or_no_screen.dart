@@ -10,22 +10,33 @@ class YesOrNoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+    final nameController = TextEditingController();
+    final questionController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create habit'),
-        actions: [ElevatedButton(onPressed: () {}, child: const Text('SAVE'))],
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                habitProvider.saveButtonOnpressed(
+                  context,
+                  nameController.text,
+                );
+              },
+              child: const Text('SAVE'))
+        ],
       ),
       body: Column(
         children: [
           CustomTextField(
             title: 'Name',
             hintText: 'Exercise',
-            controller: habitProvider.nameController,
+            controller: nameController,
           ),
           CustomTextField(
             title: 'Question',
             hintText: 'Did you exercise today?',
-            controller: habitProvider.questionController,
+            controller: questionController,
           ),
         ],
       ),

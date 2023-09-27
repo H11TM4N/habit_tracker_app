@@ -9,32 +9,45 @@ class MeasurableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+    final nameController = TextEditingController();
+    final questionController = TextEditingController();
+    final unitController = TextEditingController();
+    final targetController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create habit'),
-        actions: [ElevatedButton(onPressed: () {}, child: const Text('SAVE'))],
+        actions: [
+          ElevatedButton(
+              onPressed: () {
+                habitProvider.saveButtonOnpressed(
+                  context,
+                  nameController.text,
+                );
+              },
+              child: const Text('SAVE'))
+        ],
       ),
       body: Column(
         children: [
           CustomTextField(
             title: 'Name',
             hintText: 'Run',
-            controller: habitProvider.nameController,
+            controller: nameController,
           ),
           CustomTextField(
             title: 'Question',
             hintText: 'How many miles did you run today?',
-            controller: habitProvider.questionController,
+            controller: questionController,
           ),
           CustomTextField(
             title: 'Unit',
             hintText: 'miles',
-            controller: habitProvider.unitController,
+            controller: unitController,
           ),
           CustomTextField(
             title: 'Target',
             hintText: '15',
-            controller: habitProvider.targetController,
+            controller: targetController,
           ),
         ],
       ),
