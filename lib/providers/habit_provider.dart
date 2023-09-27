@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/functions/dialogs.dart';
-import 'package:habit_tracker_app/screens/yes_or_no_screen.dart';
-import 'package:habit_tracker_app/widgets/custom_page_route_transition.dart';
 
 class HabitProvider extends ChangeNotifier {
   final List<String> items = ['1', '2', '3'];
