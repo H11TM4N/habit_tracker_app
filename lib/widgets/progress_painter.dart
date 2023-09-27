@@ -11,7 +11,7 @@ class ProgressPainter extends CustomPainter {
     final Paint paint = Paint()
       ..color = Colors.blue // Color of the progress circle
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 2.0; // Adjust the thickness of the circle
+      ..strokeWidth = 4.0; // Adjust the thickness of the circle
 
     final center = Offset(size.width / 2, size.height / 2);
     final radius = min(size.width / 2, size.height / 2);

@@ -31,6 +31,7 @@ class HomePage extends StatelessWidget {
       body: ReorderableListView(
         onReorder: habitProvider.onReorder,
         children: habitProvider.customList(),
+        
       ),
     );
   }
