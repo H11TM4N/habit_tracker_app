@@ -5,8 +5,6 @@ import '../widgets/progress_painter.dart';
 
 class HabitProvider extends ChangeNotifier {
   final List<String> items = [];
-  final double progress = 3;
-
   List<bool> isTaskDone = [];
 
   Widget mark(int index) {
@@ -33,10 +31,6 @@ class HabitProvider extends ChangeNotifier {
       tileColor: Colors.black26,
       key: Key('$index'),
       title: Text(items[index]),
-      leading: CustomPaint(
-        size: const Size(20, 20), // Size of the progress circle
-        painter: ProgressPainter(progress: progress),
-      ),
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [

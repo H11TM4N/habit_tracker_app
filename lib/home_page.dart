@@ -10,7 +10,9 @@ class HomePage extends StatelessWidget {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Habits'),
+        leading: const Icon(Icons.sort),
         actions: [
           IconButton(
             onPressed: () {
@@ -18,14 +20,6 @@ class HomePage extends StatelessWidget {
             },
             icon: const Icon(Icons.add),
           ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.sort),
-          ),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.more_vert),
-          )
         ],
       ),
       body: Column(
