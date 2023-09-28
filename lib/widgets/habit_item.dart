@@ -31,11 +31,11 @@ class HabitTile extends StatelessWidget {
                 child: isDone
                     ? const Icon(
                         Icons.check,
-                        color: Colors.amber,
+                        color: Colors.blue,
                       )
                     : const Icon(
                         Icons.close,
-                        color: Colors.blue,
+                        color: Colors.black38,
                       ),
               ),
               const SizedBox(

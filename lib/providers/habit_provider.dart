@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
 import 'package:habit_tracker_app/widgets/habit_item.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HabitProvider extends ChangeNotifier {
   final List<String> items = [];
@@ -57,6 +58,22 @@ class HabitProvider extends ChangeNotifier {
     Navigator.of(context).pop();
     items.add(value);
     isTaskDone.add(false);
+    saveHabits();
     notifyListeners();
+  }
+
+  Future<void> loadHabits() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedHabits = prefs.getStringList('habits');
+    if (savedHabits != null) {
+      items.addAll(savedHabits);
+      isTaskDone.addAll(List.generate(savedHabits.length, (index) => false));
+      notifyListeners();
+    }
+  }
+
+  Future<void> saveHabits() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setStringList('habits', items);
   }
 }
