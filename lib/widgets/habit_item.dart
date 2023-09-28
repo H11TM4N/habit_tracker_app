@@ -26,19 +26,25 @@
 // }
 
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/habit_provider.dart';
 
 class HabitTile extends StatelessWidget {
   final String title;
   final bool isDone;
+  final VoidCallback onTap;
 
-  const HabitTile({
-    super.key,
-    required this.title,
-    required this.isDone,
-  });
+  const HabitTile(
+      {super.key,
+      required this.title,
+      required this.isDone,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+
     return ListTile(
       contentPadding: const EdgeInsets.all(9),
       tileColor: Colors.black26,
@@ -47,9 +53,7 @@ class HabitTile extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           GestureDetector(
-            onTap: () {
-              // Handle the onTap event here, perhaps by notifying a parent widget.
-            },
+            onTap: onTap,
             child: isDone
                 ? const Icon(
                     Icons.check,

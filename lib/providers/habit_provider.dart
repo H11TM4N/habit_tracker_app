@@ -1,45 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
-
-import '../widgets/progress_painter.dart';
+import 'package:habit_tracker_app/widgets/habit_item.dart';
 
 class HabitProvider extends ChangeNotifier {
   final List<String> items = [];
   List<bool> isTaskDone = [];
 
-  Widget mark(int index) {
-    return GestureDetector(
-      onTap: () {
-        isTaskDone[index] = !isTaskDone[index];
-        notifyListeners();
-      },
-      child: isTaskDone[index]
-          ? const Icon(
-              Icons.check,
-              color: Colors.amber,
-            )
-          : const Icon(
-              Icons.close,
-              color: Colors.blue,
-            ),
-    );
+  void onTap(int index) {
+    isTaskDone[index] = !isTaskDone[index];
+    notifyListeners();
   }
 
   Widget customListTile(int index) {
-    return ListTile(
-      contentPadding: const EdgeInsets.all(9),
-      tileColor: Colors.black26,
-      key: Key('$index'),
-      title: Text(items[index]),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          mark(index),
-          const SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
+    return HabitTile(
+      key: Key('Habit tile $index'),
+      title: items[index],
+      isDone: isTaskDone[index],
+      onTap: () {
+      onTap(index);
+    },
     );
   }
 
