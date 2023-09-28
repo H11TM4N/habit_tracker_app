@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import '../providers/habit_provider.dart';
+// import '../providers/habit_provider.dart';
 
 class HabitTile extends StatelessWidget {
   final String title;
@@ -15,33 +14,35 @@ class HabitTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
-
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: ListTile(
-        contentPadding: const EdgeInsets.all(9),
-        tileColor: Colors.black26,
-        title: Text(title),
-        trailing: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            GestureDetector(
-              onTap: onTap,
-              child: isDone
-                  ? const Icon(
-                      Icons.check,
-                      color: Colors.amber,
-                    )
-                  : const Icon(
-                      Icons.close,
-                      color: Colors.blue,
-                    ),
-            ),
-            const SizedBox(
-              width: 20,
-            ),
-          ],
+      child: Card(
+        elevation: 9,
+        color: Colors.transparent,
+        child: ListTile(
+          contentPadding: const EdgeInsets.all(9),
+          tileColor: Colors.transparent,
+          title: Text(title),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              GestureDetector(
+                onTap: onTap,
+                child: isDone
+                    ? const Icon(
+                        Icons.check,
+                        color: Colors.amber,
+                      )
+                    : const Icon(
+                        Icons.close,
+                        color: Colors.blue,
+                      ),
+              ),
+              const SizedBox(
+                width: 20,
+              ),
+            ],
+          ),
         ),
       ),
     );
