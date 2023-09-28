@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import '../../providers/habit_provider.dart';
 import '../../widgets/custom_textfields/textfield.dart';
 
 class MeasurableScreen extends StatelessWidget {
@@ -6,6 +8,8 @@ class MeasurableScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+
     final nameController = TextEditingController();
     final questionController = TextEditingController();
     final unitController = TextEditingController();
@@ -16,7 +20,7 @@ class MeasurableScreen extends StatelessWidget {
         actions: [
           ElevatedButton(
               onPressed: () {
-
+                habitProvider.addHabit(context, nameController.text);
               },
               child: const Text('SAVE'))
         ],

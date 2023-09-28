@@ -1,23 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/providers/create_habit_provider.dart';
-import 'package:provider/provider.dart';
-// import '../providers/habit_provider.dart';
 
 class HabitTile extends StatelessWidget {
   final String title;
   final bool isDone;
   final VoidCallback onTap;
+  final Color? textColor;
 
   const HabitTile({
     super.key,
     required this.title,
     required this.isDone,
     required this.onTap,
+    required this.textColor,
   });
 
   @override
   Widget build(BuildContext context) {
-    CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
+    // CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
     return Padding(
       padding: const EdgeInsets.all(4.0),
       child: Card(
@@ -28,7 +27,7 @@ class HabitTile extends StatelessWidget {
           tileColor: Colors.transparent,
           title: Text(
             title,
-            style: TextStyle(color: createHabitProvider.habitTextColor),
+            style: TextStyle(color: textColor),
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,

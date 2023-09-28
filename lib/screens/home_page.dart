@@ -46,10 +46,18 @@ class _HomePageState extends State<HomePage> {
             child: ListView.builder(
               padding: const EdgeInsets.all(8.0),
               itemCount: habitProvider.habits.length,
-              itemBuilder: (context, index) => HabitTile(
-                title: 'title', // dummy
-                isDone: false, // dummy
-                onTap: () {}, // dummy
+              itemBuilder: (context, index) => Dismissible(
+                key: Key('key_${habitProvider.habits[index]}'),
+                onDismissed: (direction) => habitProvider.removeHabit(index),
+                background: Container(color: Colors.red),
+                child: HabitTile(
+                  title: habitProvider.habits[index],
+                  isDone: habitProvider.isDoneList[index],
+                  onTap: () {
+                    habitProvider.finishedTask(index);
+                  },
+                  textColor: Colors.amber, // dummy
+                ),
               ),
             ),
           )
