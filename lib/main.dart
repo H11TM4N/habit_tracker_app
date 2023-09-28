@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => HabitProvider(),
+          create: (context) => HabitProvider(CreateHabitProvider()),
         ),
         ChangeNotifierProvider(
           create: (context) => DateProvider(),
