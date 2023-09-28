@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:habit_tracker_app/widgets/home_page_items/date_displaying_listtile.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -9,17 +9,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   Provider.of<HabitProvider>(context, listen: false).loadHabits();
-  // }
-
   @override
   Widget build(BuildContext context) {
-    
-
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -27,17 +18,14 @@ class _HomePageState extends State<HomePage> {
         leading: const Icon(Icons.sort),
         actions: [
           IconButton(
-            onPressed: () {
-
-            },
+            onPressed: () {},
             icon: const Icon(Icons.add),
           ),
         ],
       ),
-      body: Column(
+      body: const Column(
         children: [
-          
-
+          DateTile(),
         ],
       ),
     );

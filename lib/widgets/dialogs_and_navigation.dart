@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/screens/add_habit_screens/measurable_screen.dart';
 
 import '../screens/add_habit_screens/yes_or_no_screen.dart';
-import '../widgets/custom_page_transition/custom_page_route_transition.dart';
+import 'custom_page_transition/custom_page_route_transition.dart';
 
-Widget yesOrNoAlertDialog(BuildContext context) {
-  return GestureDetector(
+class YesOrNoAlertDialog extends StatelessWidget {
+  const YesOrNoAlertDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
     onTap: () {
       Navigator.of(context).pop();
       Navigator.of(context).push(
@@ -17,10 +21,15 @@ Widget yesOrNoAlertDialog(BuildContext context) {
       content: Text('e.g. Did you wake up early today?'),
     ),
   );
+  }
 }
 
-Widget measureableAlertDialog(BuildContext context) {
-  return GestureDetector(
+class MeasureableAlertDialog extends StatelessWidget {
+  const MeasureableAlertDialog({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
     onTap: () {
       Navigator.of(context).pop();
       Navigator.of(context).push(
@@ -32,4 +41,6 @@ Widget measureableAlertDialog(BuildContext context) {
       content: Text('e.g. How many miles did you run today?'),
     ),
   );
+  }
 }
+

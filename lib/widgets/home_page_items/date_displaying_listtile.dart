@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../providers/current_date_provider.dart';
 
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
+class DateTile extends StatelessWidget {
+  const DateTile({super.key});
 
   @override
   Widget build(BuildContext context) {
