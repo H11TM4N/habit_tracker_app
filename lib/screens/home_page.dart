@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:habit_tracker_app/widgets/dialogs_and_navigation/dialogs_and_navigation.dart';
 import 'package:habit_tracker_app/widgets/habit_item.dart';
+import 'package:habit_tracker_app/widgets/habits.dart';
 import 'package:habit_tracker_app/widgets/home_page_items/date_displaying_listtile.dart';
 import 'package:provider/provider.dart';
 
@@ -39,27 +40,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      body: Column(
+      body: const Column(
         children: [
-          const DateTile(),
+          DateTile(),
           Expanded(
-            child: ListView.builder(
-              padding: const EdgeInsets.all(8.0),
-              itemCount: habitProvider.habits.length,
-              itemBuilder: (context, index) => Dismissible(
-                key: Key('key_${habitProvider.habits[index]}'),
-                onDismissed: (direction) => habitProvider.removeHabit(index),
-                background: Container(color: Colors.red),
-                child: HabitTile(
-                  title: habitProvider.habits[index],
-                  isDone: habitProvider.isDoneList[index],
-                  onTap: () {
-                    habitProvider.finishedTask(index);
-                  },
-                  textColor: Colors.amber, // dummy
-                ),
-              ),
-            ),
+            child: Habits()
           )
         ],
       ),
