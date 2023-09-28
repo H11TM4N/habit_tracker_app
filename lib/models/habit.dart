@@ -1,7 +1,7 @@
-import 'package:uuid/uuid.dart';
+// import 'package:uuid/uuid.dart';
 
-final uuid = Uuid();
+// final uuid = Uuid();
 
-class Habit {
-  
-}
+// class Habit {
+
+// }
