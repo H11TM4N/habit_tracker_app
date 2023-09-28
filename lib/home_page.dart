@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
 
 import 'providers/current_date_provider.dart';
@@ -12,16 +11,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  @override
-  void initState() {
-    super.initState();
-    Provider.of<HabitProvider>(context, listen: false).loadHabits();
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   Provider.of<HabitProvider>(context, listen: false).loadHabits();
+  // }
 
   @override
   Widget build(BuildContext context) {
     DateProvider dateProvider = Provider.of<DateProvider>(context);
-    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+
 
     return Scaffold(
       appBar: AppBar(
@@ -31,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              habitProvider.onPressed(context);
+
             },
             icon: const Icon(Icons.add),
           ),
@@ -57,12 +56,7 @@ class _HomePageState extends State<HomePage> {
               ],
             ),
           ),
-          Expanded(
-            child: ReorderableListView(
-              onReorder: habitProvider.onReorder,
-              children: habitProvider.customList(),
-            ),
-          ),
+
         ],
       ),
     );

@@ -3,7 +3,7 @@ import 'package:habit_tracker_app/widgets/textfield.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/create_habit_provider.dart';
-import '../providers/habit_provider.dart';
+
 
 class YesOrNoScreen extends StatefulWidget {
   const YesOrNoScreen({super.key});
@@ -16,7 +16,6 @@ class _YesOrNoScreenState extends State<YesOrNoScreen> {
   @override
   Widget build(BuildContext context) {
     CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
-    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
     final nameController = TextEditingController();
     final questionController = TextEditingController();
     return Scaffold(
@@ -25,10 +24,7 @@ class _YesOrNoScreenState extends State<YesOrNoScreen> {
         actions: [
           ElevatedButton(
               onPressed: () {
-                habitProvider.saveButtonOnpressed(
-                  context,
-                  nameController.text,
-                );
+ 
               },
               child: const Text('SAVE'))
         ],
