@@ -4,8 +4,6 @@ import 'package:habit_tracker_app/widgets/habit_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HabitProvider extends ChangeNotifier {
-
-
   final List<String> items = [];
   List<bool> isTaskDone = [];
 
@@ -20,15 +18,22 @@ class HabitProvider extends ChangeNotifier {
       title: items[index],
       isDone: isTaskDone[index],
       onTap: () {
-      onTap(index);
-    },
+        onTap(index);
+      },
     );
   }
 
   List<Widget> customList() {
     return List.generate(
       items.length,
-      (index) => customListTile(index),
+      (index) => Dismissible(
+        key: Key('Habit dismissible $index'),
+        onDismissed: (direction) => removeHabit(index),
+        background: Container(
+          color: Colors.red,
+        ),
+        child: customListTile(index),
+      ),
     );
   }
 
@@ -60,6 +65,13 @@ class HabitProvider extends ChangeNotifier {
     Navigator.of(context).pop();
     items.add(value);
     isTaskDone.add(false);
+    saveHabits();
+    notifyListeners();
+  }
+
+  void removeHabit(int index) {
+    items.removeAt(index);
+    isTaskDone.removeAt(index);
     saveHabits();
     notifyListeners();
   }
