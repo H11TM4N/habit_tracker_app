@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/providers/create_habit_provider.dart';
 import 'package:habit_tracker_app/providers/current_date_provider.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,10 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (context) => DateProvider(),
-        )
+        ),
+        ChangeNotifierProvider(
+          create: (context) => CreateHabitProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

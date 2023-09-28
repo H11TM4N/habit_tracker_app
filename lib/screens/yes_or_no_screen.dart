@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/widgets/textfield.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/create_habit_provider.dart';
 import '../providers/habit_provider.dart';
 
 class YesOrNoScreen extends StatefulWidget {
@@ -12,48 +13,9 @@ class YesOrNoScreen extends StatefulWidget {
 }
 
 class _YesOrNoScreenState extends State<YesOrNoScreen> {
-  Color? habitTextColor; // Store the selected text color for the habit
-
-  // Define a list of colors to choose from
-  final List<Color> colorOptions = [
-    Colors.red,
-    Colors.green,
-    Colors.blue,
-    Colors.orange,
-    Colors.purple,
-  ];
-
-  // Function to show a dialog with color options
-  Future<void> showColorSelectionDialog(BuildContext context) async {
-    final selectedColor = await showDialog<Color>(
-      context: context,
-      builder: (context) {
-        return SimpleDialog(
-          title: const Text('Select Text Color'),
-          children: colorOptions.map((color) {
-            return SimpleDialogOption(
-              onPressed: () {
-                Navigator.pop(context, color);
-              },
-              child: Container(
-                color: color,
-                height: 40,
-              ),
-            );
-          }).toList(),
-        );
-      },
-    );
-
-    if (selectedColor != null) {
-      setState(() {
-        habitTextColor = selectedColor;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
+    CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
     final nameController = TextEditingController();
     final questionController = TextEditingController();
@@ -84,14 +46,14 @@ class _YesOrNoScreenState extends State<YesOrNoScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  showColorSelectionDialog(context);
+                  createHabitProvider.showColorSelectionDialog(context);
                 },
                 child: SizedBox(
                   width: 90,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ListTile(
-                      tileColor: habitTextColor ?? Colors.black12,
+                      tileColor: createHabitProvider.habitTextColor ?? Colors.black12,
                       title: const Center(
                         child: Text(
                           'Color',
