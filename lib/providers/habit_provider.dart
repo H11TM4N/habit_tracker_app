@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class HabitProvider extends ChangeNotifier {
   List<String> habits = [];
   List<bool> isDoneList = [];
+  List<String> removedHabits = []; // Store temporarily removed habits
 
   void addHabit(BuildContext context, String value) {
     Navigator.pop(context);
@@ -12,10 +13,22 @@ class HabitProvider extends ChangeNotifier {
   }
 
   void removeHabit(int index, BuildContext context) {
-    habits.removeAt(index);
+    String removedHabit = habits.removeAt(index); // Remove and store the habit
     isDoneList.removeAt(index);
-    showSnackBAr(context);
+    removedHabits.add(removedHabit); // Store the removed habit
+    showSnackBar(
+        context, removedHabit); // Pass the removed habit to the Snackbar
     notifyListeners();
+  }
+
+  void undoRemove(BuildContext context) {
+    if (removedHabits.isNotEmpty) {
+      String habitToUndo =
+          removedHabits.removeLast(); // Get the last removed habit
+      habits.add(habitToUndo); // Add the removed habit back to the list
+      isDoneList.add(false);
+      notifyListeners();
+    }
   }
 
   void finishedTask(int index) {
@@ -23,15 +36,17 @@ class HabitProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  void showSnackBAr(BuildContext context) {
+  void showSnackBar(BuildContext context, String removedHabit) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
-        content: const Text('Habit removed'),
+        content: Text('Habit removed: $removedHabit'), // Show the removed habit
         backgroundColor: Colors.black26,
         action: SnackBarAction(
           label: 'Undo',
-          onPressed: () {},
+          onPressed: () {
+            undoRemove(context);
+          },
         ),
       ),
     );
