@@ -22,7 +22,7 @@ class CreateHabitProvider extends ChangeNotifier {
           children: colorOptions.map((color) {
             return SimpleDialogOption(
               onPressed: () {
-                Navigator.pop(context, color);
+                Navigator.pop(context);
               },
               child: Container(
                 color: color,

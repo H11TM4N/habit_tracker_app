@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/functions/dialogs_and_navigation.dart';
-import 'package:habit_tracker_app/providers/create_habit_provider.dart';
 import 'package:habit_tracker_app/widgets/habit_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HabitProvider extends ChangeNotifier {
-  final CreateHabitProvider _createHabitProvider;
 
-  HabitProvider(this._createHabitProvider);
+
   final List<String> items = [];
   List<bool> isTaskDone = [];
 
@@ -21,7 +19,6 @@ class HabitProvider extends ChangeNotifier {
       key: Key('Habit tile $index'),
       title: items[index],
       isDone: isTaskDone[index],
-      textColor: _createHabitProvider.habitTextColor,
       onTap: () {
       onTap(index);
     },
