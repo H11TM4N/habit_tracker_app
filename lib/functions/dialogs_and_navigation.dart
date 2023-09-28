@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/screens/measurable_screen.dart';
+import 'package:habit_tracker_app/screens/add_habit_screens/measurable_screen.dart';
 
-import '../screens/yes_or_no_screen.dart';
+import '../screens/add_habit_screens/yes_or_no_screen.dart';
 import '../widgets/custom_page_transition/custom_page_route_transition.dart';
 
 Widget yesOrNoAlertDialog(BuildContext context) {

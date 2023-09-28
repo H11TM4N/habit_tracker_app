@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-import 'providers/current_date_provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -19,7 +17,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    DateProvider dateProvider = Provider.of<DateProvider>(context);
+    
 
 
     return Scaffold(
@@ -38,24 +36,7 @@ class _HomePageState extends State<HomePage> {
       ),
       body: Column(
         children: [
-          ListTile(
-            leading: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text('Today'),
-                    Text(
-                      dateProvider.currentDate,
-                      style: const TextStyle(
-                          fontSize: 12, fontWeight: FontWeight.bold),
-                    ),
-                  ],
-                )
-              ],
-            ),
-          ),
+          
 
         ],
       ),
