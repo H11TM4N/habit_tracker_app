@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/widgets/textfield.dart';
+import 'package:habit_tracker_app/widgets/custom_textfields/textfield.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/create_habit_provider.dart';
