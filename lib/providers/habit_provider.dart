@@ -6,26 +6,24 @@ import '../widgets/progress_painter.dart';
 class HabitProvider extends ChangeNotifier {
   final List<String> items = [];
   final double progress = 3;
-  bool toggle = false;
-  bool toggle2 = false;
 
-  Widget mark() {
+  List<bool> isTaskDone = [];
+
+  Widget mark(int index) {
     return GestureDetector(
       onTap: () {
-        toggle = !toggle;
+        isTaskDone[index] = !isTaskDone[index];
         notifyListeners();
       },
-      child: toggle ? const Icon(Icons.check) : const Icon(Icons.close),
-    );
-  }
-
-  Widget mark2() {
-    return GestureDetector(
-      onTap: () {
-        toggle2 = !toggle2;
-        notifyListeners();
-      },
-      child: toggle2 ? const Icon(Icons.check) : const Icon(Icons.close),
+      child: isTaskDone[index]
+          ? const Icon(
+              Icons.check,
+              color: Colors.amber,
+            )
+          : const Icon(
+              Icons.close,
+              color: Colors.blue,
+            ),
     );
   }
 
@@ -42,19 +40,10 @@ class HabitProvider extends ChangeNotifier {
       trailing: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
-          mark(),
+          mark(index),
           const SizedBox(
             width: 20,
           ),
-          mark2(),
-          const SizedBox(
-            width: 20,
-          ),
-          mark(),
-          const SizedBox(
-            width: 20,
-          ),
-          mark(),
         ],
       ),
     );
@@ -94,6 +83,7 @@ class HabitProvider extends ChangeNotifier {
   void saveButtonOnpressed(BuildContext context, value) {
     Navigator.of(context).pop();
     items.add(value);
+    isTaskDone.add(false);
     notifyListeners();
   }
 }
