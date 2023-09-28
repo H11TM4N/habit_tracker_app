@@ -11,12 +11,15 @@ class Habits extends StatelessWidget {
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
     return ListView.builder(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(4.0),
       itemCount: habitProvider.habits.length,
       itemBuilder: (context, index) => Dismissible(
         key: Key('key_${habitProvider.habits[index]}'),
-        onDismissed: (direction) => habitProvider.removeHabit(index),
-        background: Container(color: Colors.red),
+        onDismissed: (direction) => habitProvider.removeHabit(index, context),
+        background: Container(
+          color: Colors.red,
+          child: const Icon(Icons.delete),
+        ),
         child: HabitTile(
           title: habitProvider.habits[index],
           isDone: habitProvider.isDoneList[index],

@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:habit_tracker_app/widgets/dialogs_and_navigation/dialogs_and_navigation.dart';
-import 'package:habit_tracker_app/widgets/habit_item.dart';
 import 'package:habit_tracker_app/widgets/habits.dart';
 import 'package:habit_tracker_app/widgets/home_page_items/date_displaying_listtile.dart';
-import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -16,7 +13,6 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
-    HabitProvider habitProvider = Provider.of<HabitProvider>(context);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -43,9 +39,7 @@ class _HomePageState extends State<HomePage> {
       body: const Column(
         children: [
           DateTile(),
-          Expanded(
-            child: Habits()
-          )
+          Expanded(child: Habits()),
         ],
       ),
     );
