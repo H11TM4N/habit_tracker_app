@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/providers/habit_overview_provider.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class HabitOverviewScreen extends StatelessWidget {
@@ -10,11 +12,8 @@ class HabitOverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
-    CalendarFormat calendarFormat = CalendarFormat.month;
-    DateTime focusedDay = DateTime.now();
-    DateTime? _selectedDay;
-
+    HabitOverviewProvider habitOverviewProvider =
+        Provider.of<HabitOverviewProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(habitName),
@@ -24,13 +23,13 @@ class HabitOverviewScreen extends StatelessWidget {
           TableCalendar(
             firstDay: DateTime.utc(2023, 1, 1),
             lastDay: DateTime.utc(2030, 12, 31),
-            focusedDay: focusedDay,
-            calendarFormat: calendarFormat,
+            focusedDay: habitOverviewProvider.focusedDay,
+            calendarFormat: habitOverviewProvider.calendarFormat,
             onFormatChanged: (format) {
-              calendarFormat = format;
+              habitOverviewProvider.calendarFormat = format;
             },
             onDaySelected: (selectedDay, focusedDay) {
-              _selectedDay = selectedDay;
+              habitOverviewProvider.selectedDay = selectedDay;
             },
             // You can add event markers to highlight days with habits here
             // Example: eventLoader: yourEventLoaderFunction,
