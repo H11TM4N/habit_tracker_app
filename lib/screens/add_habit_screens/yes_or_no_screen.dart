@@ -19,15 +19,14 @@ class _YesOrNoScreenState extends State<YesOrNoScreen> {
     CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
 
-    final nameController = TextEditingController();
-    final questionController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create habit'),
         actions: [
           ElevatedButton(
               onPressed: () {
-                habitProvider.addHabit(context, nameController.text);
+                habitProvider.addHabit(context, createHabitProvider.nameController.text);
               },
               child: const Text('SAVE'))
         ],
@@ -40,7 +39,7 @@ class _YesOrNoScreenState extends State<YesOrNoScreen> {
                 child: CustomTextField(
                   title: 'Name',
                   hintText: 'Exercise',
-                  controller: nameController,
+                  controller: createHabitProvider.nameController,
                 ),
               ),
               GestureDetector(
@@ -71,7 +70,7 @@ class _YesOrNoScreenState extends State<YesOrNoScreen> {
           CustomTextField(
             title: 'Question',
             hintText: 'Did you exercise today?',
-            controller: questionController,
+            controller: createHabitProvider.questionController,
           ),
         ],
       ),

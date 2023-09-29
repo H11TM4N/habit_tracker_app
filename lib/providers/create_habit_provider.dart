@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CreateHabitProvider extends ChangeNotifier {
+  // text controllers
+  final nameController = TextEditingController();
+  final questionController = TextEditingController();
+  final unitController = TextEditingController();
+  final targetController = TextEditingController();
+
   Color? habitTextColor; // Store the selected text color for the habit
 
   // Define a list of colors to choose from

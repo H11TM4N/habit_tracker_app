@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../../providers/create_habit_provider.dart';
 import '../../providers/habit_provider.dart';
 import '../../widgets/custom_textfields/textfield.dart';
 
@@ -9,18 +10,15 @@ class MeasurableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+    CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
 
-    final nameController = TextEditingController();
-    final questionController = TextEditingController();
-    final unitController = TextEditingController();
-    final targetController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Create habit'),
         actions: [
           ElevatedButton(
               onPressed: () {
-                habitProvider.addHabit(context, nameController.text, );
+                habitProvider.addHabit(context, createHabitProvider.nameController.text, );
               },
               child: const Text('SAVE'))
         ],
@@ -30,22 +28,22 @@ class MeasurableScreen extends StatelessWidget {
           CustomTextField(
             title: 'Name',
             hintText: 'Run',
-            controller: nameController,
+            controller: createHabitProvider.nameController,
           ),
           CustomTextField(
             title: 'Question',
             hintText: 'How many miles did you run today?',
-            controller: questionController,
+            controller: createHabitProvider.questionController,
           ),
           CustomTextField(
             title: 'Unit',
             hintText: 'miles',
-            controller: unitController,
+            controller: createHabitProvider.unitController,
           ),
           CustomTextField(
             title: 'Target',
             hintText: '15',
-            controller: targetController,
+            controller: createHabitProvider.targetController,
           ),
         ],
       ),
