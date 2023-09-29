@@ -10,7 +10,8 @@ class MeasurableScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
-    CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
+    CreateHabitProvider createHabitProvider =
+        Provider.of<CreateHabitProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -18,7 +19,8 @@ class MeasurableScreen extends StatelessWidget {
         actions: [
           ElevatedButton(
               onPressed: () {
-                habitProvider.addHabit(context, createHabitProvider.nameController.text, );
+                habitProvider.addHabit(
+                    context, createHabitProvider.nameController.text);
               },
               child: const Text('SAVE'))
         ],

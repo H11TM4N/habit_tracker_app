@@ -28,9 +28,11 @@ class Habits extends StatelessWidget {
         child: HabitTile(
           title: habitProvider.habits[index],
           isDone: habitProvider.isDoneList[index],
-          tileOnTap: () => Navigator.of(context).push(
-            MyCustomRouteTransition(route: const HabitOverviewScreen()),
-          ),
+          tileOnTap: () {
+            Navigator.of(context).push(
+              MyCustomRouteTransition(route: const HabitOverviewScreen()),
+            );
+          },
           onTap: () => habitProvider.finishedTask(index),
           textColor:
               createHabitProvider.habitTextColor ?? Colors.white, // dummy

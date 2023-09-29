@@ -40,7 +40,7 @@ class HabitTile extends StatelessWidget {
                 child: isDone
                     ? const Icon(
                         Icons.check,
-                        color: Colors.blue,
+                        color: Colors.white,
                       )
                     : const Icon(
                         Icons.close,
