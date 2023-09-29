@@ -1,7 +1,13 @@
-// import 'package:uuid/uuid.dart';
+import 'package:flutter/material.dart';
 
-// final uuid = Uuid();
+class Habit {
+  String name;
+  bool isDone;
+  Color textColor; // Add a property for text color
 
-// class Habit {
-
-// }
+  Habit({
+    required this.name,
+    required this.isDone,
+    required this.textColor,
+  });
+}

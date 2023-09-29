@@ -29,7 +29,8 @@ class Habits extends StatelessWidget {
           onTap: () {
             habitProvider.finishedTask(index);
           },
-          textColor: createHabitProvider.habitTextColor, // dummy
+          textColor:
+              createHabitProvider.habitTextColor ?? Colors.white, // dummy
         ),
       ),
     );
