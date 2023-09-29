@@ -21,6 +21,7 @@ class MeasurableScreen extends StatelessWidget {
               onPressed: () {
                 habitProvider.addHabit(
                     context, createHabitProvider.nameController.text);
+                createHabitProvider.nameController.clear();
               },
               child: const Text('SAVE'))
         ],

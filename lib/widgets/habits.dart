@@ -30,7 +30,10 @@ class Habits extends StatelessWidget {
           isDone: habitProvider.isDoneList[index],
           tileOnTap: () {
             Navigator.of(context).push(
-              MyCustomRouteTransition(route: const HabitOverviewScreen()),
+              MyCustomRouteTransition(
+                  route: HabitOverviewScreen(
+                habitName: habitProvider.habits[index],
+              )),
             );
           },
           onTap: () => habitProvider.finishedTask(index),

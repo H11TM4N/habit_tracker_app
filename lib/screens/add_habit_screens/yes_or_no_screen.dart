@@ -26,6 +26,7 @@ class _YesOrNoScreenState extends State<YesOrNoScreen> {
               onPressed: () {
                 habitProvider.addHabit(
                     context, createHabitProvider.nameController.text);
+                createHabitProvider.nameController.clear();
               },
               child: const Text('SAVE'))
         ],
