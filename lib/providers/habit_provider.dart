@@ -36,6 +36,10 @@ class HabitProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  int get completedHabitsCount {
+    return isDoneList.where((isDone) => isDone).length;
+  }
+
   void showSnackBar(BuildContext context, String removedHabit) {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(

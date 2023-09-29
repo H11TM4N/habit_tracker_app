@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
-
 import 'habit_item.dart';
 
 class Habits extends StatelessWidget {
