@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
+import 'package:habit_tracker_app/screens/habit_overview/habit_overview_screen.dart';
+import 'package:habit_tracker_app/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:provider/provider.dart';
 import '../providers/create_habit_provider.dart';
 import 'habit_item.dart';
@@ -26,9 +28,10 @@ class Habits extends StatelessWidget {
         child: HabitTile(
           title: habitProvider.habits[index],
           isDone: habitProvider.isDoneList[index],
-          onTap: () {
-            habitProvider.finishedTask(index);
-          },
+          tileOnTap: () => Navigator.of(context).push(
+            MyCustomRouteTransition(route: const HabitOverviewScreen()),
+          ),
+          onTap: () => habitProvider.finishedTask(index),
           textColor:
               createHabitProvider.habitTextColor ?? Colors.white, // dummy
         ),

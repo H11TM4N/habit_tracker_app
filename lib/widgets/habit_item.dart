@@ -5,6 +5,7 @@ class HabitTile extends StatelessWidget {
   final bool isDone;
   final VoidCallback onTap;
   final Color textColor;
+  final VoidCallback tileOnTap;
 
   const HabitTile({
     super.key,
@@ -12,6 +13,7 @@ class HabitTile extends StatelessWidget {
     required this.isDone,
     required this.onTap,
     required this.textColor,
+    required this.tileOnTap,
   });
 
   @override
@@ -23,6 +25,7 @@ class HabitTile extends StatelessWidget {
         elevation: 9,
         color: Colors.transparent,
         child: ListTile(
+          onTap: tileOnTap,
           contentPadding: const EdgeInsets.all(9),
           tileColor: Colors.transparent,
           title: Text(
