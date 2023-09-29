@@ -12,7 +12,7 @@ class DateTile extends StatelessWidget {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
     return ListTile(
       leading: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Column(
             mainAxisSize: MainAxisSize.min,
@@ -24,6 +24,10 @@ class DateTile extends StatelessWidget {
                     const TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
               ),
             ],
+          ),
+          SizedBox(
+            width: MediaQuery.of(context).size.width * .55,
+            height: 3,
           ),
           Text(
             '${habitProvider.completedHabitsCount}/${habitProvider.habits.length}',

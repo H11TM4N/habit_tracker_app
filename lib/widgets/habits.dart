@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:provider/provider.dart';
+import '../providers/create_habit_provider.dart';
 import 'habit_item.dart';
 
 class Habits extends StatelessWidget {
@@ -9,6 +10,9 @@ class Habits extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     HabitProvider habitProvider = Provider.of<HabitProvider>(context);
+    CreateHabitProvider createHabitProvider =
+        Provider.of<CreateHabitProvider>(context);
+
     return ListView.builder(
       padding: const EdgeInsets.all(4.0),
       itemCount: habitProvider.habits.length,
@@ -25,7 +29,7 @@ class Habits extends StatelessWidget {
           onTap: () {
             habitProvider.finishedTask(index);
           },
-          textColor: Colors.amber, // dummy
+          textColor: createHabitProvider.habitTextColor, // dummy
         ),
       ),
     );
