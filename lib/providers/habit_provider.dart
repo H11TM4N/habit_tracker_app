@@ -4,6 +4,7 @@ class HabitProvider extends ChangeNotifier {
   List<String> habits = [];
   List<bool> isDoneList = [];
   List<String> removedHabits = []; // Store temporarily removed habits
+  Map<String, Color> habitTextColors = {};
 
   void addHabit(BuildContext context, String value) {
     Navigator.pop(context);

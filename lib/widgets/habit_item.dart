@@ -4,7 +4,7 @@ class HabitTile extends StatelessWidget {
   final String title;
   final bool isDone;
   final VoidCallback onTap;
-  final Color? textColor;
+  final Color textColor;
 
   const HabitTile({
     super.key,

@@ -20,7 +20,7 @@ class MeasurableScreen extends StatelessWidget {
         actions: [
           ElevatedButton(
               onPressed: () {
-                habitProvider.addHabit(context, nameController.text);
+                habitProvider.addHabit(context, nameController.text, );
               },
               child: const Text('SAVE'))
         ],
