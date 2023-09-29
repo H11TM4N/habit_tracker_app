@@ -4,7 +4,6 @@ class HabitProvider extends ChangeNotifier {
   List<String> habits = [];
   List<bool> isDoneList = [];
   List<String> removedHabits = []; // Store temporarily removed habits
-  Map<String, Color> habitTextColors = {};
 
   void addHabit(BuildContext context, String value) {
     Navigator.pop(context);
@@ -45,7 +44,10 @@ class HabitProvider extends ChangeNotifier {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         duration: const Duration(seconds: 3),
-        content: Text('Habit removed: $removedHabit'), // Show the removed habit
+        content: Text(
+          'Habit removed: $removedHabit',
+          style: const TextStyle(color: Colors.white),
+        ), // Show the removed habit
         backgroundColor: Colors.black26,
         action: SnackBarAction(
           label: 'Undo',
