@@ -4,14 +4,14 @@ import 'package:habit_tracker_app/widgets/custom_textfields/textfield.dart';
 import 'package:provider/provider.dart';
 import '../../providers/create_habit_provider.dart';
 
-class YesOrNoScreen extends StatefulWidget {
-  const YesOrNoScreen({super.key});
+class AddHAbitScreen extends StatefulWidget {
+  const AddHAbitScreen({super.key});
 
   @override
-  State<YesOrNoScreen> createState() => _YesOrNoScreenState();
+  State<AddHAbitScreen> createState() => _AddHAbitScreenState();
 }
 
-class _YesOrNoScreenState extends State<YesOrNoScreen> {
+class _AddHAbitScreenState extends State<AddHAbitScreen> {
   @override
   Widget build(BuildContext context) {
     CreateHabitProvider createHabitProvider =

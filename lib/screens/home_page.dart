@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/widgets/dialogs_and_navigation/dialogs_and_navigation.dart';
+import 'package:habit_tracker_app/screens/add_habit_screens/yes_or_no_screen.dart';
+import 'package:habit_tracker_app/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:habit_tracker_app/widgets/habits.dart';
 import 'package:habit_tracker_app/widgets/home_page_items/date_displaying_listtile.dart';
 
@@ -21,15 +22,8 @@ class _HomePageState extends State<HomePage> {
         actions: [
           IconButton(
             onPressed: () {
-              showDialog(
-                context: context,
-                builder: (context) => const Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    YesOrNoAlertDialog(),
-                    MeasureableAlertDialog(),
-                  ],
-                ),
+              Navigator.of(context).push(
+                MyCustomRouteTransition(route: const AddHAbitScreen()),
               );
             },
             icon: const Icon(Icons.add),

@@ -12,7 +12,7 @@ class HabitOverviewProvider extends ChangeNotifier {
 
   set calendarFormat(CalendarFormat format) {
     _calendarFormat = format;
-    notifyListeners(); // Notify listeners when the format changes
+    notifyListeners();
   }
 
   set focusedDay(DateTime day) {
