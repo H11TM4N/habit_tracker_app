@@ -45,8 +45,12 @@ class HomePage extends ConsumerWidget {
             subtitle: habits[index].question,
             isDone: habits[index].isDone,
             tileOnTap: () {
-              Navigator.push(context,
-                  MyCustomRouteTransition(route: const HabitOverview()));
+              Navigator.push(
+                  context,
+                  MyCustomRouteTransition(
+                      route: HabitOverview(
+                    habitName: habits[index].title,
+                  )));
             },
           ),
         ),

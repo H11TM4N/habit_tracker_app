@@ -25,7 +25,7 @@ class KslidableWidget extends StatelessWidget {
           children: [
             SlidableAction(
               onPressed: onDelete,
-              backgroundColor: Colors.red,
+              backgroundColor: Colors.redAccent,
               borderRadius: const BorderRadius.all(Radius.circular(30)),
               spacing: 34,
               icon: Icons.delete,
@@ -44,7 +44,7 @@ class KslidableWidget extends StatelessWidget {
                   )
                 : SlidableAction(
                     onPressed: onCheck,
-                    backgroundColor: Colors.green,
+                    backgroundColor: Colors.greenAccent,
                     borderRadius: const BorderRadius.all(Radius.circular(30)),
                     icon: FontAwesomeIcons.check,
                   )
