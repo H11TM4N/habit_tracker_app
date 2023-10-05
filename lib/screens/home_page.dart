@@ -5,7 +5,7 @@ import 'package:habit_tracker_app/screens/add_habit_screen.dart';
 import 'package:habit_tracker_app/screens/habit_overview.dart';
 import 'package:habit_tracker_app/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:habit_tracker_app/widgets/custom_slidable_widget/slidable_widget.dart';
-import 'package:habit_tracker_app/widgets/habit_item.dart';
+import 'package:habit_tracker_app/widgets/habit_item/habit_item.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -28,9 +28,13 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: ListView.builder(
+      body: ReorderableListView.builder(
+        onReorder: (oldIndex, newIndex) {
+          ref.watch(habitProvider.notifier).reorderHabit(oldIndex, newIndex);
+        },
         itemCount: habits.length,
         itemBuilder: (context, index) => KslidableWidget(
+          key: Key('$index'),
           isDone: habits[index].isDone,
           onDelete: (ctx) =>
               ref.watch(habitProvider.notifier).removeHabit(index),

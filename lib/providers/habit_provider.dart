@@ -16,7 +16,7 @@ class HabitNotifier extends StateNotifier<HabitList> {
   void toggleIsDone(int index) {
   if (index >= 0 && index < state.habits.length) {
     final updatedHabitList = List<Habit>.from(state.habits);
-    updatedHabitList[index].isDone = !updatedHabitList[index].isDone; // Toggle isDone
+    updatedHabitList[index].isDone = !updatedHabitList[index].isDone;
 
     state = HabitList(habits: updatedHabitList);
   }
@@ -32,12 +32,10 @@ class HabitNotifier extends StateNotifier<HabitList> {
         isDone: false,
         question: newQuestion,
       );
-
       final updatedHabitList = state.habits + [newHabit];
 
       state = HabitList(habits: updatedHabitList);
 
-      // Clear the text controllers after adding the habit
       habitNameController.clear();
       questionController.clear();
     }
@@ -47,6 +45,16 @@ class HabitNotifier extends StateNotifier<HabitList> {
     if (index >= 0 && index < state.habits.length) {
       final updatedHabitList = List<Habit>.from(state.habits);
       updatedHabitList.removeAt(index);
+
+      state = HabitList(habits: updatedHabitList);
+    }
+  }
+
+  void reorderHabit(int oldIndex, int newIndex) {
+    if (oldIndex >= 0 && oldIndex < state.habits.length && newIndex >= 0 && newIndex < state.habits.length) {
+      final updatedHabitList = List<Habit>.from(state.habits);
+      final Habit movedHabit = updatedHabitList.removeAt(oldIndex);
+      updatedHabitList.insert(newIndex, movedHabit);
 
       state = HabitList(habits: updatedHabitList);
     }
