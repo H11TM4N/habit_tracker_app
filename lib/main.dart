@@ -1,42 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:habit_tracker_app/providers/create_habit_provider.dart';
-import 'package:habit_tracker_app/providers/current_date_provider.dart';
-import 'package:provider/provider.dart';
-import 'providers/habit_overview_provider.dart';
 import 'screens/home_page.dart';
-import 'providers/habit_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(
-          create: (context) => HabitProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => DateProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => CreateHabitProvider(),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => HabitOverviewProvider(),
-        ),
-      ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Habit Tracker App',
-        theme: ThemeData.dark().copyWith(
-          useMaterial3: true,
-        ),
-        home: const HomePage(),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Habit Tracker App',
+      theme: ThemeData.dark().copyWith(
+        useMaterial3: true,
       ),
+      home: const HomePage(),
     );
   }
 }

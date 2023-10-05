@@ -1,63 +1,55 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker_app/models/habit.dart';
 
-class HabitProvider extends ChangeNotifier {
-  List<String> habits = [];
-  List<bool> isDoneList = [];
-  List<String> removedHabits = []; // Store temporarily removed habits
+final habitProvider = StateNotifierProvider<HabitNotifier, HabitList>((ref) {
+  return HabitNotifier();
+});
 
-  void addHabit(BuildContext context, String value) {
-    Navigator.pop(context);
-    habits.add(value);
-    isDoneList.add(false);
-    notifyListeners();
+class HabitNotifier extends StateNotifier<HabitList> {
+  HabitNotifier() : super(HabitList(habits: []));
+
+  List<Habit> habits = [];
+  TextEditingController habitNameController = TextEditingController();
+  TextEditingController questionController = TextEditingController();
+
+  void toggleIsDone(int index) {
+  if (index >= 0 && index < state.habits.length) {
+    final updatedHabitList = List<Habit>.from(state.habits);
+    updatedHabitList[index].isDone = !updatedHabitList[index].isDone; // Toggle isDone
+
+    state = HabitList(habits: updatedHabitList);
   }
+}
 
-  void removeHabit(int index, BuildContext context) {
-    String removedHabit = habits.removeAt(index); // Remove and store the habit
-    isDoneList.removeAt(index);
-    removedHabits.add(removedHabit); // Store the removed habit
-    showSnackBar(
-        context, removedHabit); // Pass the removed habit to the Snackbar
-    notifyListeners();
-  }
+  void addHabit() {
+    final newHabitName = habitNameController.text;
+    final newQuestion = questionController.text;
 
-  void undoRemove(BuildContext context) {
-    if (removedHabits.isNotEmpty) {
-      String habitToUndo =
-          removedHabits.removeLast(); // Get the last removed habit
-      habits.add(habitToUndo); // Add the removed habit back to the list
-      isDoneList.add(false);
-      notifyListeners();
+    if (newHabitName.isNotEmpty) {
+      final newHabit = Habit(
+        title: newHabitName,
+        isDone: false,
+        question: newQuestion,
+      );
+
+      final updatedHabitList = state.habits + [newHabit];
+
+      state = HabitList(habits: updatedHabitList);
+
+      // Clear the text controllers after adding the habit
+      habitNameController.clear();
+      questionController.clear();
     }
   }
 
-  void finishedTask(int index) {
-    isDoneList[index] = !isDoneList[index];
-    notifyListeners();
+  void removeHabit(int index) {
+    if (index >= 0 && index < state.habits.length) {
+      final updatedHabitList = List<Habit>.from(state.habits);
+      updatedHabitList.removeAt(index);
+
+      state = HabitList(habits: updatedHabitList);
+    }
   }
 
-  int get completedHabitsCount {
-    return isDoneList.where((isDone) => isDone).length;
-  }
-
-  void showSnackBar(BuildContext context, String removedHabit) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        duration: const Duration(seconds: 3),
-        content: Text(
-          'Habit removed: $removedHabit',
-          style: const TextStyle(color: Colors.white),
-        ), // Show the removed habit
-        backgroundColor: Colors.black26,
-        action: SnackBarAction(
-          label: 'Undo',
-          onPressed: () {
-            undoRemove(context);
-          },
-        ),
-      ),
-    );
-  }
-
-  void saveHabit() {}
 }

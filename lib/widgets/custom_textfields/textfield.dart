@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+class KtextField extends StatelessWidget {
   final String title;
   final String hintText;
   final TextEditingController controller;
-  const CustomTextField({
+  const KtextField({
     super.key,
     required this.title,
     required this.controller,
@@ -16,6 +16,7 @@ class CustomTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: TextField(
+        maxLength: 40,
         controller: controller,
         decoration: InputDecoration(
           labelText: title,

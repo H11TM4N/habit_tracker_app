@@ -1,13 +1,17 @@
-// import 'package:flutter/material.dart';
+class Habit {
+  String title;
+  String question;
+  bool isDone;
 
-// class Habit {
-//   String name;
-//   bool isDone;
-//   Color textColor; // Add a property for text color
+  Habit({
+    required this.title,
+    required this.isDone,
+    required this.question,
+  });
+}
 
-//   Habit({
-//     required this.name,
-//     required this.isDone,
-//     required this.textColor,
-//   });
-// }
+class HabitList {
+  List<Habit> habits;
+
+  HabitList({required this.habits});
+}

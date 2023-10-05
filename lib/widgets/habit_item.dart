@@ -1,57 +1,53 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HabitTile extends StatelessWidget {
   final String title;
-  final bool isDone;
-  final VoidCallback onTap;
-  final Color textColor;
   final VoidCallback tileOnTap;
+  final String subtitle;
+  final bool isDone;
 
   const HabitTile({
     super.key,
     required this.title,
-    required this.isDone,
-    required this.onTap,
-    required this.textColor,
+    required this.subtitle,
     required this.tileOnTap,
+    required this.isDone,
   });
 
   @override
   Widget build(BuildContext context) {
-    // CreateHabitProvider createHabitProvider = Provider.of<CreateHabitProvider>(context);
-    return Padding(
-      padding: const EdgeInsets.all(4.0),
-      child: Card(
-        elevation: 9,
-        color: Colors.transparent,
-        child: ListTile(
-          onTap: tileOnTap,
-          contentPadding: const EdgeInsets.all(9),
-          tileColor: Colors.transparent,
-          title: Text(
-            title,
-            style: TextStyle(color: textColor),
-          ),
-          trailing: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: onTap,
-                child: isDone
-                    ? const Icon(
-                        Icons.check,
-                        color: Colors.white,
-                      )
-                    : const Icon(
-                        Icons.close,
-                        color: Colors.black38,
-                      ),
-              ),
-              const SizedBox(
-                width: 20,
-              ),
-            ],
-          ),
+    return Card(
+      elevation: 9,
+      color: Colors.transparent,
+      child: ListTile(
+        onTap: tileOnTap,
+        contentPadding: const EdgeInsets.all(9),
+        tileColor: Colors.transparent,
+        title: Text(
+          title,
+          style: const TextStyle(fontSize: 20),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(fontWeight: FontWeight.w100),
+        ),
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            isDone
+                ? const Icon(
+                    FontAwesomeIcons.check,
+                    color: Colors.white,
+                  )
+                : const Icon(
+                    FontAwesomeIcons.xmark,
+                    color: Colors.red,
+                  ),
+            const SizedBox(
+              width: 20,
+            ),
+          ],
         ),
       ),
     );
