@@ -1,7 +1,7 @@
-import 'package:habit_tracker_app/models/habit.dart';
+// import 'package:habit_tracker_app/models/habit.dart';
 
-class HabitList {
-  List<Habit> habits;
+// class HabitList {
+//   List<Habit> habits;
 
-  HabitList({required this.habits});
-}
+//   HabitList({required this.habits});
+// }

@@ -31,11 +31,12 @@ class HabitOverview extends ConsumerWidget {
                 MyCustomRouteTransition(
                   route: AddHabitScreen(
                     habitData: Habit(
+                        id: index,
                         title: habitName,
                         isDone: false,
                         question: '',
                         isEditing: true),
-                        habitIndex: -1,
+                    habitIndex: index,
                   ),
                 ),
               );

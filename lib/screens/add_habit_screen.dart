@@ -31,7 +31,7 @@ class AddHabitScreen extends ConsumerWidget {
             onPressed: () {
               if (isEditing) {
                 Navigator.of(context).popUntil((route) => route.isFirst);
-                ref.watch(habitProvider.notifier).editHabit(
+                ref.read(habitProvider.notifier).editHabit(
                       habitIndex!,
                       habitNameController.text,
                       questionController.text,
@@ -49,7 +49,7 @@ class AddHabitScreen extends ConsumerWidget {
                 questionController.clear();
               }
             },
-            child: const Text('Save'),
+            child: isEditing ? const Text('Save') : const Text('Add'),
           ),
         ],
       ),

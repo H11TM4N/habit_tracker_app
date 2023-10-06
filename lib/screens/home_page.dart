@@ -14,8 +14,7 @@ class HomePage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habitList = ref.watch(habitProvider);
-    final habits = habitList.habits;
+    final habits = ref.watch(habitProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -28,6 +27,7 @@ class HomePage extends ConsumerWidget {
                 MyCustomRouteTransition(
                   route: AddHabitScreen(
                     habitData: Habit(
+                      id: 0,
                       title: '',
                       isDone: false,
                       question: '',
