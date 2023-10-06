@@ -1,6 +1,6 @@
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/models/habit.dart';
+import 'package:habit_tracker_app/models/habit_list.dart';
 
 final habitProvider = StateNotifierProvider<HabitNotifier, HabitList>((ref) {
   return HabitNotifier();
@@ -8,9 +8,6 @@ final habitProvider = StateNotifierProvider<HabitNotifier, HabitList>((ref) {
 
 class HabitNotifier extends StateNotifier<HabitList> {
   HabitNotifier() : super(HabitList(habits: []));
-
-  TextEditingController habitNameController = TextEditingController();
-  TextEditingController questionController = TextEditingController();
 
   void toggleIsDone(int index) {
     if (index >= 0 && index < state.habits.length) {
@@ -21,22 +18,26 @@ class HabitNotifier extends StateNotifier<HabitList> {
     }
   }
 
-  void addHabit() {
-    final newHabitName = habitNameController.text;
-    final newQuestion = questionController.text;
+  void editHabit(int index, String newName, String newQuestion) {
+    if (index >= 0 && index < state.habits.length) {
+      final updatedHabitList = List<Habit>.from(state.habits);
+      updatedHabitList[index].title = newName;
+      updatedHabitList[index].question = newQuestion;
 
+      state = HabitList(habits: updatedHabitList);
+    }
+  }
+
+  void addHabit(String newHabitName, String newQuestion, bool isEditing) {
     if (newHabitName.isNotEmpty) {
       final newHabit = Habit(
-        title: newHabitName,
-        isDone: false,
-        question: newQuestion,
-      );
+          title: newHabitName,
+          isDone: false,
+          question: newQuestion,
+          isEditing: isEditing);
       final updatedHabitList = state.habits + [newHabit];
 
       state = HabitList(habits: updatedHabitList);
-
-      habitNameController.clear();
-      questionController.clear();
     }
   }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:habit_tracker_app/screens/add_habit_screen.dart';
 import 'package:habit_tracker_app/screens/habit_overview.dart';
@@ -22,8 +23,19 @@ class HomePage extends ConsumerWidget {
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(context,
-                  MyCustomRouteTransition(route: const AddHabitScreen()));
+              Navigator.push(
+                context,
+                MyCustomRouteTransition(
+                  route: AddHabitScreen(
+                    habitData: Habit(
+                      title: '',
+                      isDone: false,
+                      question: '',
+                      isEditing: false,
+                    ),    
+                  ),
+                ),
+              );
             },
             icon: const Icon(Icons.add),
           ),

@@ -1,21 +1,53 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:habit_tracker_app/widgets/custom_textfields/textfield.dart';
 
 class AddHabitScreen extends ConsumerWidget {
-  const AddHabitScreen({super.key});
+  final Habit habitData;
+  final int? habitIndex;
+
+  const AddHabitScreen({
+    super.key,
+    required this.habitData,
+    this.habitIndex,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    TextEditingController habitNameController = TextEditingController();
+    TextEditingController questionController = TextEditingController();
+    final habitName = habitData.title;
+    final question = habitData.question;
+    final isEditing = habitData.isEditing;
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Habit'),
+        title:
+            isEditing ? const Text('Edit Habit') : const Text('Create Habit'),
         actions: [
           ElevatedButton(
             onPressed: () {
-              Navigator.pop(context);
-              ref.watch(habitProvider.notifier).addHabit();
+              if (isEditing) {
+                Navigator.of(context).popUntil((route) => route.isFirst);
+                ref.watch(habitProvider.notifier).editHabit(
+                      habitIndex!,
+                      habitNameController.text,
+                      questionController.text,
+                    );
+                habitNameController.clear();
+                questionController.clear();
+              } else {
+                Navigator.pop(context);
+                ref.watch(habitProvider.notifier).addHabit(
+                      habitNameController.text,
+                      questionController.text,
+                      false,
+                    );
+                habitNameController.clear();
+                questionController.clear();
+              }
             },
             child: const Text('Save'),
           ),
@@ -25,12 +57,16 @@ class AddHabitScreen extends ConsumerWidget {
         children: [
           KtextField(
             title: 'Name',
-            controller: ref.read(habitProvider.notifier).habitNameController,
+            controller: isEditing
+                ? TextEditingController(text: habitName)
+                : habitNameController,
             hintText: 'Exercise',
           ),
           KtextField(
               title: 'Question',
-              controller: ref.read(habitProvider.notifier).questionController,
+              controller: isEditing
+                  ? TextEditingController(text: question)
+                  : questionController,
               hintText: 'Did you excersise today?'),
         ],
       ),

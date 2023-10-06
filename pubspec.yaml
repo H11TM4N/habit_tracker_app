@@ -43,7 +43,6 @@ dependencies:
   flutter_slidable: ^3.0.0
   font_awesome_flutter: ^10.5.0
   percent_indicator: ^4.2.3
-  sqflite: ^2.3.0
 
 dev_dependencies:
   flutter_test:

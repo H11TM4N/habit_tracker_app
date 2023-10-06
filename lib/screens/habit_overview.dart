@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
+import 'package:habit_tracker_app/screens/add_habit_screen.dart';
 import 'package:habit_tracker_app/utils/container.dart';
+import 'package:habit_tracker_app/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -21,6 +24,24 @@ class HabitOverview extends ConsumerWidget {
       appBar: AppBar(
         title: Text(habitName),
         actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MyCustomRouteTransition(
+                  route: AddHabitScreen(
+                    habitData: Habit(
+                        title: habitName,
+                        isDone: false,
+                        question: '',
+                        isEditing: true),
+                        habitIndex: -1,
+                  ),
+                ),
+              );
+            },
+            icon: const Icon(Icons.edit),
+          ),
           PopupMenuButton(
             itemBuilder: (context) {
               return <PopupMenuEntry<dynamic>>[
