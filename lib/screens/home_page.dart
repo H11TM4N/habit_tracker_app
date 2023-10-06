@@ -6,6 +6,7 @@ import 'package:habit_tracker_app/screens/habit_overview.dart';
 import 'package:habit_tracker_app/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:habit_tracker_app/widgets/custom_slidable_widget/slidable_widget.dart';
 import 'package:habit_tracker_app/widgets/habit_item/habit_item.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -28,32 +29,48 @@ class HomePage extends ConsumerWidget {
           ),
         ],
       ),
-      body: ReorderableListView.builder(
-        onReorder: (oldIndex, newIndex) {
-          ref.watch(habitProvider.notifier).reorderHabit(oldIndex, newIndex);
-        },
-        itemCount: habits.length,
-        itemBuilder: (context, index) => KslidableWidget(
-          key: Key('$index'),
-          isDone: habits[index].isDone,
-          onDelete: (ctx) =>
-              ref.watch(habitProvider.notifier).removeHabit(index),
-          onCheck: (ctx) =>
-              ref.watch(habitProvider.notifier).toggleIsDone(index),
-          child: HabitTile(
-            title: habits[index].title,
-            subtitle: habits[index].question,
-            isDone: habits[index].isDone,
-            tileOnTap: () {
-              Navigator.push(
-                  context,
-                  MyCustomRouteTransition(
-                      route: HabitOverview(
-                    habitName: habits[index].title,
-                  )));
-            },
+      body: Column(
+        children: [
+          ListTile(
+            tileColor: Colors.transparent,
+            leading: CircularPercentIndicator(
+              radius: 10,
+              percent: 0.4,
+            ),
           ),
-        ),
+          Expanded(
+            child: ReorderableListView.builder(
+              onReorder: (oldIndex, newIndex) {
+                ref
+                    .watch(habitProvider.notifier)
+                    .reorderHabit(oldIndex, newIndex);
+              },
+              itemCount: habits.length,
+              itemBuilder: (context, index) => KslidableWidget(
+                key: Key('$index'),
+                isDone: habits[index].isDone,
+                onDelete: (ctx) =>
+                    ref.watch(habitProvider.notifier).removeHabit(index),
+                onCheck: (ctx) =>
+                    ref.watch(habitProvider.notifier).toggleIsDone(index),
+                child: HabitTile(
+                  title: habits[index].title,
+                  subtitle: habits[index].question,
+                  isDone: habits[index].isDone,
+                  tileOnTap: () {
+                    Navigator.push(
+                        context,
+                        MyCustomRouteTransition(
+                            route: HabitOverview(
+                          index: index,
+                          habitName: habits[index].title,
+                        )));
+                  },
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
