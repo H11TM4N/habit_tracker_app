@@ -11,7 +11,7 @@ class Kcontainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueGrey,
+      color: Colors.black38,
       margin: const EdgeInsets.all(3),
       padding: const EdgeInsets.all(8.0),
       child: widget,

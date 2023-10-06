@@ -6,7 +6,7 @@ import 'package:habit_tracker_app/screens/habit_overview.dart';
 import 'package:habit_tracker_app/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:habit_tracker_app/widgets/custom_slidable_widget/slidable_widget.dart';
 import 'package:habit_tracker_app/widgets/habit_item/habit_item.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:intl/intl.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -33,9 +33,13 @@ class HomePage extends ConsumerWidget {
         children: [
           ListTile(
             tileColor: Colors.transparent,
-            leading: CircularPercentIndicator(
-              radius: 10,
-              percent: 0.4,
+            leading: const Text(
+              'Today\'s\n Habits',
+              style: TextStyle(fontSize: 15),
+            ),
+            trailing: Text(
+              DateFormat('EEE, MMM d').format(DateTime.now()),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
           Expanded(

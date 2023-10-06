@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/providers/habit_provider.dart';
 import 'package:habit_tracker_app/utils/container.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 class HabitOverview extends ConsumerWidget {
   final String habitName;
@@ -57,6 +58,12 @@ class HabitOverview extends ConsumerWidget {
                   ),
                 ),
               ),
+              Kcontainer(
+                widget: TableCalendar(
+                    focusedDay: DateTime.now(),
+                    firstDay: DateTime(DateTime.february),
+                    lastDay: DateTime.now()),
+              )
             ],
           ),
         ],
