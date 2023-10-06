@@ -16,11 +16,14 @@ class AddHabitScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TextEditingController habitNameController = TextEditingController();
-    TextEditingController questionController = TextEditingController();
     final habitName = habitData.title;
     final question = habitData.question;
     final isEditing = habitData.isEditing;
+
+    TextEditingController habitNameController =
+        TextEditingController(text: habitName);
+    TextEditingController questionController =
+        TextEditingController(text: question);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +35,7 @@ class AddHabitScreen extends ConsumerWidget {
               if (isEditing) {
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 ref.read(habitProvider.notifier).editHabit(
-                      habitIndex!,
+                      habitData.id,
                       habitNameController.text,
                       questionController.text,
                     );
@@ -40,7 +43,7 @@ class AddHabitScreen extends ConsumerWidget {
                 questionController.clear();
               } else {
                 Navigator.pop(context);
-                ref.watch(habitProvider.notifier).addHabit(
+                ref.read(habitProvider.notifier).addHabit(
                       habitNameController.text,
                       questionController.text,
                       false,

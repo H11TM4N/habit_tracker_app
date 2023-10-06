@@ -20,6 +20,13 @@ class HabitOverview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final habits = ref.watch(habitProvider);
+
+    // Retrieve the corresponding habit based on the index
+    final habitData = habits[index];
+    final habitQuestion = habitData.question;
+    final isDone = habitData.isDone;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(habitName),
@@ -31,11 +38,12 @@ class HabitOverview extends ConsumerWidget {
                 MyCustomRouteTransition(
                   route: AddHabitScreen(
                     habitData: Habit(
-                        id: index,
-                        title: habitName,
-                        isDone: false,
-                        question: '',
-                        isEditing: true),
+                      id: index,
+                      title: habitName,
+                      isDone: isDone,
+                      question: habitQuestion,
+                      isEditing: true,
+                    ),
                     habitIndex: index,
                   ),
                 ),

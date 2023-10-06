@@ -28,6 +28,7 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
       updatedHabitList[index] = updatedHabitList[index].copyWith(
         title: newName,
         question: newQuestion,
+        isEditing: true,
       );
       state = updatedHabitList;
     }
