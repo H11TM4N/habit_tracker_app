@@ -15,6 +15,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final habits = ref.watch(habitProvider);
+    final habitController = ref.watch(habitProvider.notifier);
 
     return Scaffold(
       appBar: AppBar(
@@ -32,7 +33,7 @@ class HomePage extends ConsumerWidget {
                       isDone: false,
                       question: '',
                       isEditing: false,
-                    ),    
+                    ),
                   ),
                 ),
               );
@@ -57,18 +58,16 @@ class HomePage extends ConsumerWidget {
           Expanded(
             child: ReorderableListView.builder(
               onReorder: (oldIndex, newIndex) {
-                ref
-                    .watch(habitProvider.notifier)
-                    .reorderHabit(oldIndex, newIndex);
+                habitController.reorderHabit(oldIndex, newIndex);
               },
               itemCount: habits.length,
               itemBuilder: (context, index) => KslidableWidget(
-                key: Key('$index'),
+                key: Key('${habits[index].id}'),
                 isDone: habits[index].isDone,
                 onDelete: (ctx) =>
-                    ref.watch(habitProvider.notifier).removeHabit(index),
+                    habitController.removeHabit(index),
                 onCheck: (ctx) =>
-                    ref.watch(habitProvider.notifier).toggleIsDone(index),
+                    habitController.toggleIsDone(index),
                 child: HabitTile(
                   title: habits[index].title,
                   subtitle: habits[index].question,

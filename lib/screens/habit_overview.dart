@@ -21,6 +21,7 @@ class HabitOverview extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final habits = ref.watch(habitProvider);
+   final habitController = ref.watch(habitProvider.notifier);
 
     // Retrieve the corresponding habit based on the index
     final habitData = habits[index];
@@ -44,7 +45,6 @@ class HabitOverview extends ConsumerWidget {
                       question: habitQuestion,
                       isEditing: true,
                     ),
-                    habitIndex: index,
                   ),
                 ),
               );
@@ -57,7 +57,7 @@ class HabitOverview extends ConsumerWidget {
                 PopupMenuItem(
                   onTap: () {
                     Navigator.pop(context);
-                    ref.watch(habitProvider.notifier).removeHabit(index);
+                    habitController.removeHabit(index);
                   },
                   child: const Text('delete'),
                 )

@@ -6,23 +6,29 @@ import 'package:habit_tracker_app/widgets/custom_textfields/textfield.dart';
 
 class AddHabitScreen extends ConsumerWidget {
   final Habit habitData;
-  final int? habitIndex;
+
 
   const AddHabitScreen({
     super.key,
     required this.habitData,
-    this.habitIndex,
+  
   });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final habitController = ref.watch(habitProvider.notifier);
     final habitName = habitData.title;
     final question = habitData.question;
     final isEditing = habitData.isEditing;
 
     TextEditingController habitNameController =
-        TextEditingController(text: habitName);
+        TextEditingController();
     TextEditingController questionController =
+        TextEditingController();
+    
+    TextEditingController newHabitNameController =
+        TextEditingController(text: habitName);
+    TextEditingController newQuestionController =
         TextEditingController(text: question);
 
     return Scaffold(
@@ -34,19 +40,19 @@ class AddHabitScreen extends ConsumerWidget {
             onPressed: () {
               if (isEditing) {
                 Navigator.of(context).popUntil((route) => route.isFirst);
-                ref.read(habitProvider.notifier).editHabit(
+                habitController.editHabit(
                       habitData.id,
-                      habitNameController.text,
-                      questionController.text,
+                      newHabitNameController.text,
+                      newQuestionController.text,
                     );
                 habitNameController.clear();
                 questionController.clear();
               } else {
                 Navigator.pop(context);
-                ref.read(habitProvider.notifier).addHabit(
+                habitController.addHabit(
                       habitNameController.text,
                       questionController.text,
-                      false,
+                      true,
                     );
                 habitNameController.clear();
                 questionController.clear();
@@ -61,14 +67,14 @@ class AddHabitScreen extends ConsumerWidget {
           KtextField(
             title: 'Name',
             controller: isEditing
-                ? TextEditingController(text: habitName)
+                ? newHabitNameController
                 : habitNameController,
             hintText: 'Exercise',
           ),
           KtextField(
               title: 'Question',
               controller: isEditing
-                  ? TextEditingController(text: question)
+                  ? newQuestionController
                   : questionController,
               hintText: 'Did you excersise today?'),
         ],

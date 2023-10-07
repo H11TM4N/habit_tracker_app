@@ -8,6 +8,8 @@ final habitProvider = StateNotifierProvider<HabitNotifier, List<Habit>>((ref) {
 });
 
 class HabitNotifier extends StateNotifier<List<Habit>> {
+  int _nextId = 1;
+
   HabitNotifier() : super([]);
 
   void toggleIsDone(int index) {
@@ -21,29 +23,36 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   }
 
   void editHabit(int habitId, String newName, String newQuestion) {
+    print('Editing habit with ID: $habitId');
+    print('New Name: $newName');
+    print('New Question: $newQuestion');
     final updatedHabitList = List<Habit>.from(state);
+    print('Updated Habit List: $updatedHabitList');
     final index = updatedHabitList.indexWhere((habit) => habit.id == habitId);
 
     if (index >= 0) {
       updatedHabitList[index] = updatedHabitList[index].copyWith(
+        isEditing: true,
         title: newName,
         question: newQuestion,
-        isEditing: true,
       );
       state = updatedHabitList;
+
+      print('Updated Habit List: $updatedHabitList');
     }
   }
 
   void addHabit(String newHabitName, String newQuestion, bool isEditing) {
     if (newHabitName.isNotEmpty) {
       final newHabit = Habit(
-        id: state.length + 1, // Assign a unique ID
+        id: _nextId, // Assign a unique ID
         title: newHabitName,
         question: newQuestion,
         isDone: false,
         isEditing: isEditing,
       );
       state = [...state, newHabit];
+      _nextId++;
     }
   }
 
