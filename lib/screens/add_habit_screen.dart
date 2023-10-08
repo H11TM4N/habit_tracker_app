@@ -7,11 +7,9 @@ import 'package:habit_tracker_app/widgets/custom_textfields/textfield.dart';
 class AddHabitScreen extends ConsumerWidget {
   final Habit habitData;
 
-
   const AddHabitScreen({
     super.key,
     required this.habitData,
-  
   });
 
   @override
@@ -21,11 +19,9 @@ class AddHabitScreen extends ConsumerWidget {
     final question = habitData.question;
     final isEditing = habitData.isEditing;
 
-    TextEditingController habitNameController =
-        TextEditingController();
-    TextEditingController questionController =
-        TextEditingController();
-    
+    TextEditingController habitNameController = TextEditingController();
+    TextEditingController questionController = TextEditingController();
+
     TextEditingController newHabitNameController =
         TextEditingController(text: habitName);
     TextEditingController newQuestionController =
@@ -41,19 +37,19 @@ class AddHabitScreen extends ConsumerWidget {
               if (isEditing) {
                 Navigator.of(context).popUntil((route) => route.isFirst);
                 habitController.editHabit(
-                      habitData.id,
-                      newHabitNameController.text,
-                      newQuestionController.text,
-                    );
+                  habitData.id,
+                  newHabitNameController.text,
+                  newQuestionController.text,
+                );
                 habitNameController.clear();
                 questionController.clear();
               } else {
                 Navigator.pop(context);
                 habitController.addHabit(
-                      habitNameController.text,
-                      questionController.text,
-                      true,
-                    );
+                  habitNameController.text,
+                  questionController.text,
+                  true,
+                );
                 habitNameController.clear();
                 questionController.clear();
               }
@@ -66,16 +62,14 @@ class AddHabitScreen extends ConsumerWidget {
         children: [
           KtextField(
             title: 'Name',
-            controller: isEditing
-                ? newHabitNameController
-                : habitNameController,
+            controller:
+                isEditing ? newHabitNameController : habitNameController,
             hintText: 'Exercise',
           ),
           KtextField(
               title: 'Question',
-              controller: isEditing
-                  ? newQuestionController
-                  : questionController,
+              controller:
+                  isEditing ? newQuestionController : questionController,
               hintText: 'Did you excersise today?'),
         ],
       ),
