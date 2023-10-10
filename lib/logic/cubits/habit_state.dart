@@ -1,14 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-class Habit {
+import 'package:equatable/equatable.dart';
+
+class HabitState with EquatableMixin {
   int id;
   String title;
   String question;
   bool isDone;
   bool isEditing;
 
-  Habit({
+  HabitState({
     required this.id,
     required this.title,
     required this.question,
@@ -16,14 +18,14 @@ class Habit {
     required this.isEditing,
   });
 
-  Habit copyWith({
+  HabitState copyWith({
     int? id,
     String? title,
     String? question,
     bool? isDone,
     bool? isEditing,
   }) {
-    return Habit(
+    return HabitState(
       id: id ?? this.id,
       title: title ?? this.title,
       question: question ?? this.question,
@@ -42,8 +44,8 @@ class Habit {
     };
   }
 
-  factory Habit.fromMap(Map<String, dynamic> map) {
-    return Habit(
+  factory HabitState.fromMap(Map<String, dynamic> map) {
+    return HabitState(
       id: map['id'] as int,
       title: map['title'] as String,
       question: map['question'] as String,
@@ -54,31 +56,40 @@ class Habit {
 
   String toJson() => json.encode(toMap());
 
-  factory Habit.fromJson(String source) => Habit.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory HabitState.fromJson(String source) =>
+      HabitState.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   String toString() {
-    return 'Habit(id: $id, title: $title, question: $question, isDone: $isDone, isEditing: $isEditing)';
+    return 'HabitState(id: $id, title: $title, question: $question, isDone: $isDone, isEditing: $isEditing)';
   }
 
   @override
-  bool operator ==(covariant Habit other) {
+  bool operator ==(covariant HabitState other) {
     if (identical(this, other)) return true;
-  
-    return 
-      other.id == id &&
-      other.title == title &&
-      other.question == question &&
-      other.isDone == isDone &&
-      other.isEditing == isEditing;
+
+    return other.id == id &&
+        other.title == title &&
+        other.question == question &&
+        other.isDone == isDone &&
+        other.isEditing == isEditing;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      title.hashCode ^
-      question.hashCode ^
-      isDone.hashCode ^
-      isEditing.hashCode;
+        title.hashCode ^
+        question.hashCode ^
+        isDone.hashCode ^
+        isEditing.hashCode;
   }
+
+  @override
+  List<Object?> get props => [
+        id,
+        title,
+        question,
+        isDone,
+        isEditing,
+      ];
 }

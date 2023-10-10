@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_tracker_app/models/habit.dart';
-import 'package:habit_tracker_app/providers/habit_provider.dart';
-import 'package:habit_tracker_app/widgets/custom_textfields/textfield.dart';
+import 'package:habit_tracker_app/logic/cubits/habit_cubit.dart';
+import 'package:habit_tracker_app/logic/cubits/habit_state.dart';
+import 'package:habit_tracker_app/presentation/widgets/custom_textfields/textfield.dart';
 
 class AddHabitScreen extends ConsumerWidget {
-  final Habit habitData;
+  final HabitState habitData;
 
   const AddHabitScreen({
     super.key,
@@ -14,7 +15,8 @@ class AddHabitScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habitController = ref.watch(habitProvider.notifier);
+    HabitCubit habitCubit = BlocProvider.of<HabitCubit>(context);
+
     final habitName = habitData.title;
     final question = habitData.question;
     final isEditing = habitData.isEditing;
@@ -34,25 +36,14 @@ class AddHabitScreen extends ConsumerWidget {
         actions: [
           ElevatedButton(
             onPressed: () {
-              if (isEditing) {
-                Navigator.of(context).popUntil((route) => route.isFirst);
-                habitController.editHabit(
-                  habitData.id,
-                  newHabitNameController.text,
-                  newQuestionController.text,
-                );
-                habitNameController.clear();
-                questionController.clear();
-              } else {
-                Navigator.pop(context);
-                habitController.addHabit(
-                  habitNameController.text,
-                  questionController.text,
-                  true,
-                );
-                habitNameController.clear();
-                questionController.clear();
-              }
+              Navigator.pop(context);
+              habitCubit.addHabit(
+                habitNameController.text,
+                questionController.text,
+                true,
+              );
+              habitNameController.clear();
+              questionController.clear();
             },
             child: isEditing ? const Text('Save') : const Text('Add'),
           ),

@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_tracker_app/models/habit.dart';
-import 'package:habit_tracker_app/providers/habit_provider.dart';
-import 'package:habit_tracker_app/screens/add_habit_screen.dart';
-import 'package:habit_tracker_app/utils/container.dart';
-import 'package:habit_tracker_app/widgets/custom_page_transition/custom_page_route_transition.dart';
+import 'package:habit_tracker_app/logic/cubits/habit_cubit.dart';
+import 'package:habit_tracker_app/logic/cubits/habit_state.dart';
+import 'package:habit_tracker_app/presentation/utils/container.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
@@ -20,36 +19,21 @@ class HabitOverview extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habits = ref.watch(habitProvider);
-   final habitController = ref.watch(habitProvider.notifier);
-
-    // Retrieve the corresponding habit based on the index
-    final habitData = habits[index];
-    final habitQuestion = habitData.question;
-    final isDone = habitData.isDone;
+    HabitCubit habitCubit = BlocProvider.of<HabitCubit>(context);
 
     return Scaffold(
       appBar: AppBar(
         title: Text(habitName),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MyCustomRouteTransition(
-                  route: AddHabitScreen(
-                    habitData: Habit(
-                      id: index,
-                      title: habitName,
-                      isDone: isDone,
-                      question: habitQuestion,
-                      isEditing: true,
-                    ),
-                  ),
-                ),
+          BlocBuilder<HabitCubit, List<HabitState>>(
+            builder: (context, state) {
+              return IconButton(
+                onPressed: () {
+                 
+                },
+                icon: const Icon(Icons.edit),
               );
             },
-            icon: const Icon(Icons.edit),
           ),
           PopupMenuButton(
             itemBuilder: (context) {
@@ -57,7 +41,7 @@ class HabitOverview extends ConsumerWidget {
                 PopupMenuItem(
                   onTap: () {
                     Navigator.pop(context);
-                    habitController.removeHabit(index);
+                    habitCubit.removeHabit(index);
                   },
                   child: const Text('delete'),
                 )
