@@ -1,25 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/logic/cubits/habit_cubit.dart';
 import 'package:habit_tracker_app/logic/cubits/habit_state.dart';
+import 'package:habit_tracker_app/presentation/pages/edit_habit_page.dart';
 import 'package:habit_tracker_app/presentation/utils/container.dart';
+import 'package:habit_tracker_app/presentation/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class HabitOverview extends ConsumerWidget {
+class HabitOverview extends StatelessWidget {
   final String habitName;
+  final String habitQuestion;
   final int index;
+  final bool isDone;
 
   const HabitOverview({
     super.key,
     required this.habitName,
+    required this.habitQuestion,
     required this.index,
+    required this.isDone,
   });
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    HabitCubit habitCubit = BlocProvider.of<HabitCubit>(context);
+  Widget build(BuildContext context) {
+    final habitCubit = context.watch<HabitCubit>();
 
     return Scaffold(
       appBar: AppBar(
@@ -29,7 +34,19 @@ class HabitOverview extends ConsumerWidget {
             builder: (context, state) {
               return IconButton(
                 onPressed: () {
-                 
+                  Navigator.push(
+                    context,
+                    MyCustomRouteTransition(
+                      route: EditHabitPage(
+                        habitData: HabitState(
+                          id: index,
+                          isDone: isDone,
+                          title: habitName,
+                          question: habitQuestion,
+                        ),
+                      ),
+                    ),
+                  );
                 },
                 icon: const Icon(Icons.edit),
               );

@@ -11,7 +11,6 @@ class HabitCubit extends Cubit<List<HabitState>> {
         title: newHabitName,
         question: newQuestion,
         isDone: false,
-        isEditing: false,
       );
       final newHabitList = List<HabitState>.from(state)..add(newHabit);
       emit(newHabitList);
@@ -26,18 +25,18 @@ class HabitCubit extends Cubit<List<HabitState>> {
   }
 
   void editHabit(int habitId, String newName, String newQuestion) {
-    final updatedHabits = List<HabitState>.from(state);
-    final index = updatedHabits.indexWhere((habit) => habit.id == habitId);
+  final updatedHabits = List<HabitState>.from(state);
+  final index = updatedHabits.indexWhere((habit) => habit.id == habitId);
 
-    if (index >= 0) {
-      updatedHabits[index] = updatedHabits[index].copyWith(
-        isEditing: true,
-        title: newName,
-        question: newQuestion,
-      );
-      emit(updatedHabits);
-    }
+  if (index >= 0) {
+    updatedHabits[index] = updatedHabits[index].copyWith(
+      title: newName,
+      question: newQuestion,
+    );
+    emit(updatedHabits);
   }
+}
+
 
   void toggleIsDone(int index) {
     if (index >= 0 && index < state.length) {

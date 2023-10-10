@@ -1,20 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/logic/cubits/habit_cubit.dart';
 import 'package:habit_tracker_app/logic/cubits/habit_state.dart';
-import 'package:habit_tracker_app/presentation/screens/add_habit_screen.dart';
+import 'package:habit_tracker_app/presentation/pages/add_habit_page.dart';
+import 'package:habit_tracker_app/presentation/pages/habit_overview_page.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_slidable_widget/slidable_widget.dart';
 import 'package:habit_tracker_app/presentation/widgets/habit_item/habit_item.dart';
 import 'package:intl/intl.dart';
 
-class HomePage extends ConsumerWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    HabitCubit habitCubit = BlocProvider.of<HabitCubit>(context);
+  Widget build(BuildContext context) {
+    final habitCubit = context.watch<HabitCubit>();
 
     return Scaffold(
       appBar: AppBar(
@@ -25,13 +25,12 @@ class HomePage extends ConsumerWidget {
               Navigator.push(
                 context,
                 MyCustomRouteTransition(
-                  route: AddHabitScreen(
+                  route: AddHabitPage(
                     habitData: HabitState(
                       id: 0,
                       title: '',
                       isDone: false,
                       question: '',
-                      isEditing: false,
                     ),
                   ),
                 ),
@@ -71,7 +70,19 @@ class HomePage extends ConsumerWidget {
                       title: state[index].title,
                       subtitle: state[index].question,
                       isDone: state[index].isDone,
-                      tileOnTap: () {},
+                      tileOnTap: () {
+                        Navigator.push(
+                          context,
+                          MyCustomRouteTransition(
+                            route: HabitOverview(
+                              habitName: state[index].title,
+                              index: state[index].id,
+                              isDone: state[index].isDone,
+                              habitQuestion: state[index].question,
+                            ),
+                          ),
+                        );
+                      },
                     ),
                   ),
                 );
