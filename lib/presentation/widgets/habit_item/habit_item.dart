@@ -39,13 +39,27 @@ class HabitTile extends StatelessWidget {
           onTap: tileOnTap,
           contentPadding: const EdgeInsets.all(0),
           tileColor: Colors.transparent,
-          title: Text(
-            '  $title',
-            style: const TextStyle(fontSize: 20),
+          title: Row(
+            children: [
+              const SizedBox(
+                width: 5,
+              ),
+              Text(
+                title,
+                style: const TextStyle(fontSize: 20),
+              ),
+            ],
           ),
-          subtitle: Text(
-            '  $subtitle',
-            style: const TextStyle(fontWeight: FontWeight.w100),
+          subtitle: Row(
+            children: [
+              const SizedBox(
+                width: 5,
+              ),
+              Text(
+                subtitle,
+                style: const TextStyle(fontWeight: FontWeight.w100),
+              ),
+            ],
           ),
           trailing: Row(
             mainAxisSize: MainAxisSize.min,

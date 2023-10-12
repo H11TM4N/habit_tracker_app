@@ -15,13 +15,12 @@ class KtextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: TextField(
-        maxLength: 40,
+      child: TextFormField(
+        maxLength: 30,
         controller: controller,
         decoration: InputDecoration(
           labelText: title,
           hintText: hintText,
-          prefix: const Text('e.g.'),
           labelStyle: const TextStyle(color: Colors.grey),
           enabledBorder: const OutlineInputBorder(
             borderSide: BorderSide(color: Colors.grey),

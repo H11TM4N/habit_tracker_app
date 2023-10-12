@@ -24,8 +24,7 @@ class AddHabitPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title:
-            const Text('Create Habit'),
+        title: const Text('Create Habit'),
         actions: [
           ElevatedButton(
             onPressed: () {
@@ -33,7 +32,6 @@ class AddHabitPage extends StatelessWidget {
               habitCubit.addHabit(
                 habitNameController.text,
                 questionController.text,
-                true,
               );
               habitNameController.clear();
               questionController.clear();
@@ -42,18 +40,20 @@ class AddHabitPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Column(
-        children: [
-          KtextField(
-            title: 'Name',
-            controller: habitNameController,
-            hintText: 'Exercise',
-          ),
-          KtextField(
-              title: 'Question',
-              controller: questionController,
-              hintText: 'Did you excersise today?'),
-        ],
+      body: Form(
+        child: Column(
+          children: [
+            KtextField(
+              title: 'Name',
+              controller: habitNameController,
+              hintText: 'e.g. Exercise',
+            ),
+            KtextField(
+                title: 'Question',
+                controller: questionController,
+                hintText: 'e.g. Did you excersise today?'),
+          ],
+        ),
       ),
     );
   }

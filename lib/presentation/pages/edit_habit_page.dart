@@ -53,12 +53,12 @@ class EditHabitPage extends StatelessWidget {
           KtextField(
             title: 'Name',
             controller: newHabitNameController,
-            hintText: 'Exercise',
+            hintText: 'e.g. Exercise',
           ),
           KtextField(
               title: 'Question',
               controller: newQuestionController,
-              hintText: 'Did you excersise today?'),
+              hintText: 'e.g. Did you excersise today?'),
         ],
       ),
     );

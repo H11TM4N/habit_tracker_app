@@ -64,7 +64,14 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, index) => KslidableWidget(
                     key: Key('$index'),
                     isDone: state[index].isDone,
-                    onDelete: (ctx) => habitCubit.removeHabit(state[index].id),
+                    onDelete: (ctx) {
+                      habitCubit.removeHabit(state[index].id);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Habit deleted'),
+                        duration: Duration(milliseconds: 1000),
+                        backgroundColor: Colors.black38,
+                      ));
+                    },
                     onCheck: (ctx) => habitCubit.toggleIsDone(index),
                     child: HabitTile(
                       title: state[index].title,

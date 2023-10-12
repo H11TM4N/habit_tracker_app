@@ -4,7 +4,7 @@ import 'package:habit_tracker_app/logic/cubits/habit_state.dart';
 class HabitCubit extends Cubit<List<HabitState>> {
   HabitCubit() : super([]);
 
-  void addHabit(String newHabitName, String newQuestion, bool isEditing) {
+  void addHabit(String newHabitName, String newQuestion) {
     if (newHabitName.isNotEmpty) {
       final newHabit = HabitState(
         id: state.length + 1,
