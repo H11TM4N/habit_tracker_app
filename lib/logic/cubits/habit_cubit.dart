@@ -60,4 +60,5 @@ class HabitCubit extends Cubit<List<HabitState>> {
       emit(updatedHabits);
     }
   }
+  
 }

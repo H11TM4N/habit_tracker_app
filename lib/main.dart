@@ -11,13 +11,19 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => HabitCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => HabitCubit()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Habit Tracker App',
         theme: ThemeData.dark().copyWith(
           useMaterial3: true,
+          snackBarTheme: const SnackBarThemeData(
+            backgroundColor: Colors.black45,
+            contentTextStyle: TextStyle(color: Colors.white),
+          ),
         ),
         home: const HomePage(),
       ),

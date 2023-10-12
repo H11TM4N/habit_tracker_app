@@ -47,6 +47,8 @@ dependencies:
   test: ^1.24.3
   bloc_test: ^9.1.4
   hydrated_bloc: ^9.1.2
+  path_provider: ^2.1.1
+  shared_preferences: ^2.2.2
 
 dev_dependencies:
   flutter_test:

@@ -16,88 +16,106 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final habitCubit = context.watch<HabitCubit>();
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Habits'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MyCustomRouteTransition(
-                  route: AddHabitPage(
-                    habitData: HabitState(
-                      id: 0,
-                      title: '',
-                      isDone: false,
-                      question: '',
+    return BlocBuilder<HabitCubit, List<HabitState>>(
+      builder: (context, state) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text('Habits'),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MyCustomRouteTransition(
+                      route: AddHabitPage(
+                        habitData: HabitState(
+                          id: 0,
+                          title: '',
+                          isDone: false,
+                          question: '',
+                        ),
+                      ),
                     ),
-                  ),
+                  );
+                },
+                icon: const Icon(Icons.add),
+              ),
+            ],
+          ),
+          body: Column(
+            children: [
+              ListTile(
+                tileColor: Colors.transparent,
+                leading: const Text(
+                  'Today\'s\n Habits',
+                  style: TextStyle(fontSize: 15),
                 ),
-              );
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      body: Column(
-        children: [
-          ListTile(
-            tileColor: Colors.transparent,
-            leading: const Text(
-              'Today\'s\n Habits',
-              style: TextStyle(fontSize: 15),
-            ),
-            trailing: Text(
-              DateFormat('EEE, MMM d').format(DateTime.now()),
-              style: const TextStyle(fontSize: 14),
-            ),
-          ),
-          Expanded(
-            child: BlocBuilder<HabitCubit, List<HabitState>>(
-              builder: (context, state) {
-                return ReorderableListView.builder(
-                  onReorder: (oldIndex, newIndex) {
-                    habitCubit.reorderHabit(oldIndex, newIndex);
-                  },
-                  itemCount: state.length,
-                  itemBuilder: (context, index) => KslidableWidget(
-                    key: Key('$index'),
-                    isDone: state[index].isDone,
-                    onDelete: (ctx) {
-                      habitCubit.removeHabit(state[index].id);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Habit deleted'),
-                        duration: Duration(milliseconds: 1000),
-                        backgroundColor: Colors.black38,
-                      ));
-                    },
-                    onCheck: (ctx) => habitCubit.toggleIsDone(index),
-                    child: HabitTile(
-                      title: state[index].title,
-                      subtitle: state[index].question,
-                      isDone: state[index].isDone,
-                      tileOnTap: () {
-                        Navigator.push(
-                          context,
-                          MyCustomRouteTransition(
-                            route: HabitOverview(
-                              habitName: state[index].title,
-                              index: state[index].id,
-                              isDone: state[index].isDone,
-                              habitQuestion: state[index].question,
-                            ),
+                trailing: Text(
+                  DateFormat('EEE, MMM d').format(DateTime.now()),
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+              Expanded(
+                child: state.isEmpty
+                    ? const Center(child: Text('No Habits displayed...'))
+                    : ReorderableListView.builder(
+                        onReorder: (oldIndex, newIndex) {
+                          habitCubit.reorderHabit(oldIndex, newIndex);
+                        },
+                        itemCount: state.length,
+                        itemBuilder: (context, index) => KslidableWidget(
+                          key: Key('$index'),
+                          isDone: state[index].isDone,
+                          onDelete: (ctx) {
+                            habitCubit.removeHabit(state[index].id);
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(const SnackBar(
+                              content: Text('Habit deleted'),
+                              duration: Duration(milliseconds: 1000),
+                            ));
+                          },
+                          onCheck: (ctx) => habitCubit.toggleIsDone(index),
+                          child: HabitTile(
+                            title: state[index].title,
+                            subtitle: state[index].question,
+                            isDone: state[index].isDone,
+                            tileOnTap: () {
+                              Navigator.push(
+                                context,
+                                MyCustomRouteTransition(
+                                  route: HabitOverview(
+                                    habitName: state[index].title,
+                                    index: state[index].id,
+                                    isDone: state[index].isDone,
+                                    habitQuestion: state[index].question,
+                                  ),
+                                ),
+                              );
+                            },
                           ),
-                        );
-                      },
-                    ),
-                  ),
-                );
-              },
+                        ),
+                      ),
+              ),
+            ],
+          ),
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  child: Center(child: Text('filter habits')),
+                ),
+                SwitchListTile(
+                  title: const Text('Show unfinished tasks'),
+                  value: false,
+                  onChanged: (value) {},
+                ),
+                
+              ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
