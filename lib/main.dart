@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker_app/logic/cubits/habit_cubit.dart';
 import 'presentation/pages/home_page.dart';
 
-void main() {
+void main() async {
   runApp(const MyApp());
 }
 

@@ -25,6 +25,7 @@ class HabitOverview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final habitCubit = context.watch<HabitCubit>();
+    final habit = habitCubit.state[index];
 
     return Scaffold(
       appBar: AppBar(
@@ -91,9 +92,13 @@ class HabitOverview extends StatelessWidget {
               ),
               Kcontainer(
                 widget: TableCalendar(
-                    focusedDay: DateTime.now(),
-                    firstDay: DateTime(DateTime.february),
-                    lastDay: DateTime.now()),
+                  focusedDay: DateTime.now(),
+                  firstDay: DateTime(DateTime.february),
+                  lastDay: DateTime.now(),
+                  selectedDayPredicate: (day) {
+                    return habit.completionDates.contains(day);
+                  },
+                ),
               )
             ],
           ),

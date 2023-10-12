@@ -25,25 +25,36 @@ class HabitCubit extends Cubit<List<HabitState>> {
   }
 
   void editHabit(int habitId, String newName, String newQuestion) {
-  final updatedHabits = List<HabitState>.from(state);
-  final index = updatedHabits.indexWhere((habit) => habit.id == habitId);
+    final updatedHabits = List<HabitState>.from(state);
+    final index = updatedHabits.indexWhere((habit) => habit.id == habitId);
 
-  if (index >= 0) {
-    updatedHabits[index] = updatedHabits[index].copyWith(
-      title: newName,
-      question: newQuestion,
-    );
-    emit(updatedHabits);
+    if (index >= 0) {
+      updatedHabits[index] = updatedHabits[index].copyWith(
+        title: newName,
+        question: newQuestion,
+      );
+      emit(updatedHabits);
+    }
   }
-}
-
 
   void toggleIsDone(int index) {
     if (index >= 0 && index < state.length) {
       final updatedHabits = List<HabitState>.from(state);
-      updatedHabits[index] = updatedHabits[index].copyWith(
-        isDone: !updatedHabits[index].isDone,
-      );
+      final habit = updatedHabits[index];
+
+      // Toggle isDone
+      habit.isDone = !habit.isDone;
+
+      // Ensure that completionDates is not null
+      habit.completionDates;
+
+      // Add or remove the current date from completionDates
+      if (habit.isDone) {
+        habit.completionDates.add(DateTime.now());
+      } else {
+        habit.completionDates.remove(DateTime.now());
+      }
+
       emit(updatedHabits);
     }
   }

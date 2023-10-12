@@ -8,13 +8,16 @@ class HabitState with EquatableMixin {
   String title;
   String question;
   bool isDone;
+  List<DateTime> completionDates;
 
   HabitState({
     required this.id,
     required this.title,
     required this.question,
     required this.isDone,
-  });
+    List<DateTime>? completionDates,
+
+  }): completionDates = completionDates ?? <DateTime>[];
 
   @override
   List<Object> get props => [id, title, question, isDone];
