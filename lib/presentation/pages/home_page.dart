@@ -1,5 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habit_tracker_app/data/constants/enums.dart';
+import 'package:habit_tracker_app/data/models/habit_model.dart';
+import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
+import 'package:habit_tracker_app/presentation/pages/habit_overview_page.dart';
+import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_page_transition/custom_page_route_transition.dart';
+import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_slidable_widget/slidable_widget.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
+import 'package:habit_tracker_app/presentation/widgets/habit_item/habit_item.dart';
 import 'package:habit_tracker_app/presentation/widgets/utils/material_button.dart';
 import 'package:intl/intl.dart';
 
@@ -13,6 +21,24 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   TextEditingController titleController = TextEditingController();
   TextEditingController questionController = TextEditingController();
+
+  addHabit(Habit habit) {
+    context.read<HabitBloc>().add(
+          AddHabitEvent(habit: habit),
+        );
+  }
+
+  removeHabit(Habit habit) {
+    context.read<HabitBloc>().add(
+          RemoveHabitEvent(habit: habit),
+        );
+  }
+
+  toggleHabits(int index) {
+    context.read<HabitBloc>().add(
+          ToggleHabitEvent(index: index),
+        );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,6 +72,12 @@ class _HomePageState extends State<HomePage> {
                             kMaterialButton(
                                 () => Navigator.pop(context), 'Cancel'),
                             kMaterialButton(() {
+                              addHabit(Habit(
+                                title: titleController.text,
+                                subtitle: questionController.text,
+                              ));
+                              titleController.clear();
+                              questionController.clear();
                               Navigator.pop(context);
                             }, 'Add Habit'),
                           ],
@@ -71,6 +103,36 @@ class _HomePageState extends State<HomePage> {
             trailing: Text(
               DateFormat('EEE, MMM d').format(DateTime.now()),
               style: const TextStyle(fontSize: 14),
+            ),
+          ),
+          Expanded(
+            child: BlocBuilder<HabitBloc, HabitState>(
+              builder: (context, state) {
+                if (state.status == HabitStatus.success) {
+                  return ListView.builder(
+                    itemCount: state.habits.length,
+                    itemBuilder: (context, index) => KslidableWidget(
+                      onCheck: (_) => toggleHabits(index),
+                      onDelete: (_) => removeHabit(state.habits[index]),
+                      isDone: state.habits[index].isDone,
+                      child: HabitTile(
+                        title: state.habits[index].title,
+                        subtitle: state.habits[index].subtitle,
+                        tileOnTap: () => Navigator.push(
+                          context,
+                          MyCustomRouteTransition(
+                              route: const HabitOverviewPage()),
+                        ),
+                        isDone: state.habits[index].isDone,
+                      ),
+                    ),
+                  );
+                } else if (state.status == HabitStatus.initial) {
+                  return const Center(child: Text('No habits added yet...'));
+                } else {
+                  return const Text('Error');
+                }
+              },
             ),
           ),
         ],
