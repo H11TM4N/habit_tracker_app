@@ -49,6 +49,7 @@ dependencies:
   hydrated_bloc: ^9.1.2
   path_provider: ^2.1.1
   shared_preferences: ^2.2.2
+  meta: ^1.9.1
 
 dev_dependencies:
   flutter_test:

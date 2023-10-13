@@ -1,121 +1,95 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:habit_tracker_app/logic/cubits/habit_cubit.dart';
-import 'package:habit_tracker_app/logic/cubits/habit_state.dart';
-import 'package:habit_tracker_app/presentation/pages/add_habit_page.dart';
-import 'package:habit_tracker_app/presentation/pages/habit_overview_page.dart';
-import 'package:habit_tracker_app/presentation/widgets/custom_page_transition/custom_page_route_transition.dart';
-import 'package:habit_tracker_app/presentation/widgets/custom_slidable_widget/slidable_widget.dart';
-import 'package:habit_tracker_app/presentation/widgets/habit_item/habit_item.dart';
+import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
+import 'package:habit_tracker_app/presentation/widgets/utils/material_button.dart';
 import 'package:intl/intl.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final habitCubit = context.watch<HabitCubit>();
+  State<HomePage> createState() => _HomePageState();
+}
 
-    return BlocBuilder<HabitCubit, List<HabitState>>(
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            title: const Text('Habits'),
-            actions: [
-              IconButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MyCustomRouteTransition(
-                      route: AddHabitPage(
-                        habitData: HabitState(
-                          id: 0,
-                          title: '',
-                          isDone: false,
-                          question: '',
+class _HomePageState extends State<HomePage> {
+  TextEditingController titleController = TextEditingController();
+  TextEditingController questionController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Habits'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showModalBottomSheet(
+                isScrollControlled: true,
+                context: context,
+                builder: (context) {
+                  return Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 40),
+                    child: Column(
+                      children: [
+                        KtextField(
+                          title: 'Habit title',
+                          controller: titleController,
+                          hintText: 'e.g. Excercise',
                         ),
-                      ),
+                        KtextField(
+                          title: 'Question',
+                          controller: questionController,
+                          hintText: 'e.g. Did you excercise today?',
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            kMaterialButton(
+                                () => Navigator.pop(context), 'Cancel'),
+                            kMaterialButton(() {
+                              Navigator.pop(context);
+                            }, 'Add Habit'),
+                          ],
+                        ),
+                      ],
                     ),
                   );
                 },
-                icon: const Icon(Icons.add),
-              ),
-            ],
+              );
+            },
+            icon: const Icon(Icons.add),
           ),
-          body: Column(
-            children: [
-              ListTile(
-                tileColor: Colors.transparent,
-                leading: const Text(
-                  'Today\'s\n Habits',
-                  style: TextStyle(fontSize: 15),
-                ),
-                trailing: Text(
-                  DateFormat('EEE, MMM d').format(DateTime.now()),
-                  style: const TextStyle(fontSize: 14),
-                ),
-              ),
-              Expanded(
-                child: state.isEmpty
-                    ? const Center(child: Text('No Habits displayed...'))
-                    : ReorderableListView.builder(
-                        onReorder: (oldIndex, newIndex) {
-                          habitCubit.reorderHabit(oldIndex, newIndex);
-                        },
-                        itemCount: state.length,
-                        itemBuilder: (context, index) => KslidableWidget(
-                          key: Key('$index'),
-                          isDone: state[index].isDone,
-                          onDelete: (ctx) {
-                            habitCubit.removeHabit(state[index].id);
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(const SnackBar(
-                              content: Text('Habit deleted'),
-                              duration: Duration(milliseconds: 1000),
-                            ));
-                          },
-                          onCheck: (ctx) => habitCubit.toggleIsDone(index),
-                          child: HabitTile(
-                            title: state[index].title,
-                            subtitle: state[index].question,
-                            isDone: state[index].isDone,
-                            tileOnTap: () {
-                              Navigator.push(
-                                context,
-                                MyCustomRouteTransition(
-                                  route: HabitOverview(
-                                    habitName: state[index].title,
-                                    index: state[index].id,
-                                    isDone: state[index].isDone,
-                                    habitQuestion: state[index].question,
-                                  ),
-                                ),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-              ),
-            ],
-          ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                  child: Center(child: Text('filter habits')),
-                ),
-                SwitchListTile(
-                  title: const Text('Show unfinished tasks'),
-                  value: false,
-                  onChanged: (value) {},
-                ),
-                
-              ],
+        ],
+      ),
+      body: Column(
+        children: [
+          ListTile(
+            tileColor: Colors.transparent,
+            leading: const Text(
+              'Today\'s\n Habits',
+              style: TextStyle(fontSize: 15),
+            ),
+            trailing: Text(
+              DateFormat('EEE, MMM d').format(DateTime.now()),
+              style: const TextStyle(fontSize: 14),
             ),
           ),
-        );
-      },
+        ],
+      ),
+      drawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              child: Center(child: Text('filter habits')),
+            ),
+            SwitchListTile(
+              title: const Text('Show unfinished tasks'),
+              value: false,
+              onChanged: (value) {},
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
