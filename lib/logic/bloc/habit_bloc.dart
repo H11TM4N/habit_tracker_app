@@ -19,7 +19,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
 
     on<AddHabitEvent>((event, emit) {
       emit(
-        state.copyWith(status: HabitStatus.loading),
+        state.copyWith(status: HabitStatus.added),
       );
       try {
         List<Habit> temp = [];
@@ -38,7 +38,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
 
     on<RemoveHabitEvent>((event, emit) {
       emit(
-        state.copyWith(status: HabitStatus.loading),
+        state.copyWith(status: HabitStatus.removed),
       );
       try {
         state.habits.remove(event.habit);
@@ -98,7 +98,6 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
       emit(
         state.copyWith(status: HabitStatus.loading),
       );
-
       try {
         List<Habit> updatedHabits = List.from(state.habits);
         // Remove the habit from its old position

@@ -19,8 +19,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  TextEditingController titleController = TextEditingController();
-  TextEditingController questionController = TextEditingController();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _questionController = TextEditingController();
+  bool _showUnfinishedTasks = false;
 
   addHabit(Habit habit) {
     context.read<HabitBloc>().add(
@@ -62,12 +63,12 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         KtextField(
                           title: 'Habit title',
-                          controller: titleController,
+                          controller: _titleController,
                           hintText: 'e.g. Excercise',
                         ),
                         KtextField(
                           title: 'Question',
-                          controller: questionController,
+                          controller: _questionController,
                           hintText: 'e.g. Did you excercise today?',
                         ),
                         Row(
@@ -77,11 +78,11 @@ class _HomePageState extends State<HomePage> {
                                 () => Navigator.pop(context), 'Cancel'),
                             kMaterialButton(() {
                               addHabit(Habit(
-                                title: titleController.text,
-                                subtitle: questionController.text,
+                                title: _titleController.text,
+                                subtitle: _questionController.text,
                               ));
-                              titleController.clear();
-                              questionController.clear();
+                              _titleController.clear();
+                              _questionController.clear();
                               Navigator.pop(context);
                             }, 'Add Habit'),
                           ],
@@ -110,7 +111,7 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           Expanded(
-            child: BlocBuilder<HabitBloc, HabitState>(
+            child: BlocConsumer<HabitBloc, HabitState>(
               builder: (context, state) {
                 if (state.status == HabitStatus.success) {
                   return ReorderableListView.builder(
@@ -118,25 +119,32 @@ class _HomePageState extends State<HomePage> {
                       final movedHabit = state.habits[oldIndex];
                       reorderHabits(oldIndex, newIndex, movedHabit);
                     },
+                    //! key: Key(''),
                     itemCount: state.habits.length,
-                    itemBuilder: (context, index) => KslidableWidget(
-                      key: Key('key $index'),
-                      onCheck: (_) => toggleHabits(index),
-                      onDelete: (_) => removeHabit(state.habits[index]),
-                      isDone: state.habits[index].isDone,
-                      child: HabitTile(
-                        title: state.habits[index].title,
-                        subtitle: state.habits[index].subtitle,
-                        tileOnTap: () => Navigator.push(
-                          context,
-                          MyCustomRouteTransition(
-                              route: HabitOverviewPage(
-                            index: index,
-                          )),
-                        ),
-                        isDone: state.habits[index].isDone,
-                      ),
-                    ),
+                    itemBuilder: (context, index) {
+                      if (_showUnfinishedTasks && state.habits[index].isDone) {
+                        return const SizedBox.shrink();
+                      } else {
+                        return KslidableWidget(
+                          key: Key('key $index'),
+                          onCheck: (_) => toggleHabits(index),
+                          onDelete: (_) => removeHabit(state.habits[index]),
+                          isDone: state.habits[index].isDone,
+                          child: HabitTile(
+                            title: state.habits[index].title,
+                            subtitle: state.habits[index].subtitle,
+                            tileOnTap: () => Navigator.push(
+                              context,
+                              MyCustomRouteTransition(
+                                  route: HabitOverviewPage(
+                                index: index,
+                              )),
+                            ),
+                            isDone: state.habits[index].isDone,
+                          ),
+                        );
+                      }
+                    },
                   );
                 } else if (state.status == HabitStatus.initial) {
                   return const Center(child: Text('No habits added yet...'));
@@ -144,24 +152,50 @@ class _HomePageState extends State<HomePage> {
                   return const Text('Error');
                 }
               },
+              listener: (context, state) {
+                if (state.status == HabitStatus.added) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      duration: Duration(milliseconds: 800),
+                      content: Text('Habit added'),
+                    ),
+                  );
+                } else if (state.status == HabitStatus.removed) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      backgroundColor: Color(0xFF79747E),
+                      duration: Duration(milliseconds: 800),
+                      content: Text('Habit removed'),
+                    ),
+                  );
+                }
+              },
             ),
           ),
         ],
       ),
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              child: Center(child: Text('filter habits')),
+      drawer: BlocBuilder<HabitBloc, HabitState>(
+        builder: (context, state) {
+          return Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                const DrawerHeader(
+                  child: Center(child: Text('filter habits')),
+                ),
+                SwitchListTile(
+                  title: const Text('Show unfinished tasks'),
+                  value: _showUnfinishedTasks,
+                  onChanged: (value) {
+                    setState(() {
+                      _showUnfinishedTasks = !_showUnfinishedTasks;
+                    });
+                  },
+                ),
+              ],
             ),
-            SwitchListTile(
-              title: const Text('Show unfinished tasks'),
-              value: false,
-              onChanged: (value) {},
-            ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }
