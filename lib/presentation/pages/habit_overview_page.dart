@@ -3,7 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_card/custom_card_widget.dart';
+import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+
+import '../widgets/utils/material_button.dart';
 
 class HabitOverviewPage extends StatefulWidget {
   final int index;
@@ -18,21 +21,69 @@ class HabitOverviewPage extends StatefulWidget {
 
 class _HabitOverviewPageState extends State<HabitOverviewPage> {
   removeHabit(Habit habit) {
-    context.read<HabitBloc>().add(
-          RemoveHabitEvent(habit: habit),
-        );
+    context.read<HabitBloc>().add(RemoveHabitEvent(habit: habit));
+  }
+
+  editHabit(int index, Habit updatedHabit) {
+    context.read<HabitBloc>().add(EditHabitEvent(index, updatedHabit));
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HabitBloc, HabitState>(
       builder: (ctx, state) {
+        final TextEditingController titleController =
+            TextEditingController(text: state.habits[widget.index].title);
+        final TextEditingController questionController =
+            TextEditingController(text: state.habits[widget.index].subtitle);
         return Scaffold(
           appBar: AppBar(
             title: Text(state.habits[widget.index].title),
             actions: [
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 40),
+                        child: Column(
+                          children: [
+                            KtextField(
+                              title: 'Habit title',
+                              controller: titleController,
+                              hintText: 'e.g. Excercise',
+                            ),
+                            KtextField(
+                              title: 'Question',
+                              controller: questionController,
+                              hintText: 'e.g. Did you excercise today?',
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                kMaterialButton(
+                                    () => Navigator.pop(context), 'Cancel'),
+                                kMaterialButton(() {
+                                  editHabit(
+                                      widget.index,
+                                      Habit(
+                                          title: titleController.text,
+                                          subtitle: questionController.text));
+                                  titleController.clear();
+                                  questionController.clear();
+                                  Navigator.popUntil(
+                                      context, (route) => route.isFirst);
+                                }, 'Save change'),
+                              ],
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  );
+                },
                 icon: const Icon(
                   Icons.edit,
                 ),

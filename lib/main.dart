@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         title: 'Habit Tracker App',
         theme: ThemeData.dark().copyWith(
-            useMaterial3: true,
-            snackBarTheme: const SnackBarThemeData(
-              backgroundColor: Colors.black45,
-              contentTextStyle: TextStyle(color: Colors.white),
-            ),
-            textTheme: const TextTheme(bodyMedium: TextStyle(fontSize: 18))),
+          useMaterial3: true,
+          snackBarTheme: const SnackBarThemeData(
+            backgroundColor: Color(0xFF79747E),
+            contentTextStyle: TextStyle(color: Colors.white),
+          ),
+        ),
         home: const HomePage(),
       ),
     );

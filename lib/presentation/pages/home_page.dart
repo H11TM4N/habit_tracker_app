@@ -163,7 +163,6 @@ class _HomePageState extends State<HomePage> {
                 } else if (state.status == HabitStatus.removed) {
                   ScaffoldMessenger.of(context).showSnackBar(
                     const SnackBar(
-                      backgroundColor: Color(0xFF79747E),
                       duration: Duration(milliseconds: 800),
                       content: Text('Habit removed'),
                     ),
