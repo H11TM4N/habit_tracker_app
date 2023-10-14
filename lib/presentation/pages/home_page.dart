@@ -40,6 +40,10 @@ class _HomePageState extends State<HomePage> {
         );
   }
 
+  reorderHabits(int oldIndex, int newIndex, Habit movedHabit) {
+    context.read<HabitBloc>().add(ReorderHabitsEvent(newIndex, movedHabit));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -109,9 +113,14 @@ class _HomePageState extends State<HomePage> {
             child: BlocBuilder<HabitBloc, HabitState>(
               builder: (context, state) {
                 if (state.status == HabitStatus.success) {
-                  return ListView.builder(
+                  return ReorderableListView.builder(
+                    onReorder: (oldIndex, newIndex) {
+                      final movedHabit = state.habits[oldIndex];
+                      reorderHabits(oldIndex, newIndex, movedHabit);
+                    },
                     itemCount: state.habits.length,
                     itemBuilder: (context, index) => KslidableWidget(
+                      key: Key('key $index'),
                       onCheck: (_) => toggleHabits(index),
                       onDelete: (_) => removeHabit(state.habits[index]),
                       isDone: state.habits[index].isDone,
@@ -121,7 +130,9 @@ class _HomePageState extends State<HomePage> {
                         tileOnTap: () => Navigator.push(
                           context,
                           MyCustomRouteTransition(
-                              route: const HabitOverviewPage()),
+                              route: HabitOverviewPage(
+                            index: index,
+                          )),
                         ),
                         isDone: state.habits[index].isDone,
                       ),

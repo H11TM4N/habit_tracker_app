@@ -45,3 +45,13 @@ class ToggleHabitEvent extends HabitEvent {
   @override
   List<Object?> get props => [index];
 }
+
+class ReorderHabitsEvent extends HabitEvent {
+  final int newIndex;
+  final Habit movedHabit;
+
+  const ReorderHabitsEvent(this.newIndex, this.movedHabit);
+
+  @override
+  List<Object> get props => [newIndex, movedHabit];
+}

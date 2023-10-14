@@ -93,5 +93,31 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
         ));
       }
     });
+
+    on<ReorderHabitsEvent>((event, emit) {
+      emit(
+        state.copyWith(status: HabitStatus.loading),
+      );
+
+      try {
+        List<Habit> updatedHabits = List.from(state.habits);
+        // Remove the habit from its old position
+        updatedHabits.remove(event.movedHabit);
+        // Insert the habit into the new position
+        if (event.newIndex < updatedHabits.length) {
+          updatedHabits.insert(event.newIndex, event.movedHabit);
+        } else {
+          updatedHabits.add(event.movedHabit);
+        }
+        emit(state.copyWith(
+          habits: updatedHabits,
+          status: HabitStatus.success,
+        ));
+      } catch (e) {
+        emit(state.copyWith(
+          status: HabitStatus.error,
+        ));
+      }
+    });
   }
 }
