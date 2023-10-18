@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-part of 'habit_bloc.dart';
+import 'package:equatable/equatable.dart';
+import 'package:habit_tracker_app/data/constants/enums.dart';
+import 'package:habit_tracker_app/data/models/habit_model.dart';
 
 class HabitState extends Equatable {
   final List<Habit> habits;

@@ -1,10 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:equatable/equatable.dart';
 import 'package:habit_tracker_app/data/constants/enums.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
+import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
+import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
 
-part 'habit_event.dart';
-part 'habit_state.dart';
+
 
 class HabitBloc extends Bloc<HabitEvent, HabitState> {
   HabitBloc() : super(const HabitState()) {
@@ -41,6 +41,9 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
         state.copyWith(status: HabitStatus.removed),
       );
       try {
+        if (state.habits.isEmpty || state.habits.length == 0) {
+          emit(state.copyWith(status: HabitStatus.initial));
+        }
         state.habits.remove(event.habit);
         emit(state.copyWith(
           habits: state.habits,

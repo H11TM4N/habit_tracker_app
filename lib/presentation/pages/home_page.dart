@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker_app/data/constants/enums.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
+import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
+import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
 import 'package:habit_tracker_app/presentation/pages/habit_overview_page.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_page_transition/custom_page_route_transition.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_slidable_widget/slidable_widget.dart';
@@ -115,11 +117,11 @@ class _HomePageState extends State<HomePage> {
               builder: (context, state) {
                 if (state.status == HabitStatus.success) {
                   return ReorderableListView.builder(
+                    key: Key('Key ${state.habits.length} '),
                     onReorder: (oldIndex, newIndex) {
                       final movedHabit = state.habits[oldIndex];
                       reorderHabits(oldIndex, newIndex, movedHabit);
                     },
-                    //! key: Key(''),
                     itemCount: state.habits.length,
                     itemBuilder: (context, index) {
                       if (_showUnfinishedTasks && state.habits[index].isDone) {

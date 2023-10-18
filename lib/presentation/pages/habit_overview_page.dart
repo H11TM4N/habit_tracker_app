@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
+import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
+import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_card/custom_card_widget.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
