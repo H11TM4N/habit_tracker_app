@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
+import 'package:habit_tracker_app/logic/habit_completion_bloc/habit_completion_bloc.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:path_provider/path_provider.dart';
 import 'presentation/pages/home_page.dart';
@@ -18,8 +19,15 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => HabitBloc()..add(HabitStartedEvent()),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => HabitBloc()..add(HabitStartedEvent()),
+        ),
+        BlocProvider(
+          create: (_) => HabitCompletionBloc(),
+        )
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Habit Tracker App',

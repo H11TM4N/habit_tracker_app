@@ -2,12 +2,10 @@
 import 'dart:convert';
 
 class HabitCompletion {
-  final DateTime date;
   final int habitId;
   final bool isCompleted;
 
   HabitCompletion({
-    required this.date,
     required this.habitId,
     required this.isCompleted,
   });
@@ -18,7 +16,6 @@ class HabitCompletion {
     bool? isCompleted,
   }) {
     return HabitCompletion(
-      date: date ?? this.date,
       habitId: habitId ?? this.habitId,
       isCompleted: isCompleted ?? this.isCompleted,
     );
@@ -26,7 +23,6 @@ class HabitCompletion {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'date': date.millisecondsSinceEpoch,
       'habitId': habitId,
       'isCompleted': isCompleted,
     };
@@ -34,7 +30,6 @@ class HabitCompletion {
 
   factory HabitCompletion.fromMap(Map<String, dynamic> map) {
     return HabitCompletion(
-      date: DateTime.fromMillisecondsSinceEpoch(map['date'] as int),
       habitId: map['habitId'] as int,
       isCompleted: map['isCompleted'] as bool,
     );
@@ -45,18 +40,17 @@ class HabitCompletion {
   factory HabitCompletion.fromJson(String source) => HabitCompletion.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
-  String toString() => 'HabitCompletion(date: $date, habitId: $habitId, isCompleted: $isCompleted)';
+  String toString() => 'HabitCompletion(habitId: $habitId, isCompleted: $isCompleted)';
 
   @override
   bool operator ==(covariant HabitCompletion other) {
     if (identical(this, other)) return true;
   
     return 
-      other.date == date &&
       other.habitId == habitId &&
       other.isCompleted == isCompleted;
   }
 
   @override
-  int get hashCode => date.hashCode ^ habitId.hashCode ^ isCompleted.hashCode;
+  int get hashCode => habitId.hashCode ^ isCompleted.hashCode;
 }

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habit_tracker_app/data/models/habit_completion.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
+import 'package:habit_tracker_app/logic/habit_completion_bloc/habit_completion_bloc.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_card/custom_card_widget.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
+import 'package:habit_tracker_app/presentation/widgets/habit_calendar.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-
 import '../widgets/utils/material_button.dart';
 
 class HabitOverviewPage extends StatefulWidget {
@@ -28,6 +30,11 @@ class _HabitOverviewPageState extends State<HabitOverviewPage> {
 
   editHabit(int index, Habit updatedHabit) {
     context.read<HabitBloc>().add(EditHabitEvent(index, updatedHabit));
+  }
+
+  Map<DateTime, List<HabitCompletion>> get completions {
+    final completionsState = context.read<HabitCompletionBloc>().state;
+    return completionsState.completions;
   }
 
   @override
@@ -132,31 +139,36 @@ class _HabitOverviewPageState extends State<HabitOverviewPage> {
               )
             ],
           ),
-          body: Column(
+          body: ListView(
             children: [
               Kcard(
-                height: 80,
+                height: 100,
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: Row(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
                         'Progress',
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 17),
                       ),
                       CircularPercentIndicator(
                         progressColor: Colors.blue,
-                        radius: 20,
+                        radius: 25,
                         percent: 0.4,
                       ),
                     ],
                   ),
                 ),
               ),
-              const Kcard(
-                height: 100,
+              Kcard(
+                height: 400,
                 child: Column(
-                  children: [],
+                  children: [
+                    Expanded(
+                      child: HabitCalendar(habitCompletions: completions),
+                    ),
+                  ],
                 ),
               ),
             ],

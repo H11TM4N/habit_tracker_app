@@ -14,7 +14,7 @@ class HabitCalendar extends StatefulWidget {
 class _HabitCalendarState extends State<HabitCalendar> {
   CalendarFormat _calendarFormat = CalendarFormat.month;
   final DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
+  DateTime? selectedDay;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _HabitCalendarState extends State<HabitCalendar> {
       },
       onDaySelected: (selectedDay, focusedDay) {
         setState(() {
-          _selectedDay = selectedDay;
+          selectedDay = selectedDay;
         });
       },
       eventLoader: (day) {
@@ -57,7 +57,7 @@ class _HabitCalendarState extends State<HabitCalendar> {
             margin: const EdgeInsets.all(4.0),
             alignment: Alignment.center,
             decoration: const BoxDecoration(
-              color: Colors.yellow,
+              color: Colors.blue,
               shape: BoxShape.circle,
             ),
             child: Text(
