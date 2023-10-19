@@ -1,17 +1,21 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
+import 'package:habit_tracker_app/data/models/habit_completion.dart';
 
 class Habit {
   final int id;
   final String title;
   final String subtitle;
   bool isDone;
+  List<HabitCompletion> completions;
 
   Habit({
     this.id = 0,
     this.title = '',
     this.subtitle = '',
     this.isDone = false,
+    this.completions = const [],
   });
 
   Habit copyWith({
@@ -19,12 +23,14 @@ class Habit {
     String? title,
     String? subtitle,
     bool? isDone,
+    List<HabitCompletion>? completions,
   }) {
     return Habit(
       id: id ?? this.id,
       title: title ?? this.title,
       subtitle: subtitle ?? this.subtitle,
       isDone: isDone ?? this.isDone,
+      completions: completions ?? this.completions,
     );
   }
 
@@ -35,6 +41,7 @@ class Habit {
       'title': title,
       'subtitle': subtitle,
       'isDone': isDone,
+      'completions': completions.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -44,6 +51,7 @@ class Habit {
       title: map['title'] as String,
       subtitle: map['subtitle'] as String,
       isDone: map['isDone'] as bool,
+      completions: List<HabitCompletion>.from((map['completions'] as List<int>).map<HabitCompletion>((x) => HabitCompletion.fromMap(x as Map<String,dynamic>),),),
     );
   }
 
@@ -53,7 +61,7 @@ class Habit {
 
   @override
   String toString() {
-    return 'Habit(id: $id, title: $title, subtitle: $subtitle, isDone: $isDone)';
+    return 'Habit(id: $id, title: $title, subtitle: $subtitle, isDone: $isDone, completions: $completions)';
   }
 
   @override
@@ -64,7 +72,8 @@ class Habit {
       other.id == id &&
       other.title == title &&
       other.subtitle == subtitle &&
-      other.isDone == isDone;
+      other.isDone == isDone &&
+      listEquals(other.completions, completions);
   }
 
   @override
@@ -72,6 +81,7 @@ class Habit {
     return id.hashCode ^
       title.hashCode ^
       subtitle.hashCode ^
-      isDone.hashCode;
+      isDone.hashCode ^
+      completions.hashCode;
   }
 }

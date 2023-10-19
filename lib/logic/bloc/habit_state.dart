@@ -24,4 +24,25 @@ class HabitState extends Equatable {
 
   @override
   List<Object?> get props => [habits, status];
+
+  Map<String, dynamic> toMap() {
+    return {
+      'habits': habits.map((habit) => habit.toMap()).toList(),
+      'status': status.toString(), // Store status as a string
+    };
+  }
+
+  factory HabitState.fromMap(Map<String, dynamic> map) {
+    final List<dynamic> habitMaps = map['habits'] as List<dynamic>;
+    final List<Habit> habits = habitMaps.map((habitMap) {
+      return Habit.fromMap(habitMap as Map<String, dynamic>);
+    }).toList();
+
+    return HabitState(
+      habits: habits,
+      status: HabitStatus.values.firstWhere(
+          (status) => status.toString() == map['status'],
+          orElse: () => HabitStatus.initial),
+    );
+  }
 }

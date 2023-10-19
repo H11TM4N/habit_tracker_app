@@ -1,12 +1,10 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker_app/data/constants/enums.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
+import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-
-
-class HabitBloc extends Bloc<HabitEvent, HabitState> {
+class HabitBloc extends HydratedBloc<HabitEvent, HabitState> {
   HabitBloc() : super(const HabitState()) {
     on<HabitStartedEvent>((event, emit) {
       if (state.status == HabitStatus.success) {
@@ -14,6 +12,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
           habits: state.habits,
           status: HabitStatus.success,
         ));
+        print('habit started : ${state.habits.length}');
       }
     });
 
@@ -29,6 +28,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
           habits: temp,
           status: HabitStatus.success,
         ));
+        print('add habit: ${state.habits.length}');
       } catch (e) {
         emit(state.copyWith(
           status: HabitStatus.error,
@@ -41,14 +41,16 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
         state.copyWith(status: HabitStatus.removed),
       );
       try {
-        if (state.habits.isEmpty || state.habits.length == 0) {
-          emit(state.copyWith(status: HabitStatus.initial));
+        if (state.habits.isEmpty) {
+          print('habit empty: ${state.habits.length}');
+          emit(const HabitState(status: HabitStatus.initial));
         }
         state.habits.remove(event.habit);
         emit(state.copyWith(
           habits: state.habits,
           status: HabitStatus.success,
         ));
+        print('remove habit: ${state.habits.length}');
       } catch (e) {
         emit(state.copyWith(
           status: HabitStatus.error,
@@ -115,11 +117,22 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
           habits: updatedHabits,
           status: HabitStatus.success,
         ));
+        print('reorder habit: ${state.habits.length}');
       } catch (e) {
         emit(state.copyWith(
           status: HabitStatus.error,
         ));
       }
     });
+  }
+
+  @override
+  HabitState? fromJson(Map<String, dynamic> json) {
+    return HabitState.fromMap(json);
+  }
+
+  @override
+  Map<String, dynamic>? toJson(HabitState state) {
+    return state.toMap();
   }
 }
