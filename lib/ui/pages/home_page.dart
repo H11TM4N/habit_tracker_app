@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:habit_tracker_app/constants/enums.dart';
+import 'package:habit_tracker_app/common/utils.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
@@ -13,6 +13,8 @@ import 'package:habit_tracker_app/ui/widgets/habit_item/habit_item.dart';
 import 'package:habit_tracker_app/ui/widgets/utils/material_button.dart';
 import 'package:intl/intl.dart';
 
+import '../../constants/constants.dart';
+
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -24,6 +26,13 @@ class _HomePageState extends State<HomePage> {
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _questionController = TextEditingController();
   bool _showUnfinishedTasks = false;
+
+  @override
+  void dispose() {
+    super.dispose();
+    _titleController.dispose();
+    _questionController.dispose();
+  }
 
   addHabit(Habit habit) {
     context.read<HabitBloc>().add(
@@ -82,29 +91,8 @@ class _HomePageState extends State<HomePage> {
           ),
           Expanded(
             child: BlocConsumer<HabitBloc, HabitState>(
-              builder: (context, state) {
-                if (state.status == HabitStatus.success) {
-                  return ReorderableListView.builder(
-                    key: Key('Key ${state.habits.length} '),
-                    onReorder: (oldIndex, newIndex) {
-                      final movedHabit = state.habits[oldIndex];
-                      reorderHabits(oldIndex, newIndex, movedHabit);
-                    },
-                    itemCount: state.habits.length,
-                    itemBuilder: (context, index) {
-                      if (_showUnfinishedTasks && state.habits[index].isDone) {
-                        return const SizedBox.shrink();
-                      } else {
-                        return _habitItem(index, state, context);
-                      }
-                    },
-                  );
-                } else if (state.status == HabitStatus.initial) {
-                  return const Center(child: Text('No habits added yet...'));
-                } else {
-                  return const Text('Error');
-                }
-              },
+              buildWhen: _onBuildWhen,
+              builder: _builder,
               listenWhen: _onListenWhen,
               listener: _listener,
             ),
@@ -115,26 +103,47 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  bool _onBuildWhen(HabitState previous, HabitState current) {
+    return current.status == HabitStatus.initial ||
+        current.status == HabitStatus.loading ||
+        current.status == HabitStatus.success ||
+        current.status == HabitStatus.error;
+  }
+
   bool _onListenWhen(HabitState previous, HabitState current) {
     return current.status == HabitStatus.added ||
         current.status == HabitStatus.removed;
   }
 
+  Widget _builder(context, state) {
+    if (state.status == HabitStatus.success) {
+      return ReorderableListView.builder(
+        key: Key('Key ${state.habits.length} '),
+        onReorder: (oldIndex, newIndex) {
+          final movedHabit = state.habits[oldIndex];
+          reorderHabits(oldIndex, newIndex, movedHabit);
+        },
+        itemCount: state.habits.length,
+        itemBuilder: (context, index) {
+          if (_showUnfinishedTasks && state.habits[index].isDone) {
+            return const SizedBox.shrink();
+          } else {
+            return _habitItem(index, state, context);
+          }
+        },
+      );
+    } else if (state.status == HabitStatus.initial) {
+      return const Center(child: Text('No habits added yet...'));
+    } else {
+      return const Text('Error');
+    }
+  }
+
   void _listener(BuildContext context, HabitState state) {
     if (state.status == HabitStatus.added) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          duration: Duration(milliseconds: 800),
-          content: Text('Habit added'),
-        ),
-      );
+      showSnackBar(context, 'Habit added');
     } else if (state.status == HabitStatus.removed) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          duration: Duration(milliseconds: 800),
-          content: Text('Habit removed'),
-        ),
-      );
+      showSnackBar(context, 'Habit removed');
     }
   }
 
