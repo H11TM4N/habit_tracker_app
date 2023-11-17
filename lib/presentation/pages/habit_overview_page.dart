@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:habit_tracker_app/data/models/habit_completion.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
-import 'package:habit_tracker_app/logic/habit_completion_bloc/habit_completion_bloc.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_card/custom_card_widget.dart';
 import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
-import 'package:habit_tracker_app/presentation/widgets/habit_calendar.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../widgets/utils/material_button.dart';
 
@@ -32,10 +29,6 @@ class _HabitOverviewPageState extends State<HabitOverviewPage> {
     context.read<HabitBloc>().add(EditHabitEvent(index, updatedHabit));
   }
 
-  Map<DateTime, List<HabitCompletion>> get completions {
-    final completionsState = context.read<HabitCompletionBloc>().state;
-    return completionsState.completions;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -161,16 +154,15 @@ class _HabitOverviewPageState extends State<HabitOverviewPage> {
                   ),
                 ),
               ),
-              Kcard(
-                height: 400,
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: HabitCalendar(habitCompletions: completions),
-                    ),
-                  ],
-                ),
-              ),
+              // Kcard(
+              //   height: 400,
+              //   child: Column(
+              //     children: [
+              //       Expanded(
+              //       ),
+              //     ],
+              //   ),
+              // ),
             ],
           ),
         );
