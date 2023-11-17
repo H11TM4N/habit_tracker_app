@@ -59,39 +59,7 @@ class _HomePageState extends State<HomePage> {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 40),
-                    child: Column(
-                      children: [
-                        KtextField(
-                          title: 'Habit title',
-                          controller: _titleController,
-                          hintText: 'e.g. Excercise',
-                        ),
-                        KtextField(
-                          title: 'Question',
-                          controller: _questionController,
-                          hintText: 'e.g. Did you excercise today?',
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            kMaterialButton(
-                                () => Navigator.pop(context), 'Cancel'),
-                            kMaterialButton(() {
-                              addHabit(Habit(
-                                title: _titleController.text,
-                                subtitle: _questionController.text,
-                              ));
-                              _titleController.clear();
-                              _questionController.clear();
-                              Navigator.pop(context);
-                            }, 'Add Habit'),
-                          ],
-                        ),
-                      ],
-                    ),
-                  );
+                  return _createHabitScreen(context);
                 },
               );
             },
@@ -127,24 +95,7 @@ class _HomePageState extends State<HomePage> {
                       if (_showUnfinishedTasks && state.habits[index].isDone) {
                         return const SizedBox.shrink();
                       } else {
-                        return KslidableWidget(
-                          key: Key('key $index'),
-                          onCheck: (_) => toggleHabits(index),
-                          onDelete: (_) => removeHabit(state.habits[index]),
-                          isDone: state.habits[index].isDone,
-                          child: HabitTile(
-                            title: state.habits[index].title,
-                            subtitle: state.habits[index].subtitle,
-                            tileOnTap: () => Navigator.push(
-                              context,
-                              MyCustomRouteTransition(
-                                  route: HabitOverviewPage(
-                                index: index,
-                              )),
-                            ),
-                            isDone: state.habits[index].isDone,
-                          ),
-                        );
+                        return _habitItem(index, state, context);
                       }
                     },
                   );
@@ -154,49 +105,114 @@ class _HomePageState extends State<HomePage> {
                   return const Text('Error');
                 }
               },
-              listener: (context, state) {
-                if (state.status == HabitStatus.added) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      duration: Duration(milliseconds: 800),
-                      content: Text('Habit added'),
-                    ),
-                  );
-                } else if (state.status == HabitStatus.removed) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      duration: Duration(milliseconds: 800),
-                      content: Text('Habit removed'),
-                    ),
-                  );
-                }
-              },
+              listenWhen: _onListenWhen,
+              listener: _listener,
             ),
           ),
         ],
       ),
-      drawer: BlocBuilder<HabitBloc, HabitState>(
-        builder: (context, state) {
-          return Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                const DrawerHeader(
-                  child: Center(child: Text('filter habits')),
-                ),
-                SwitchListTile(
-                  title: const Text('Show unfinished tasks'),
-                  value: _showUnfinishedTasks,
-                  onChanged: (value) {
-                    setState(() {
-                      _showUnfinishedTasks = !_showUnfinishedTasks;
-                    });
-                  },
-                ),
-              ],
-            ),
-          );
-        },
+      drawer: _drawer(),
+    );
+  }
+
+  bool _onListenWhen(HabitState previous, HabitState current) {
+    return current.status == HabitStatus.added ||
+        current.status == HabitStatus.removed;
+  }
+
+  void _listener(BuildContext context, HabitState state) {
+    if (state.status == HabitStatus.added) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(milliseconds: 800),
+          content: Text('Habit added'),
+        ),
+      );
+    } else if (state.status == HabitStatus.removed) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          duration: Duration(milliseconds: 800),
+          content: Text('Habit removed'),
+        ),
+      );
+    }
+  }
+
+  Padding _createHabitScreen(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 40),
+      child: Column(
+        children: [
+          KtextField(
+            title: 'Habit title',
+            controller: _titleController,
+            hintText: 'e.g. Excercise',
+          ),
+          KtextField(
+            title: 'Question',
+            controller: _questionController,
+            hintText: 'e.g. Did you excercise today?',
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              kMaterialButton(() => Navigator.pop(context), 'Cancel'),
+              kMaterialButton(() {
+                addHabit(Habit(
+                  title: _titleController.text,
+                  subtitle: _questionController.text,
+                ));
+                _titleController.clear();
+                _questionController.clear();
+                Navigator.pop(context);
+              }, 'Add Habit'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  KslidableWidget _habitItem(
+      int index, HabitState state, BuildContext context) {
+    return KslidableWidget(
+      key: Key('key $index'),
+      onCheck: (_) => toggleHabits(index),
+      onDelete: (_) => removeHabit(state.habits[index]),
+      isDone: state.habits[index].isDone,
+      child: HabitTile(
+        title: state.habits[index].title,
+        subtitle: state.habits[index].subtitle,
+        tileOnTap: () => Navigator.push(
+          context,
+          MyCustomRouteTransition(
+              route: HabitOverviewPage(
+            index: index,
+          )),
+        ),
+        isDone: state.habits[index].isDone,
+      ),
+    );
+  }
+
+  Drawer _drawer() {
+    return Drawer(
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            child: Center(child: Text('filter habits')),
+          ),
+          SwitchListTile(
+            title: const Text('Show unfinished tasks'),
+            value: _showUnfinishedTasks,
+            onChanged: (value) {
+              setState(() {
+                _showUnfinishedTasks = !_showUnfinishedTasks;
+              });
+            },
+          ),
+        ],
       ),
     );
   }
