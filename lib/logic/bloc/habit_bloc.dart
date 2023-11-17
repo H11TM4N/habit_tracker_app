@@ -55,14 +55,15 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
       state.copyWith(status: HabitStatus.removed),
     );
     try {
+      state.habits.remove(event.habit);
       if (state.habits.isEmpty) {
         emit(const HabitState(status: HabitStatus.initial));
+      } else {
+        emit(state.copyWith(
+          habits: state.habits,
+          status: HabitStatus.success,
+        ));
       }
-      state.habits.remove(event.habit);
-      emit(state.copyWith(
-        habits: state.habits,
-        status: HabitStatus.success,
-      ));
     } catch (e) {
       emit(state.copyWith(
         status: HabitStatus.error,
