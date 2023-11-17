@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:habit_tracker_app/data/constants/enums.dart';
+import 'package:habit_tracker_app/constants/enums.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';

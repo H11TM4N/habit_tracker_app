@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:habit_tracker_app/data/constants/enums.dart';
+import 'package:habit_tracker_app/constants/enums.dart';
 import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
-import 'package:habit_tracker_app/presentation/pages/habit_overview_page.dart';
-import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_page_transition/custom_page_route_transition.dart';
-import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_slidable_widget/slidable_widget.dart';
-import 'package:habit_tracker_app/presentation/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
-import 'package:habit_tracker_app/presentation/widgets/habit_item/habit_item.dart';
-import 'package:habit_tracker_app/presentation/widgets/utils/material_button.dart';
+import 'package:habit_tracker_app/ui/pages/habit_overview_page.dart';
+import 'package:habit_tracker_app/ui/widgets/custom_stateless_widgets/custom_page_transition/custom_page_route_transition.dart';
+import 'package:habit_tracker_app/ui/widgets/custom_stateless_widgets/custom_slidable_widget/slidable_widget.dart';
+import 'package:habit_tracker_app/ui/widgets/custom_stateless_widgets/custom_textfields/textfield.dart';
+import 'package:habit_tracker_app/ui/widgets/habit_item/habit_item.dart';
+import 'package:habit_tracker_app/ui/widgets/utils/material_button.dart';
 import 'package:intl/intl.dart';
 
 class HomePage extends StatefulWidget {
