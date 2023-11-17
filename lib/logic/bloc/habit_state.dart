@@ -8,9 +8,13 @@ class HabitState extends Equatable {
   final HabitStatus status;
 
   const HabitState({
-    this.habits = const <Habit>[],
-    this.status = HabitStatus.initial,
+    required this.habits,
+    required this.status,
   });
+
+  HabitState.empty()
+      : habits = <Habit>[],
+        status = HabitStatus.initial;
 
   HabitState copyWith({
     List<Habit>? habits,

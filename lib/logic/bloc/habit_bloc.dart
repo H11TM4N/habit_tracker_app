@@ -6,7 +6,7 @@ import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 class HabitBloc extends Bloc<HabitEvent, HabitState> {
-  HabitBloc() : super(const HabitState()) {
+  HabitBloc() : super(HabitState.empty()) {
     on<HabitStartedEvent>(_habitStarted);
 
     on<AddHabitEvent>(_addHabit);
@@ -57,7 +57,7 @@ class HabitBloc extends Bloc<HabitEvent, HabitState> {
     try {
       state.habits.remove(event.habit);
       if (state.habits.isEmpty) {
-        emit(const HabitState(status: HabitStatus.initial));
+        emit(HabitState.empty());
       } else {
         emit(state.copyWith(
           habits: state.habits,
