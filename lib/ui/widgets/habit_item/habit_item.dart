@@ -25,7 +25,7 @@ class HabitTile extends StatelessWidget {
         ),
       ),
       elevation: 9,
-      color: Colors.transparent,
+      color: Theme.of(context).colorScheme.primary,
       child: Container(
         decoration: const BoxDecoration(
           border: Border(
@@ -38,7 +38,7 @@ class HabitTile extends StatelessWidget {
         child: ListTile(
           onTap: tileOnTap,
           contentPadding: const EdgeInsets.all(0),
-          tileColor: Colors.transparent,
+          // tileColor: Theme.of(context).colorScheme.primary,
           title: Row(
             children: [
               const SizedBox(

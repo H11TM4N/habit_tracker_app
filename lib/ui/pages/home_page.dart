@@ -7,6 +7,7 @@ import 'package:habit_tracker_app/logic/habit_bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/habit_bloc/habit_state.dart';
 import 'package:habit_tracker_app/logic/theme_bloc/theme_bloc.dart';
 import 'package:habit_tracker_app/logic/theme_bloc/theme_event.dart';
+import 'package:habit_tracker_app/logic/theme_bloc/theme_state.dart';
 import 'package:habit_tracker_app/ui/pages/habit_overview_page.dart';
 
 import '../../constants/constants.dart';
@@ -57,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
         title: const Text('Habits'),
         actions: [
           IconButton(
@@ -73,6 +75,7 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: [
           ListTile(
@@ -217,11 +220,15 @@ class _HomePageState extends State<HomePage> {
               });
             },
           ),
-          SwitchListTile(
-            title: const Text('Dark mode'),
-            value: _showUnfinishedTasks,
-            onChanged: (value) {
-              context.read<ThemeBloc>().add(const ToggleThemeEvent());
+          BlocBuilder<ThemeBloc, ThemeState>(
+            builder: (context, state) {
+              return SwitchListTile(
+                title: const Text('Dark mode'),
+                value: state.isDarkMode,
+                onChanged: (value) {
+                  context.read<ThemeBloc>().add(const ToggleThemeEvent());
+                },
+              );
             },
           ),
         ],
