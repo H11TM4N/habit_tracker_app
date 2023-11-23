@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:habit_tracker_app/common/theme.dart';
 import 'package:habit_tracker_app/logic/habit_bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/habit_bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/theme_bloc/theme_bloc.dart';
@@ -19,19 +20,17 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (_) => HabitBloc()..add(HabitStartedEvent()),
         ),
+        BlocProvider(
+          create: (_) => ThemeBloc(),
+        ),
       ],
       child: BlocBuilder<ThemeBloc, ThemeState>(
         builder: (context, state) {
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: 'Habit Tracker App',
-            theme: ThemeData.dark().copyWith(
-              useMaterial3: true,
-              snackBarTheme: const SnackBarThemeData(
-                backgroundColor: Color(0xFF79747E),
-                contentTextStyle: TextStyle(color: Colors.white),
-              ),
-            ),
+            theme:
+                state.isDarkMode ? KthemeData.darkTheme : KthemeData.lightTheme,
             home: const HomePage(),
           );
         },

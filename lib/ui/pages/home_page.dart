@@ -5,6 +5,8 @@ import 'package:habit_tracker_app/common/utils.dart';
 import 'package:habit_tracker_app/logic/habit_bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/habit_bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/habit_bloc/habit_state.dart';
+import 'package:habit_tracker_app/logic/theme_bloc/theme_bloc.dart';
+import 'package:habit_tracker_app/logic/theme_bloc/theme_event.dart';
 import 'package:habit_tracker_app/ui/pages/habit_overview_page.dart';
 
 import '../../constants/constants.dart';
@@ -218,7 +220,9 @@ class _HomePageState extends State<HomePage> {
           SwitchListTile(
             title: const Text('Dark mode'),
             value: _showUnfinishedTasks,
-            onChanged: (value) {},
+            onChanged: (value) {
+              context.read<ThemeBloc>().add(const ToggleThemeEvent());
+            },
           ),
         ],
       ),
