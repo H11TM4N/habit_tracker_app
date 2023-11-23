@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:habit_repository/habit_repository.dart';
 import 'package:habit_tracker_app/constants/enums.dart';
-import 'package:habit_tracker_app/data/models/habit_model.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';

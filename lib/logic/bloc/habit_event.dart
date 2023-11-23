@@ -1,7 +1,7 @@
 
 
 import 'package:equatable/equatable.dart';
-import 'package:habit_tracker_app/data/models/habit_model.dart';
+import 'package:habit_repository/habit_repository.dart';
 
 abstract class HabitEvent extends Equatable {
   const HabitEvent();
