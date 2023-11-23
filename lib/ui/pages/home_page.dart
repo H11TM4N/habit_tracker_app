@@ -10,7 +10,7 @@ import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_page_transiti
 import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_slidable_widget/slidable_widget.dart';
 import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_textfields/textfield.dart';
 import 'package:habit_tracker_app/ui/widgets/habit_item/habit_item.dart';
-import 'package:habit_tracker_app/ui/widgets/utils/material_button.dart';
+import 'package:habit_tracker_app/ui/widgets/material_button.dart';
 import 'package:intl/intl.dart';
 
 import '../../constants/constants.dart';
