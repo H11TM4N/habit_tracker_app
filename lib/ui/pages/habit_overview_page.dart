@@ -4,10 +4,8 @@ import 'package:habit_repository/habit_repository.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
-import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_card/custom_card_widget.dart';
-import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_textfields/textfield.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import '../widgets/material_button.dart';
+import '../widgets/widgets.dart';
 
 class HabitOverviewPage extends StatefulWidget {
   final int index;

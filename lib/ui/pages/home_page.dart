@@ -6,14 +6,9 @@ import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
 import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
 import 'package:habit_tracker_app/ui/pages/habit_overview_page.dart';
-import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_page_transition/custom_page_route_transition.dart';
-import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_slidable_widget/slidable_widget.dart';
-import 'package:habit_tracker_app/ui/widgets/custom_widgets/custom_textfields/textfield.dart';
-import 'package:habit_tracker_app/ui/widgets/habit_item/habit_item.dart';
-import 'package:habit_tracker_app/ui/widgets/material_button.dart';
-import 'package:intl/intl.dart';
 
 import '../../constants/constants.dart';
+import '../widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -85,7 +80,7 @@ class _HomePageState extends State<HomePage> {
               style: TextStyle(fontSize: 15),
             ),
             trailing: Text(
-              DateFormat('EEE, MMM d').format(DateTime.now()),
+              dateFormat().format(DateTime.now()),
               style: const TextStyle(fontSize: 14),
             ),
           ),
@@ -219,6 +214,11 @@ class _HomePageState extends State<HomePage> {
                 _showUnfinishedTasks = !_showUnfinishedTasks;
               });
             },
+          ),
+          SwitchListTile(
+            title: const Text('Dark mode'),
+            value: _showUnfinishedTasks,
+            onChanged: (value) {},
           ),
         ],
       ),
