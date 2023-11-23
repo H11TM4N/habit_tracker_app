@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_repository/habit_repository.dart';
-import 'package:habit_tracker_app/logic/bloc/habit_bloc.dart';
-import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
-import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
+import 'package:habit_tracker_app/logic/habit_bloc/habit_bloc.dart';
+import 'package:habit_tracker_app/logic/habit_bloc/habit_event.dart';
+import 'package:habit_tracker_app/logic/habit_bloc/habit_state.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../widgets/widgets.dart';
 

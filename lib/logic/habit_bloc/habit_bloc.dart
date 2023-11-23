@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'package:habit_repository/habit_repository.dart';
 import 'package:habit_tracker_app/constants/enums.dart';
-import 'package:habit_tracker_app/logic/bloc/habit_event.dart';
-import 'package:habit_tracker_app/logic/bloc/habit_state.dart';
+import 'package:habit_tracker_app/logic/habit_bloc/habit_event.dart';
+import 'package:habit_tracker_app/logic/habit_bloc/habit_state.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 class HabitBloc extends Bloc<HabitEvent, HabitState> {
