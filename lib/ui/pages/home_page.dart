@@ -147,7 +147,7 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Padding _createHabitScreen(BuildContext context) {
+  Widget _createHabitScreen(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 40),
       child: Column(
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  KslidableWidget _habitItem(
+  Widget _habitItem(
       int index, HabitState state, BuildContext context) {
     return KslidableWidget(
       key: Key('key $index'),
@@ -204,7 +204,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Drawer _drawer() {
+  Widget _drawer() {
     return Drawer(
       child: ListView(
         padding: EdgeInsets.zero,
