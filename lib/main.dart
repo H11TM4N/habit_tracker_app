@@ -1,40 +1,37 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:habit_tracker_app/common/theme.dart';
-import 'package:habit_tracker_app/logic/habit_bloc/habit_bloc.dart';
-import 'package:habit_tracker_app/logic/habit_bloc/habit_event.dart';
-import 'package:habit_tracker_app/logic/theme_bloc/theme_bloc.dart';
-import 'package:habit_tracker_app/logic/theme_bloc/theme_state.dart';
+import 'package:habit_tracker_app/logic/providers/habit_provider.dart';
+import 'package:provider/provider.dart';
+import 'logic/providers/theme_provider.dart';
 import 'ui/pages/home_page.dart';
 
 void main() async {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => HabitProvider(),
+        ),
+        ChangeNotifierProvider<ThemeProvider>(
+          create: (_) => ThemeProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (_) => HabitBloc()..add(HabitStartedEvent()),
-        ),
-        BlocProvider(
-          create: (_) => ThemeBloc(),
-        ),
-      ],
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            title: 'Habit Tracker App',
-            theme:
-                state.isDarkMode ? KthemeData.darkTheme : KthemeData.lightTheme,
-            home: const HomePage(),
-          );
-        },
-      ),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Habit Tracker App',
+      theme: context.watch<ThemeProvider>().isDarkmode
+          ? KthemeData.darkTheme
+          : KthemeData.lightTheme,
+      home: const HomePage(),
     );
   }
 }

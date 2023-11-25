@@ -14,12 +14,6 @@ class Habit {
     this.isDone = false,
   });
 
-  // Habit.empty()
-  //     : id = 0,
-  //       title = '',
-  //       subtitle = '',
-  //       isDone = false;
-
   Habit copyWith({
     int? id,
     String? title,
