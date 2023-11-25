@@ -35,3 +35,16 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+
+
+// ListTile(
+//             tileColor: Colors.transparent,
+//             leading: const Text(
+//               'Today\'s\n Habits',
+//               style: TextStyle(fontSize: 15),
+//             ),
+//             trailing: Text(
+//               dateFormat().format(DateTime.now()),
+//               style: const TextStyle(fontSize: 14),
+//             ),
+//           ),

@@ -45,15 +45,14 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: theme.background,
       body: Column(
         children: [
-          ListTile(
-            tileColor: Colors.transparent,
-            leading: const Text(
-              'Today\'s\n Habits',
-              style: TextStyle(fontSize: 15),
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              bottomLeft: Radius.circular(20),
+              bottomRight: Radius.circular(20),
             ),
-            trailing: Text(
-              dateFormat().format(DateTime.now()),
-              style: const TextStyle(fontSize: 14),
+            child: Container(
+              height: MediaQuery.of(context).size.height * .2,
+              color: theme.primary,
             ),
           ),
           Expanded(
@@ -77,9 +76,9 @@ class _HomePageState extends State<HomePage> {
                               context.read<HabitProvider>().toggleHabit(index),
                           onDelete: (_) {
                             context
-                              .read<HabitProvider>()
-                              .removeHabit(habits[index]);
-                              showSnackBar(context, 'Habit removed');
+                                .read<HabitProvider>()
+                                .removeHabit(habits[index]);
+                            showSnackBar(context, 'Habit removed');
                           },
                           isDone: habits[index].isDone,
                           child: HabitTile(
