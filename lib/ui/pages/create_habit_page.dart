@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_repository/habit_repository.dart';
 import 'package:provider/provider.dart';
+import '../../common/common.dart';
 import '../../logic/providers/habit_provider.dart';
 import '../widgets/widgets.dart';
 
@@ -24,7 +25,9 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return Scaffold(
+      backgroundColor: theme.secondary,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 40),
         child: Column(
@@ -50,6 +53,7 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
                       ));
                   _titleController.clear();
                   _questionController.clear();
+                  showSnackBar(context, 'Habit added');
                   Navigator.pop(context);
                 }, 'Add Habit'),
               ],

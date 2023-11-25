@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/ui/widgets/widgets.dart';
 import 'package:intl/intl.dart';
 
 void showSnackBar(BuildContext context, String content) {
@@ -10,4 +11,18 @@ void showSnackBar(BuildContext context, String content) {
   ));
 }
 
- DateFormat dateFormat() => DateFormat('EEE, MMM d');
+DateFormat dateFormat() => DateFormat('EEE, MMM d');
+
+void slideUpPageTransition({
+  required BuildContext context,
+  required Widget page,
+}) {
+  Navigator.push(context, BottomToTopPageTransition(route: page));
+}
+
+void smoothTransition({
+  required BuildContext context,
+  required Widget page,
+}) {
+  Navigator.push(context, MyCustomRouteTransition(route: page));
+}

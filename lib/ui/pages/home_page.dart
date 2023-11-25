@@ -24,24 +24,25 @@ class _HomePageState extends State<HomePage> {
     final habits = context.watch<HabitProvider>().habits;
     final status = context.watch<HabitProvider>().status;
     final isDarkMode = context.watch<ThemeProvider>().isDarkmode;
+    final theme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: theme.primary,
         title: const Text('Habits'),
         actions: [
           IconButton(
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const CreateHabitPage(),
-                  ));
+              slideUpPageTransition(
+                context: context,
+                page: const CreateHabitPage(),
+              );
             },
             icon: const Icon(Icons.add),
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: theme.background,
       body: Column(
         children: [
           ListTile(
@@ -74,9 +75,12 @@ class _HomePageState extends State<HomePage> {
                           key: Key('key $index'),
                           onCheck: (_) =>
                               context.read<HabitProvider>().toggleHabit(index),
-                          onDelete: (_) => context
+                          onDelete: (_) {
+                            context
                               .read<HabitProvider>()
-                              .removeHabit(habits[index]),
+                              .removeHabit(habits[index]);
+                              showSnackBar(context, 'Habit removed');
+                          },
                           isDone: habits[index].isDone,
                           child: HabitTile(
                             title: habits[index].title,
@@ -101,6 +105,7 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: Drawer(
+        backgroundColor: theme.primary,
         child: ListView(
           padding: EdgeInsets.zero,
           children: [
