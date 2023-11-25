@@ -56,50 +56,61 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).colorScheme;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: const Text('Habits'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (context) {
-                  return _createHabitScreen(context);
-                },
-              );
-            },
-            icon: const Icon(Icons.add),
-          ),
-        ],
-      ),
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: Column(
-        children: [
-          ListTile(
-            tileColor: Colors.transparent,
-            leading: const Text(
-              'Today\'s\n Habits',
-              style: TextStyle(fontSize: 15),
+      backgroundColor: theme.background,
+      body: CustomScrollView(slivers: [
+        SliverAppBar(
+          expandedHeight: 160.0,
+          pinned: true,
+          snap: false,
+          floating: false,
+          backgroundColor: theme.primary,
+          actions: [
+            IconButton(
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return _createHabitScreen(context);
+                  },
+                );
+              },
+              icon: const Icon(Icons.add),
             ),
-            trailing: Text(
-              dateFormat().format(DateTime.now()),
-              style: const TextStyle(fontSize: 14),
-            ),
+          ],
+          flexibleSpace: FlexibleSpaceBar(
+            centerTitle: true,
           ),
-          Expanded(
-            child: BlocConsumer<HabitBloc, HabitState>(
-              buildWhen: _onBuildWhen,
-              builder: _builder,
-              listenWhen: _onListenWhen,
-              listener: _listener,
-            ),
+        ),
+        SliverFillRemaining(
+          child: Column(
+            children: [
+              ListTile(
+                tileColor: Colors.transparent,
+                leading: const Text(
+                  'Today\'s\n Habits',
+                  style: TextStyle(fontSize: 15),
+                ),
+                trailing: Text(
+                  dateFormat().format(DateTime.now()),
+                  style: const TextStyle(fontSize: 14),
+                ),
+              ),
+              Expanded(
+                child: BlocConsumer<HabitBloc, HabitState>(
+                  buildWhen: _onBuildWhen,
+                  builder: _builder,
+                  listenWhen: _onListenWhen,
+                  listener: _listener,
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-      drawer: _drawer(),
+        )
+      ]),
+      drawer: _drawer(backgroundColor: theme.background),
     );
   }
 
@@ -203,8 +214,9 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Widget _drawer() {
+  Widget _drawer({required Color backgroundColor}) {
     return Drawer(
+      backgroundColor: backgroundColor,
       child: ListView(
         padding: EdgeInsets.zero,
         children: [
