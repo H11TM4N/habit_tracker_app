@@ -3,11 +3,8 @@ import 'package:habit_tracker_app/common/utils.dart';
 import 'package:habit_tracker_app/logic/providers/habit_provider.dart';
 import 'package:habit_tracker_app/logic/providers/theme_provider.dart';
 import 'package:habit_tracker_app/ui/pages/create_habit_page.dart';
-import 'package:habit_tracker_app/ui/pages/habit_overview_page.dart';
 import 'package:provider/provider.dart';
-
-import '../../constants/constants.dart';
-import '../widgets/widgets.dart';
+import 'habit_body.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -27,6 +24,7 @@ class _HomePageState extends State<HomePage> {
     final theme = Theme.of(context).colorScheme;
 
     return Scaffold(
+      backgroundColor: theme.background,
       appBar: AppBar(
         backgroundColor: theme.primary,
         title: const Text('Habits'),
@@ -42,93 +40,47 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      backgroundColor: theme.background,
       body: Column(
         children: [
-          ClipRRect(
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            child: Container(
-              height: MediaQuery.of(context).size.height * .2,
-              color: theme.primary,
-            ),
-          ),
           Expanded(
-            child: status == HabitStatus.success
-                ? ReorderableListView.builder(
-                    key: Key('Key ${habits.length} '),
-                    onReorder: (oldIndex, newIndex) {
-                      final movedHabit = habits[oldIndex];
-                      context
-                          .read<HabitProvider>()
-                          .reorderHabits(oldIndex, newIndex, movedHabit);
-                    },
-                    itemCount: habits.length,
-                    itemBuilder: (context, index) {
-                      if (_showUnfinishedTasks && habits[index].isDone) {
-                        return const SizedBox.shrink();
-                      } else {
-                        return KslidableWidget(
-                          key: Key('key $index'),
-                          onCheck: (_) =>
-                              context.read<HabitProvider>().toggleHabit(index),
-                          onDelete: (_) {
-                            context
-                                .read<HabitProvider>()
-                                .removeHabit(habits[index]);
-                            showSnackBar(context, 'Habit removed');
-                          },
-                          isDone: habits[index].isDone,
-                          child: HabitTile(
-                            title: habits[index].title,
-                            subtitle: habits[index].subtitle,
-                            tileOnTap: () => Navigator.push(
-                              context,
-                              MyCustomRouteTransition(
-                                  route: HabitOverviewPage(
-                                index: index,
-                              )),
-                            ),
-                            isDone: habits[index].isDone,
-                          ),
-                        );
-                      }
-                    },
-                  )
-                : status == HabitStatus.initial
-                    ? const Center(child: Text('No habits added yet...'))
-                    : const Text('Error'),
+            child: HabitBody(
+              status: status,
+              habits: habits,
+              showUnfinishedTasks: _showUnfinishedTasks,
+            ),
           )
         ],
       ),
-      drawer: Drawer(
-        backgroundColor: theme.primary,
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: [
-            const DrawerHeader(
-              child: Center(child: Text('filter habits')),
-            ),
-            SwitchListTile(
-              title: const Text('Show unfinished tasks'),
-              value: _showUnfinishedTasks,
-              onChanged: (value) {
-                setState(() {
-                  _showUnfinishedTasks = !_showUnfinishedTasks;
-                });
-              },
-            ),
-            SwitchListTile(
-              title: const Text('Dark mode'),
-              value: isDarkMode,
-              onChanged: (value) {
-                context.read<ThemeProvider>().toggleTheme();
-              },
-            ),
-          ],
-        ),
+      drawer: _drawer(theme, isDarkMode, context),
+    );
+  }
+
+  Widget _drawer(ColorScheme theme, bool isDarkMode, BuildContext context) {
+    return Drawer(
+      backgroundColor: theme.primary,
+      child: ListView(
+        padding: EdgeInsets.zero,
+        children: [
+          const DrawerHeader(
+            child: Center(child: Text('filter habits')),
+          ),
+          SwitchListTile(
+            title: const Text('Show unfinished tasks'),
+            value: _showUnfinishedTasks,
+            onChanged: (value) {
+              setState(() {
+                _showUnfinishedTasks = !_showUnfinishedTasks;
+              });
+            },
+          ),
+          SwitchListTile(
+            title: const Text('Dark mode'),
+            value: isDarkMode,
+            onChanged: (value) {
+              context.read<ThemeProvider>().toggleTheme();
+            },
+          ),
+        ],
       ),
     );
   }

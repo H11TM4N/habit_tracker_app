@@ -37,8 +37,6 @@ class HabitProvider extends ChangeNotifier implements IHabitProvider {
 
   @override
   void addHabit(Habit habit) {
-    _status = HabitStatus.added;
-
     try {
       _habits = [habit, ..._habits];
       _status = HabitStatus.success;
@@ -50,8 +48,6 @@ class HabitProvider extends ChangeNotifier implements IHabitProvider {
 
   @override
   void removeHabit(Habit habit) {
-    _status = HabitStatus.removed;
-
     try {
       _habits.remove(habit);
       _status = HabitStatus.success;
