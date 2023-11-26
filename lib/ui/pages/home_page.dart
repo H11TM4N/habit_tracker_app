@@ -14,7 +14,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  bool _showUnfinishedTasks = false;
+  void onAddHabitTap() {
+    slideUpPageTransition(
+      context: context,
+      page: const CreateHabitPage(),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +35,38 @@ class _HomePageState extends State<HomePage> {
         title: const Text('Habits'),
         actions: [
           IconButton(
-            onPressed: () {
-              slideUpPageTransition(
-                context: context,
-                page: const CreateHabitPage(),
-              );
-            },
+            onPressed: onAddHabitTap,
             icon: const Icon(Icons.add),
           ),
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.sort),
+          ),
+          PopupMenuButton(
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  child: const Text('Settings'),
+                  onTap: () {},
+                ),
+                PopupMenuItem(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text('Dark mode'),
+                      Checkbox(
+                        value: isDarkMode,
+                        onChanged: (value) {
+                          context.read<ThemeProvider>().toggleTheme();
+                        },
+                      ),
+                    ],
+                  ),
+                  onTap: () {},
+                ),
+              ];
+            },
+          )
         ],
       ),
       body: Column(
@@ -46,40 +75,8 @@ class _HomePageState extends State<HomePage> {
             child: HabitBody(
               status: status,
               habits: habits,
-              showUnfinishedTasks: _showUnfinishedTasks,
             ),
           )
-        ],
-      ),
-      drawer: _drawer(theme, isDarkMode, context),
-    );
-  }
-
-  Widget _drawer(ColorScheme theme, bool isDarkMode, BuildContext context) {
-    return Drawer(
-      backgroundColor: theme.primary,
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          const DrawerHeader(
-            child: Center(child: Text('filter habits')),
-          ),
-          SwitchListTile(
-            title: const Text('Show unfinished tasks'),
-            value: _showUnfinishedTasks,
-            onChanged: (value) {
-              setState(() {
-                _showUnfinishedTasks = !_showUnfinishedTasks;
-              });
-            },
-          ),
-          SwitchListTile(
-            title: const Text('Dark mode'),
-            value: isDarkMode,
-            onChanged: (value) {
-              context.read<ThemeProvider>().toggleTheme();
-            },
-          ),
         ],
       ),
     );

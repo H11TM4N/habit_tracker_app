@@ -13,12 +13,10 @@ class HabitBody extends StatelessWidget {
     super.key,
     required this.status,
     required this.habits,
-    required bool showUnfinishedTasks,
-  }) : _showUnfinishedTasks = showUnfinishedTasks;
+  });
 
   final HabitStatus status;
   final List<Habit> habits;
-  final bool _showUnfinishedTasks;
 
   @override
   Widget build(BuildContext context) {
@@ -27,31 +25,27 @@ class HabitBody extends StatelessWidget {
             key: Key('Key ${habits.length} '),
             itemCount: habits.length,
             itemBuilder: (context, index) {
-              if (_showUnfinishedTasks && habits[index].isDone) {
-                return const SizedBox.shrink();
-              } else {
-                return KslidableWidget(
-                  key: Key('key $index'),
-                  onCheck: (_) =>
-                      context.read<HabitProvider>().toggleHabit(index),
-                  onDelete: (_) {
-                    context.read<HabitProvider>().removeHabit(habits[index]);
-                    showSnackBar(context, 'Habit removed');
+              return KslidableWidget(
+                key: Key('key $index'),
+                onCheck: (_) =>
+                    context.read<HabitProvider>().toggleHabit(index),
+                onDelete: (_) {
+                  context.read<HabitProvider>().removeHabit(habits[index]);
+                  showSnackBar(context, 'Habit removed');
+                },
+                isDone: habits[index].isDone,
+                child: HabitTile(
+                  title: habits[index].title,
+                  subtitle: habits[index].subtitle,
+                  tileOnTap: () {
+                    smoothTransition(
+                      context: context,
+                      page: HabitOverviewPage(index: index),
+                    );
                   },
                   isDone: habits[index].isDone,
-                  child: HabitTile(
-                    title: habits[index].title,
-                    subtitle: habits[index].subtitle,
-                    tileOnTap: () {
-                      smoothTransition(
-                        context: context,
-                        page: HabitOverviewPage(index: index),
-                      );
-                    },
-                    isDone: habits[index].isDone,
-                  ),
-                );
-              }
+                ),
+              );
             },
           )
         : status == HabitStatus.initial
