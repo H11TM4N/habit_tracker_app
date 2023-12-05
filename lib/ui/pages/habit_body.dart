@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:habit_repository/habit_repository.dart';
 import 'package:habit_tracker_app/ui/pages/habit_overview_page.dart';
 import 'package:provider/provider.dart';
-
 import '../../common/common.dart';
 import '../../constants/constants.dart';
 import '../../logic/providers/habit_provider.dart';

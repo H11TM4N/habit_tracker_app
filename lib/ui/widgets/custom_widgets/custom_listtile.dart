@@ -44,16 +44,17 @@ class KlistTile extends StatelessWidget {
             )
           : null,
       trailing: IconButton(
-              onPressed: () {
-                showPopupMenu(
-                  context,
-                  onRemove: onRemove,
-                  toggle: onToggle,
-                  isCompleted: isDone,
-                );
-              },
-              icon: const Icon(Icons.more_horiz, color: Colors.white),
-            ),
+        onPressed: () {
+          showPopupMenu(
+            context,
+            onRemove: onRemove,
+            toggle: onToggle,
+            isCompleted: isDone,
+            onEditTap: tileOnTap,
+          );
+        },
+        icon: const Icon(Icons.more_horiz, color: Colors.white),
+      ),
     );
   }
 }

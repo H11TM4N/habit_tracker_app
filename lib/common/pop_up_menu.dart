@@ -4,6 +4,7 @@ void showPopupMenu(
   BuildContext context, {
   required void Function()? onRemove,
   required void Function()? toggle,
+  required void Function()? onEditTap,
   required bool isCompleted,
 }) async {
   final RenderBox button = context.findRenderObject() as RenderBox;
@@ -25,16 +26,27 @@ void showPopupMenu(
     items: [
       PopupMenuItem(
         value: 1,
+        onTap: onEditTap,
+        child: const ListTile(
+          contentPadding: EdgeInsets.all(0),
+          leading: Icon(Icons.edit),
+          title: Text('EDIT'),
+        ),
+      ),
+      PopupMenuItem(
+        value: 2,
         onTap: onRemove,
         child: const ListTile(
+          contentPadding: EdgeInsets.all(0),
           leading: Icon(Icons.delete_outline),
           title: Text('REMOVE'),
         ),
       ),
       PopupMenuItem(
-        value: 2,
+        value: 3,
         onTap: toggle,
         child: ListTile(
+          contentPadding: const EdgeInsets.all(0),
           leading: Icon(isCompleted ? Icons.refresh : Icons.check),
           title: Text(isCompleted ? 'UNDO' : 'FINISH'),
         ),

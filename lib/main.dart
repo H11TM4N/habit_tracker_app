@@ -28,23 +28,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Habit Tracker App',
-      theme: context.watch<ThemeProvider>().isDarkmode
-          ? KthemeData.darkTheme
-          : KthemeData.lightTheme,
+      theme: KthemeData.darkTheme,
       home: const HomePage(),
     );
   }
 }
-
-
-// ListTile(
-//             tileColor: Colors.transparent,
-//             leading: const Text(
-//               'Today\'s\n Habits',
-//               style: TextStyle(fontSize: 15),
-//             ),
-//             trailing: Text(
-//               dateFormat().format(DateTime.now()),
-//               style: const TextStyle(fontSize: 14),
-//             ),
-//           ),
