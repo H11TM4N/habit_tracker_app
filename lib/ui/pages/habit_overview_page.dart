@@ -24,7 +24,7 @@ class _HabitOverviewPageState extends State<HabitOverviewPage> {
     final TextEditingController titleController =
         TextEditingController(text: habits[widget.index].title);
     final TextEditingController questionController =
-        TextEditingController(text: habits[widget.index].subtitle);
+        TextEditingController(text: habits[widget.index].note);
     return Scaffold(
       appBar: AppBar(
         title: Text(habits[widget.index].title),
@@ -59,7 +59,7 @@ class _HabitOverviewPageState extends State<HabitOverviewPage> {
                                   widget.index,
                                   Habit(
                                       title: titleController.text,
-                                      subtitle: questionController.text));
+                                      note: questionController.text));
                               titleController.clear();
                               questionController.clear();
                               Navigator.popUntil(

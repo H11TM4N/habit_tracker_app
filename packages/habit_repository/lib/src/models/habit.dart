@@ -4,26 +4,26 @@ import 'dart:convert';
 class Habit {
   final int id;
   final String title;
-  final String subtitle;
+  final String note;
   bool isDone;
 
   Habit({
     this.id = 0,
     this.title = '',
-    this.subtitle = '',
+    this.note = 'optional',
     this.isDone = false,
   });
 
   Habit copyWith({
     int? id,
     String? title,
-    String? subtitle,
+    String? note,
     bool? isDone,
   }) {
     return Habit(
       id: id ?? this.id,
       title: title ?? this.title,
-      subtitle: subtitle ?? this.subtitle,
+      note: note ?? this.note,
       isDone: isDone ?? this.isDone,
     );
   }
@@ -32,7 +32,7 @@ class Habit {
     return <String, dynamic>{
       'id': id,
       'title': title,
-      'subtitle': subtitle,
+      'note': note,
       'isDone': isDone,
     };
   }
@@ -41,7 +41,7 @@ class Habit {
     return Habit(
       id: map['id'] as int,
       title: map['title'] as String,
-      subtitle: map['subtitle'] as String,
+      note: map['note'] as String,
       isDone: map['isDone'] as bool,
     );
   }
@@ -53,7 +53,7 @@ class Habit {
 
   @override
   String toString() {
-    return 'Habit(id: $id, title: $title, subtitle: $subtitle, isDone: $isDone)';
+    return 'Habit(id: $id, title: $title, note: $note, isDone: $isDone)';
   }
 
   @override
@@ -62,12 +62,12 @@ class Habit {
 
     return other.id == id &&
         other.title == title &&
-        other.subtitle == subtitle &&
+        other.note == note &&
         other.isDone == isDone;
   }
 
   @override
   int get hashCode {
-    return id.hashCode ^ title.hashCode ^ subtitle.hashCode ^ isDone.hashCode;
+    return id.hashCode ^ title.hashCode ^ note.hashCode ^ isDone.hashCode;
   }
 }

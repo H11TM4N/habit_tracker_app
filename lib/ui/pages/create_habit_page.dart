@@ -38,9 +38,9 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
               hintText: 'e.g. Excercise',
             ),
             KtextField(
-              title: 'Question',
+              title: 'Additional notes',
               controller: _questionController,
-              hintText: 'e.g. Did you excercise today?',
+              hintText: 'Optional',
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +49,7 @@ class _CreateHabitPageState extends State<CreateHabitPage> {
                 kMaterialButton(() {
                   context.read<HabitProvider>().addHabit(Habit(
                         title: _titleController.text,
-                        subtitle: _questionController.text,
+                        note: _questionController.text,
                       ));
                   _titleController.clear();
                   _questionController.clear();

@@ -25,26 +25,38 @@ class HabitBody extends StatelessWidget {
             key: Key('Key ${habits.length} '),
             itemCount: habits.length,
             itemBuilder: (context, index) {
-              return KslidableWidget(
-                key: Key('key $index'),
-                onCheck: (_) =>
-                    context.read<HabitProvider>().toggleHabit(index),
-                onDelete: (_) {
-                  context.read<HabitProvider>().removeHabit(habits[index]);
-                  showSnackBar(context, 'Habit removed');
-                },
-                isDone: habits[index].isDone,
-                child: HabitTile(
-                  title: habits[index].title,
-                  subtitle: habits[index].subtitle,
-                  tileOnTap: () {
-                    smoothTransition(
-                      context: context,
-                      page: HabitOverviewPage(index: index),
-                    );
-                  },
-                  isDone: habits[index].isDone,
-                ),
+              return Row(
+                children: [
+                  Checkbox(
+                    shape: const CircleBorder(),
+                    value: context.watch<HabitProvider>().habits[index].isDone,
+                    onChanged: (value) {
+                      context.read<HabitProvider>().toggleHabit(index);
+                    },
+                  ),
+                  const SizedBox(width: 5),
+                  Expanded(
+                    child: HabitTile(
+                      title: habits[index].title,
+                      subtitle: habits[index].note,
+                      tileOnTap: () {
+                        smoothTransition(
+                          context: context,
+                          page: HabitOverviewPage(index: index),
+                        );
+                      },
+                      isDone: habits[index].isDone,
+                      onRemove: () {
+                        context
+                            .read<HabitProvider>()
+                            .removeHabit(habits[index]);
+                      },
+                      onToggle: () {
+                        context.read<HabitProvider>().toggleHabit(index);
+                      },
+                    ),
+                  ),
+                ],
               );
             },
           )
