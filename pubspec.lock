@@ -97,6 +97,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.6"
+  date_picker_timeline:
+    dependency: "direct main"
+    description:
+      name: date_picker_timeline
+      sha256: dc754de3a99ad654c5633072cb9edac27e0b2875c81c7286e8c6cf419082a110
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.5"
   equatable:
     dependency: "direct main"
     description:
@@ -134,6 +142,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_hooks:
+    dependency: transitive
+    description:
+      name: flutter_hooks
+      sha256: "7c8db779c2d1010aa7f9ea3fbefe8f86524fcb87b69e8b0af31e1a4b55422dec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.20.3"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -142,6 +158,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  flutter_riverpod:
+    dependency: "direct main"
+    description:
+      name: flutter_riverpod
+      sha256: da9591d1f8d5881628ccd5c25c40e74fc3eef50ba45e40c3905a06e1712412d5
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.9"
   flutter_slidable:
     dependency: "direct main"
     description:
@@ -152,11 +176,6 @@ packages:
     version: "3.0.0"
   flutter_test:
     dependency: "direct dev"
-    description: flutter
-    source: sdk
-    version: "0.0.0"
-  flutter_web_plugins:
-    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -184,13 +203,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.2"
-  habit_repository:
+  google_fonts:
     dependency: "direct main"
     description:
-      path: "packages/habit_repository"
-      relative: true
-    source: path
-    version: "1.0.0+1"
+      name: google_fonts
+      sha256: f0b8d115a13ecf827013ec9fc883390ccc0e87a96ed5347a3114cac177ef18e8
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.1.0"
+  hooks_riverpod:
+    dependency: "direct main"
+    description:
+      name: hooks_riverpod
+      sha256: c12a456e03ef9be65b0be66963596650ad7a3220e96c7e7b0a048562ea32d6ae
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.4.9"
+  http:
+    dependency: transitive
+    description:
+      name: http
+      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   http_multi_server:
     dependency: transitive
     description:
@@ -279,14 +315,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  nested:
-    dependency: transitive
-    description:
-      name: nested
-      sha256: "03bac4c528c64c95c722ec99280375a6f2fc708eec17c7b3f07253b626cd2a20"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.0"
   node_preamble:
     dependency: transitive
     description:
@@ -391,14 +419,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.5.1"
-  provider:
-    dependency: "direct main"
-    description:
-      name: provider
-      sha256: "9a96a0a19b594dbc5bf0f1f27d2bc67d5f95957359b461cd9feb44ed6ae75096"
-      url: "https://pub.dev"
-    source: hosted
-    version: "6.1.1"
   pub_semver:
     dependency: transitive
     description:
@@ -415,62 +435,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.6.0"
-  shared_preferences:
-    dependency: "direct main"
-    description:
-      name: shared_preferences
-      sha256: "81429e4481e1ccfb51ede496e916348668fd0921627779233bd24cc3ff6abd02"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.2"
-  shared_preferences_android:
+  riverpod:
     dependency: transitive
     description:
-      name: shared_preferences_android
-      sha256: "8568a389334b6e83415b6aae55378e158fbc2314e074983362d20c562780fb06"
+      name: riverpod
+      sha256: "942999ee48b899f8a46a860f1e13cee36f2f77609eb54c5b7a669bb20d550b11"
       url: "https://pub.dev"
     source: hosted
-    version: "2.2.1"
-  shared_preferences_foundation:
-    dependency: transitive
-    description:
-      name: shared_preferences_foundation
-      sha256: "7bf53a9f2d007329ee6f3df7268fd498f8373602f943c975598bbb34649b62a7"
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.4"
-  shared_preferences_linux:
-    dependency: transitive
-    description:
-      name: shared_preferences_linux
-      sha256: c2eb5bf57a2fe9ad6988121609e47d3e07bb3bdca5b6f8444e4cf302428a128a
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.1"
-  shared_preferences_platform_interface:
-    dependency: transitive
-    description:
-      name: shared_preferences_platform_interface
-      sha256: d4ec5fc9ebb2f2e056c617112aa75dcf92fc2e4faaf2ae999caa297473f75d8a
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.1"
-  shared_preferences_web:
-    dependency: transitive
-    description:
-      name: shared_preferences_web
-      sha256: d762709c2bbe80626ecc819143013cc820fa49ca5e363620ee20a8b15a3e3daf
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.2.1"
-  shared_preferences_windows:
-    dependency: transitive
-    description:
-      name: shared_preferences_windows
-      sha256: f763a101313bd3be87edffe0560037500967de9c394a714cd598d945517f694f
-      url: "https://pub.dev"
-    source: hosted
-    version: "2.3.1"
+    version: "2.4.9"
   shelf:
     dependency: transitive
     description:
@@ -503,14 +475,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  simple_gesture_detector:
-    dependency: transitive
-    description:
-      name: simple_gesture_detector
-      sha256: "86d08f85f1f58583b7b4b941d989f48ea6ce08c1724a1d10954a277c2ec36592"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.0"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -556,6 +520,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.11.0"
+  state_notifier:
+    dependency: transitive
+    description:
+      name: state_notifier
+      sha256: b8677376aa54f2d7c58280d5a007f9e8774f1968d1fb1c096adcb4792fba29bb
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.0"
   stream_channel:
     dependency: transitive
     description:
@@ -572,14 +544,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  table_calendar:
-    dependency: "direct main"
-    description:
-      name: table_calendar
-      sha256: "1e3521a3e6d3fc7f645a58b135ab663d458ab12504f1ea7f9b4b81d47086c478"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.9"
   term_glyph:
     dependency: transitive
     description:
