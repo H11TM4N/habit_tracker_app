@@ -2,37 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/UI/pages/habit_page.dart';
 import 'package:habit_tracker_app/UI/pages/history_page.dart';
 import 'package:habit_tracker_app/UI/pages/profile_page.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends HookWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
-
-  final List<Widget> _pages = const <Widget>[
-    HabitsPage(),
-    HistoryPage(),
-    ProfilePage(),
-  ];
-
-  @override
   Widget build(BuildContext context) {
+    final currentIndex = useState(0);
+
+    const List<Widget> pages = <Widget>[
+      HabitsPage(),
+      HistoryPage(),
+      ProfilePage(),
+    ];
+
     return Scaffold(
       body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
+        index: currentIndex.value,
+        children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
+        currentIndex: currentIndex.value,
         type: BottomNavigationBarType.fixed,
         onTap: (value) {
-          setState(() {
-            _currentIndex = value;
-          });
+          currentIndex.value = value;
         },
         items: const [
           BottomNavigationBarItem(
