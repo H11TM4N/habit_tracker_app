@@ -1,27 +1,5 @@
-import 'package:habit_tracker_app/utils/date_formatter.dart';
-
-// class Habit {
-//   final String id;
-//   final String title;
-//   final String description;
-//   final DateTime createdAt;
-//   List<DateTime> completionDates;
-
-//   Habit({
-//     required this.id,
-//     required this.title,
-//     required this.description,
-//     required this.createdAt,
-//     required this.completionDates,
-//   });
-
-//   Habit.empty()
-//       : id = '',
-//         title = '',
-//         description = '',
-//         createdAt = dateFormatter(DateTime.now()),
-//         completionDates = [];
-// }
+import 'package:habit_tracker_app/common/utils/date_formatter.dart';
+import 'package:uuid/uuid.dart';
 
 import 'package:hive/hive.dart';
 
@@ -39,19 +17,24 @@ class Habit {
   DateTime createdAt;
   @HiveField(4)
   List<DateTime> completionDates;
+  @HiveField(5)
+  bool isComleted;
+  
 
   Habit({
     required this.id,
     required this.title,
     required this.description,
     required this.createdAt,
+    required this.isComleted,
     required this.completionDates,
   });
 
   Habit.empty()
-      : id = '',
+      : id = const Uuid().v4(),
         title = '',
         description = '',
         createdAt = dateFormatter(DateTime.now()),
+        isComleted = false,
         completionDates = [];
 }
