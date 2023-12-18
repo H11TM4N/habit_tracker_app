@@ -1,8 +1,6 @@
-import 'package:habit_tracker_app/common/utils/date_formatter.dart';
+import 'package:habit_tracker_app/common/common.dart';
 import 'package:uuid/uuid.dart';
-
 import 'package:hive/hive.dart';
-
 part 'habit.g.dart';
 
 @HiveType(typeId: 1)
@@ -19,7 +17,6 @@ class Habit {
   List<DateTime> completionDates;
   @HiveField(5)
   bool isComleted;
-  
 
   Habit({
     required this.id,

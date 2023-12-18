@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:habit_tracker_app/common/boxes/boxes.dart';
+import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/models/habit.dart';
 
 final habitProvider = StateNotifierProvider<HabitNotifier, List<Habit>>((ref) {
@@ -12,7 +12,8 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   }
 
   void addHabit(Habit habit) {
-    box.add(habit);
+    final index = state.length;
+    box.putAt(index, habit);
     state = box.values.toList();
   }
 

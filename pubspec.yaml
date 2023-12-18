@@ -48,6 +48,7 @@ dependencies:
   flutter_hooks: ^0.20.3
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  flutter_iconpicker: ^3.2.4
 
 dev_dependencies:
   flutter_test:
