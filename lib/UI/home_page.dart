@@ -23,6 +23,7 @@ class HomePage extends HookWidget {
         children: pages,
       ),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Theme.of(context).colorScheme.primary,
         currentIndex: currentIndex.value,
         type: BottomNavigationBarType.fixed,
         onTap: (value) {

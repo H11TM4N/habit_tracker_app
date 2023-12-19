@@ -27,14 +27,11 @@ class Habit {
     required this.completionDates,
   });
 
-  Habit.empty({required this.title})
-      : id = const Uuid().v4(),
-        description = '',
+  Habit.newHabit({
+    required this.title,
+    required this.description,
+  })  : id = const Uuid().v4(),
         createdAt = dateFormatter(DateTime.now()),
         isComleted = false,
         completionDates = [];
 }
-
-var x = Habit.empty(
-  title: ''
-);
