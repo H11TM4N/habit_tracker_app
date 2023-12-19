@@ -12,8 +12,7 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   }
 
   void addHabit(Habit habit) {
-    final index = state.length;
-    box.putAt(index, habit);
+    box.add(habit);
     state = box.values.toList();
   }
 
@@ -40,7 +39,7 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   void toggleCompletion(Habit habit) {
     int index = state.indexWhere((h) => h.id.compareTo(habit.id) == 0);
     if (index > -1) {
-      habit.isComleted = !habit.isComleted;
+      habit.isCompleted = !habit.isCompleted;
       box.putAt(index, habit);
       state = box.values.toList();
     }

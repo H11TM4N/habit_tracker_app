@@ -1,5 +1,3 @@
-import 'package:habit_tracker_app/common/common.dart';
-import 'package:uuid/uuid.dart';
 import 'package:hive/hive.dart';
 part 'habit.g.dart';
 
@@ -16,22 +14,14 @@ class Habit {
   @HiveField(4)
   List<DateTime> completionDates;
   @HiveField(5)
-  bool isComleted;
+  bool isCompleted;
 
   Habit({
-    required this.id,
-    required this.title,
-    required this.description,
+    this.id = '',
+    this.title = '',
+    this.description = '',
     required this.createdAt,
-    required this.isComleted,
-    required this.completionDates,
+    required this.isCompleted,
+    this.completionDates = const [],
   });
-
-  Habit.newHabit({
-    required this.title,
-    required this.description,
-  })  : id = const Uuid().v4(),
-        createdAt = dateFormatter(DateTime.now()),
-        isComleted = false,
-        completionDates = [];
 }

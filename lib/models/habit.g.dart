@@ -21,7 +21,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
       title: fields[1] as String,
       description: fields[2] as String,
       createdAt: fields[3] as DateTime,
-      isComleted: fields[5] as bool,
+      isCompleted: fields[5] as bool,
       completionDates: (fields[4] as List).cast<DateTime>(),
     );
   }
@@ -41,7 +41,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
       ..writeByte(4)
       ..write(obj.completionDates)
       ..writeByte(5)
-      ..write(obj.isComleted);
+      ..write(obj.isCompleted);
   }
 
   @override

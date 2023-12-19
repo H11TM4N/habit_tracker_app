@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class HabitsLinearProgress extends StatelessWidget {
@@ -11,10 +12,15 @@ class HabitsLinearProgress extends StatelessWidget {
       child: LinearPercentIndicator(
         width: MediaQuery.of(context).size.width - 40,
         animation: true,
-        lineHeight: 20.0,
+        lineHeight: 25.0,
         animationDuration: 2500,
         percent: 0.8,
-        center: const Text("80.0%"),
+        center: Text(
+          "80%",
+          style: GoogleFonts.montserrat(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         barRadius: const Radius.circular(12),
         progressColor: Theme.of(context).colorScheme.secondary,
       ),

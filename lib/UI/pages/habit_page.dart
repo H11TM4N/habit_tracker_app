@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/UI/pages/views/fab_view.dart';
+import 'package:habit_tracker_app/UI/pages/views/habit_list_view.dart';
 
 class HabitsPage extends StatelessWidget {
   const HabitsPage({super.key});
@@ -12,6 +13,7 @@ class HabitsPage extends StatelessWidget {
         children: [
           HabitsHeader(),
           HabitsLinearProgress(),
+          HabitListView(),
         ],
       ),
       floatingActionButton: FabView(),
