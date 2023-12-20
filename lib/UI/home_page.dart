@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/pages/habit_page.dart';
-import 'package:habit_tracker_app/UI/pages/history_page.dart';
+import 'package:habit_tracker_app/UI/pages/stat_page.dart';
 import 'package:habit_tracker_app/UI/pages/profile_page.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
@@ -14,7 +14,7 @@ class HomePage extends HookWidget {
 
     const List<Widget> pages = <Widget>[
       HabitsPage(),
-      HistoryPage(),
+      StatPage(),
       ProfilePage(),
     ];
 
@@ -23,23 +23,29 @@ class HomePage extends HookWidget {
         index: currentIndex.value,
         children: pages,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Theme.of(context).colorScheme.primary,
-        currentIndex: currentIndex.value,
-        type: BottomNavigationBarType.fixed,
-        onTap: (value) {
-          currentIndex.value = value;
-        },
-        unselectedLabelStyle:
-            GoogleFonts.montserrat(fontWeight: FontWeight.w600),
-        selectedLabelStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt_rounded), label: 'HABITS'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.bar_chart_rounded), label: 'HISTORY'),
-          BottomNavigationBarItem(icon: Icon(Icons.person_2), label: 'PROFILE'),
-        ],
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(12), topRight: Radius.circular(12)),
+        child: BottomNavigationBar(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          currentIndex: currentIndex.value,
+          type: BottomNavigationBarType.fixed,
+          onTap: (value) {
+            currentIndex.value = value;
+          },
+          unselectedLabelStyle:
+              GoogleFonts.montserrat(fontWeight: FontWeight.w600),
+          selectedLabelStyle:
+              GoogleFonts.montserrat(fontWeight: FontWeight.w600),
+          items: const [
+            BottomNavigationBarItem(
+                icon: Icon(Icons.list_alt_rounded), label: 'HABITS'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.bar_chart_rounded), label: 'STATS'),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.person_2), label: 'PROFILE'),
+          ],
+        ),
       ),
     );
   }

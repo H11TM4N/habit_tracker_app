@@ -4,3 +4,4 @@ export './custom_label_text.dart';
 export './save_button.dart';
 export './habits_header.dart';
 export './habits_linear_progress.dart';
+export './settings_tile.dart';

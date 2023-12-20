@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/models/habit.dart';
-import 'package:habit_tracker_app/providers/habit_povider.dart';
+import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:uuid/uuid.dart';
 

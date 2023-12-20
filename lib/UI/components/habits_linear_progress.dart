@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/common/common.dart';
-import 'package:habit_tracker_app/providers/habit_povider.dart';
+import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 class HabitsLinearProgress extends ConsumerWidget {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habit_tracker_app/UI/components/habit_tile.dart';
-import 'package:habit_tracker_app/providers/habit_povider.dart';
+import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class HabitListView extends StatefulHookConsumerWidget {
