@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 
 DateTime dateFormatter(DateTime date) {
-  return DateFormat('MMM dd').format(date) as DateTime;
+  String formattedDate = DateFormat.yMd().format(date);
+  return DateFormat.yMd().parse(formattedDate);
 }

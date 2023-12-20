@@ -40,6 +40,13 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
     int index = state.indexWhere((h) => h.id.compareTo(habit.id) == 0);
     if (index > -1) {
       habit.isCompleted = !habit.isCompleted;
+      DateTime currentDate = dateFormatter(DateTime.now());
+      if (habit.isCompleted && !habit.completionDates.contains(currentDate)) {
+        habit.completionDates.add(currentDate); // Add completion date
+      } else if (!habit.isCompleted) {
+        habit.completionDates.remove(currentDate); // Remove completion date
+      }
+      // print(habit.completionDates);
       box.putAt(index, habit);
       state = box.values.toList();
     }
