@@ -39,10 +39,12 @@ class HabitsLinearProgress extends ConsumerWidget {
                     style: GoogleFonts.montserrat(
                       fontWeight: FontWeight.w600,
                     )),
-                Text('$percentage%',
-                    style: GoogleFonts.montserrat(
-                      fontWeight: FontWeight.w600,
-                    ))
+                Text(
+                  '$percentage%',
+                  style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
               ],
             ),
           ),

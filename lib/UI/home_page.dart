@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/pages/habit_page.dart';
 import 'package:habit_tracker_app/UI/pages/history_page.dart';
 import 'package:habit_tracker_app/UI/pages/profile_page.dart';
@@ -29,6 +30,9 @@ class HomePage extends HookWidget {
         onTap: (value) {
           currentIndex.value = value;
         },
+        unselectedLabelStyle:
+            GoogleFonts.montserrat(fontWeight: FontWeight.w600),
+        selectedLabelStyle: GoogleFonts.montserrat(fontWeight: FontWeight.w600),
         items: const [
           BottomNavigationBarItem(
               icon: Icon(Icons.list_alt_rounded), label: 'HABITS'),
