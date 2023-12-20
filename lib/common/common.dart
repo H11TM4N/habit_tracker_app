@@ -5,3 +5,4 @@ export './widgets/back_button.dart';
 export './utils/completion_calc.dart';
 export './utils/percentage_checker.dart';
 export './utils/wrapper.dart';
+export './utils/confirm_dialog.dart';

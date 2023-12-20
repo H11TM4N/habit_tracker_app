@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/UI/home_page.dart';
 import 'package:habit_tracker_app/UI/theme/theme.dart';
 import 'package:habit_tracker_app/models/habit.dart';
+import 'package:habit_tracker_app/models/local_user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 import 'common/boxes/boxes.dart';
@@ -10,7 +11,9 @@ import 'common/boxes/boxes.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(HabitAdapter());
-  box = await Hive.openBox<Habit>('habitBox');
+  Hive.registerAdapter(LocalUserAdapter());
+  habitBox = await Hive.openBox<Habit>('habitBox');
+  userBox = await Hive.openBox<LocalUser>('userBox');
 
   runApp(
     const ProviderScope(

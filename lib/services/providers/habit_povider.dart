@@ -8,31 +8,31 @@ final habitProvider = StateNotifierProvider<HabitNotifier, List<Habit>>((ref) {
 
 class HabitNotifier extends StateNotifier<List<Habit>> {
   HabitNotifier() : super([]) {
-    state = box.values.toList();
+    state = habitBox.values.toList();
   }
 
   void addHabit(Habit habit) {
-    box.add(habit);
-    state = box.values.toList();
+    habitBox.add(habit);
+    state = habitBox.values.toList();
   }
 
   void removeHabit(String id) {
     if (state.indexWhere((h) => h.id.compareTo(id) == 0) > -1) {
-      box.deleteAt(state.indexWhere((h) => h.id.compareTo(id) == 0));
-      state = box.values.toList();
+      habitBox.deleteAt(state.indexWhere((h) => h.id.compareTo(id) == 0));
+      state = habitBox.values.toList();
     }
   }
 
   void clearHabits() {
-    box.clear();
-    state = box.values.toList();
+    habitBox.clear();
+    state = habitBox.values.toList();
   }
 
   void editHabit(Habit habit) {
     int index = state.indexWhere((h) => h.id.compareTo(habit.id) == 0);
     if (index > -1) {
-      box.putAt(index, habit);
-      state = box.values.toList();
+      habitBox.putAt(index, habit);
+      state = habitBox.values.toList();
     }
   }
 
@@ -47,8 +47,8 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
         habit.completionDates.remove(currentDate); // Remove completion date
       }
       // print(habit.completionDates);
-      box.putAt(index, habit);
-      state = box.values.toList();
+      habitBox.putAt(index, habit);
+      state = habitBox.values.toList();
     }
   }
 }

@@ -1,94 +1,96 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
+import 'package:habit_tracker_app/common/common.dart';
+import 'package:habit_tracker_app/common/utils/change_name_dialog.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SettingListView extends ConsumerWidget {
+class SettingListView extends HookConsumerWidget {
   const SettingListView({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TextStyle seetingsStyle =
-        GoogleFonts.montserrat(fontWeight: FontWeight.w700);
+    TextEditingController nameController = useTextEditingController();
+
+    TextStyle settingsStyle = GoogleFonts.montserrat(
+        fontWeight: FontWeight.w700, color: Colors.white);
 
     List<Text> titles = [
-      Text('CHANGE DISPLAY NAME', style: seetingsStyle),
-      Text('CHANGE AVATAR', style: seetingsStyle),
-      Text('ERASE ALL DATA', style: seetingsStyle),
-      Text('ADD SOMETHING', style: seetingsStyle),
-      Text('ADD SOMETHING', style: seetingsStyle),
-      Text('ADD SOMETHING', style: seetingsStyle),
+      Text('CHANGE DISPLAY NAME', style: settingsStyle),
+      Text('CHANGE AVATAR', style: settingsStyle),
+      Text('ERASE ALL DATA', style: settingsStyle),
+      Text('ADD SOMETHING', style: settingsStyle),
+      Text('ADD SOMETHING', style: settingsStyle),
+      Text('ADD SOMETHING', style: settingsStyle),
     ];
 
     List onTaps = [
-      () {},
-      () {},
       () {
-        // ref.read(habitProvider.notifier).clearHabits();
-      },
-      () {},
-      () {},
-      () {},
+        changeNameDialog(
+            context: context,
+            style: settingsStyle,
+            onPressed: () {
+              //* Add function
+              nameController.clear();
+              Navigator.pop(context);
+            },
+            controller: nameController);
+      }, //* index 0
+      () {}, //* index 1
+      () {
+        confirmErasureDialog(context, () {
+          ref.read(habitProvider.notifier).clearHabits();
+          Navigator.pop(context);
+        }, settingsStyle);
+      }, //* index 2
+      () {}, //* index 3
+      () {}, //* index 4
+      () {}, //* index 5
     ];
 
-    final theme = Theme.of(context).colorScheme;
     return Column(
       children: [
         ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          child: Container(
-            decoration: BoxDecoration(
-              color: theme.primary,
-            ),
-            child: Column(
-              children: [
-                SettingTile(
+          borderRadius: BorderRadius.circular(12),
+          child: Column(
+            children: [
+              SettingTile(
                   title: titles[0],
                   onTap: onTaps[0],
-                ),
-                const Divider(thickness: 0.4),
-                SettingTile(
+                  tilePosition: TilePosition.top),
+              SettingTile(
                   title: titles[1],
                   onTap: onTaps[1],
-                ),
-                const Divider(thickness: 0.4),
-                SettingTile(
+                  tilePosition: TilePosition.center),
+              SettingTile(
                   title: titles[2],
                   onTap: onTaps[2],
-                ),
-              ],
-            ),
+                  tilePosition: TilePosition.bottom),
+            ],
           ),
         ),
         const SizedBox(
           height: 20,
         ),
-        ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(12)),
-          child: Container(
-            decoration: BoxDecoration(
-              color: theme.primary,
+        Column(
+          children: [
+            SettingTile(
+              title: titles[3],
+              onTap: onTaps[3],
+              tilePosition: TilePosition.top,
             ),
-            child: Column(
-              children: [
-                SettingTile(
-                  title: titles[3],
-                  onTap: onTaps[3],
-                ),
-                const Divider(thickness: 0.4),
-                SettingTile(
-                  title: titles[4],
-                  onTap: onTaps[4],
-                ),
-                const Divider(thickness: 0.4),
-                SettingTile(
-                  title: titles[5],
-                  onTap: onTaps[5],
-                ),
-              ],
+            SettingTile(
+                title: titles[4],
+                onTap: onTaps[4],
+                tilePosition: TilePosition.center),
+            SettingTile(
+              title: titles[5],
+              onTap: onTaps[5],
+              tilePosition: TilePosition.bottom,
             ),
-          ),
+          ],
         ),
       ],
     );
