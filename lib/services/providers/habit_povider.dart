@@ -24,7 +24,9 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   }
 
   void clearHabits() {
-    habitBox.clear();
+    if (habitBox.isNotEmpty) {
+      habitBox.clear();
+    }
     state = habitBox.values.toList();
   }
 

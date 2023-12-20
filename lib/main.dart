@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/UI/home_page.dart';
 import 'package:habit_tracker_app/UI/theme/theme.dart';
+import 'package:habit_tracker_app/models/enums/gender.dart';
 import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/models/local_user.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -12,6 +13,7 @@ void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(LocalUserAdapter());
+  Hive.registerAdapter(GenderAdapter());
   habitBox = await Hive.openBox<Habit>('habitBox');
   userBox = await Hive.openBox<LocalUser>('userBox');
 

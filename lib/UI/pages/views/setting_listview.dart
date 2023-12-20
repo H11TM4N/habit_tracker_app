@@ -3,8 +3,9 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/common/common.dart';
-import 'package:habit_tracker_app/common/utils/change_name_dialog.dart';
+import 'package:habit_tracker_app/common/utils/dialogs/change_name_dialog.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
+import 'package:habit_tracker_app/services/providers/user_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingListView extends HookConsumerWidget {
@@ -20,10 +21,10 @@ class SettingListView extends HookConsumerWidget {
     List<Text> titles = [
       Text('CHANGE DISPLAY NAME', style: settingsStyle),
       Text('CHANGE AVATAR', style: settingsStyle),
+      Text('EDIT GENDER', style: settingsStyle),
+      Text('ADD SOMETHING', style: settingsStyle),
+      Text('ADD SOMETHING', style: settingsStyle),
       Text('ERASE ALL DATA', style: settingsStyle),
-      Text('ADD SOMETHING', style: settingsStyle),
-      Text('ADD SOMETHING', style: settingsStyle),
-      Text('ADD SOMETHING', style: settingsStyle),
     ];
 
     List onTaps = [
@@ -32,22 +33,32 @@ class SettingListView extends HookConsumerWidget {
             context: context,
             style: settingsStyle,
             onPressed: () {
-              //* Add function
+              ref
+                  .read(userProvider.notifier)
+                  .changeUsername(nameController.text);
               nameController.clear();
               Navigator.pop(context);
             },
             controller: nameController);
       }, //* index 0
-      () {}, //* index 1
+      () {
+        //! Change Avatar
+      }, //* index 1
+      () {
+        editGenderDialog(
+          context: context,
+          style: settingsStyle,
+          ref: ref,
+        );
+      }, //* index 2
+      () {}, //* index 3
+      () {}, //* index 4
       () {
         confirmErasureDialog(context, () {
           ref.read(habitProvider.notifier).clearHabits();
           Navigator.pop(context);
         }, settingsStyle);
-      }, //* index 2
-      () {}, //* index 3
-      () {}, //* index 4
-      () {}, //* index 5
+      }, //* index 5
     ];
 
     return Column(

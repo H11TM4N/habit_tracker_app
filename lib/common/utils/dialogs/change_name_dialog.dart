@@ -12,7 +12,12 @@ changeNameDialog({
       context: context,
       builder: (context) => AlertDialog(
             title: Text('Change Display Name', style: style),
-            content: Expanded(child: NameTextField(controller: controller)),
+            titleTextStyle: const TextStyle(fontSize: 15),
+            content: NameTextField(
+              controller: controller,
+              hintText: 'Input new name',
+              maxLength: 20,
+            ),
             backgroundColor: theme.primary,
             actions: [
               TextButton(
