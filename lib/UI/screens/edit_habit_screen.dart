@@ -17,6 +17,7 @@ class EditHabitScreen extends HookConsumerWidget {
     final titleController = useTextEditingController(text: habit.title);
     final descriptionController =
         useTextEditingController(text: habit.description);
+    final notesController = useTextEditingController(text: habit.notes);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -41,6 +42,14 @@ class EditHabitScreen extends HookConsumerWidget {
               keyboardType: TextInputType.multiline,
               hintText: 'Optional',
             ),
+            const CustomLabelText(
+              labelText: 'Additional Notes',
+            ),
+            CustomTextField(
+              controller: descriptionController,
+              keyboardType: TextInputType.multiline,
+              hintText: 'Optional',
+            ),
             const SizedBox(height: 20),
             SaveButton(
               isEditing: true,
@@ -49,6 +58,7 @@ class EditHabitScreen extends HookConsumerWidget {
                       habit.copyWith(
                         title: titleController.text,
                         description: descriptionController.text,
+                        notes: notesController.text,
                       ),
                     );
                 Navigator.pop(context);

@@ -17,11 +17,15 @@ class Habit {
   List<DateTime> completionDates;
   @HiveField(5)
   bool isCompleted;
+  @HiveField(6)
+  String notes;
+  
 
   Habit({
     this.id = '',
     this.title = '',
     this.description = '',
+    this.notes = '',
     required this.createdAt,
     required this.isCompleted,
     this.completionDates = const [],
@@ -34,6 +38,7 @@ class Habit {
     DateTime? createdAt,
     List<DateTime>? completionDates,
     bool? isCompleted,
+    String? notes,
   }) {
     return Habit(
       id: id ?? this.id,
@@ -42,6 +47,7 @@ class Habit {
       createdAt: createdAt ?? this.createdAt,
       completionDates: completionDates ?? this.completionDates,
       isCompleted: isCompleted ?? this.isCompleted,
+      notes: notes ?? this.notes,
     );
   }
 }

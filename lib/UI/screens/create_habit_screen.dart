@@ -13,6 +13,7 @@ class CreateHabitScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final titleController = useTextEditingController();
     final descriptionController = useTextEditingController();
+    final notesController = useTextEditingController();
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -37,6 +38,14 @@ class CreateHabitScreen extends HookConsumerWidget {
               keyboardType: TextInputType.multiline,
               hintText: 'Optional',
             ),
+            const CustomLabelText(
+              labelText: 'Additional Notes',
+            ),
+            CustomTextField(
+              controller: descriptionController,
+              keyboardType: TextInputType.multiline,
+              hintText: 'Optional',
+            ),
             const SizedBox(height: 20),
             SaveButton(
               isEditing: false,
@@ -46,6 +55,7 @@ class CreateHabitScreen extends HookConsumerWidget {
                         id: const Uuid().v4(),
                         title: titleController.text,
                         description: descriptionController.text,
+                        notes: notesController.text,
                         createdAt: DateTime.now(),
                         isCompleted: false,
                       ),
