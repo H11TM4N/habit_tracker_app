@@ -49,6 +49,7 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
                       .read(habitProvider.notifier)
                       .removeHabit(habits[index].id);
                 },
+                habit: habits[index],
               ),
             ),
           ],

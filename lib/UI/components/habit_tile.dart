@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_tracker_app/UI/screens/edit_habit_screen.dart';
+import 'package:habit_tracker_app/common/common.dart';
+import 'package:habit_tracker_app/models/habit.dart';
 
 class HabitTile extends StatelessWidget {
   final String title;
   final bool isCompleted;
   final VoidCallback onToggleCompletion;
   final VoidCallback onDelete;
+  final Habit habit;
 
   const HabitTile({
     super.key,
@@ -13,6 +17,7 @@ class HabitTile extends StatelessWidget {
     required this.isCompleted,
     required this.onToggleCompletion,
     required this.onDelete,
+    required this.habit,
   });
 
   @override
@@ -36,6 +41,15 @@ class HabitTile extends StatelessWidget {
           color: Theme.of(context).colorScheme.primary,
           padding: EdgeInsets.zero,
           itemBuilder: (context) => [
+            PopupMenuItem(
+              onTap: (){
+                rightToLeftNavigation(context, EditHabitScreen(habit: habit));
+              },
+              child: Text(
+                'EDIT',
+                style: GoogleFonts.montserrat(fontWeight: FontWeight.w700),
+              ),
+            ),
             PopupMenuItem(
               onTap: onToggleCompletion,
               child: Text(

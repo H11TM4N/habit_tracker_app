@@ -1,4 +1,6 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:hive/hive.dart';
+
 part 'habit.g.dart';
 
 @HiveType(typeId: 1)
@@ -24,4 +26,22 @@ class Habit {
     required this.isCompleted,
     this.completionDates = const [],
   });
+
+  Habit copyWith({
+    String? id,
+    String? title,
+    String? description,
+    DateTime? createdAt,
+    List<DateTime>? completionDates,
+    bool? isCompleted,
+  }) {
+    return Habit(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      createdAt: createdAt ?? this.createdAt,
+      completionDates: completionDates ?? this.completionDates,
+      isCompleted: isCompleted ?? this.isCompleted,
+    );
+  }
 }

@@ -3,7 +3,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/common/widgets/back_button.dart';
 
 class CreateHabitHeader extends StatelessWidget {
-  const CreateHabitHeader({super.key});
+  final bool isEditing;
+  const CreateHabitHeader({
+    super.key,
+    required this.isEditing,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +17,7 @@ class CreateHabitHeader extends StatelessWidget {
           bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
       child: Container(
         decoration: BoxDecoration(
-          color: theme.primaryContainer,
+          color: isEditing ? Color(0xffFF8F8F) : theme.primaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
         child: Column(
@@ -25,7 +29,7 @@ class CreateHabitHeader extends StatelessWidget {
               ],
             ),
             Text(
-              'Create New Habit',
+              isEditing ? 'Edit Habit' : 'Create New Habit',
               style: GoogleFonts.lancelot(
                 fontSize: 45,
                 fontWeight: FontWeight.bold,

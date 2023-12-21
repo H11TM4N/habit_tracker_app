@@ -3,9 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 
 class SaveButton extends StatelessWidget {
   final void Function()? onTap;
+  final bool isEditing;
   const SaveButton({
     super.key,
     required this.onTap,
+    required this.isEditing,
+    
   });
 
   @override
@@ -17,7 +20,7 @@ class SaveButton extends StatelessWidget {
         onPressed: onTap,
         style: ElevatedButton.styleFrom(
           elevation: 0,
-          backgroundColor: theme.primaryContainer,
+          backgroundColor: isEditing ? const Color(0xffFF8F8F) : theme.primaryContainer,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),

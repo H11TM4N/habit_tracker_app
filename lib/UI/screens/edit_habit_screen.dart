@@ -4,22 +4,26 @@ import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:uuid/uuid.dart';
 
-class CreateHabitScreen extends HookConsumerWidget {
-  const CreateHabitScreen({super.key});
+class EditHabitScreen extends HookConsumerWidget {
+  final Habit habit;
+  const EditHabitScreen({
+    super.key,
+    required this.habit,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final titleController = useTextEditingController();
-    final descriptionController = useTextEditingController();
+    final titleController = useTextEditingController(text: habit.title);
+    final descriptionController =
+        useTextEditingController(text: habit.description);
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: ListView(
           children: [
-            const CreateHabitHeader(isEditing: false),
+            const CreateHabitHeader(isEditing: true),
             const CustomLabelText(
               labelText: 'Title',
             ),
@@ -39,15 +43,12 @@ class CreateHabitScreen extends HookConsumerWidget {
             ),
             const SizedBox(height: 20),
             SaveButton(
-              isEditing: false,
+              isEditing: true,
               onTap: () {
-                ref.watch(habitProvider.notifier).addHabit(
-                      Habit(
-                        id: const Uuid().v4(),
+                ref.watch(habitProvider.notifier).editHabit(
+                      habit.copyWith(
                         title: titleController.text,
                         description: descriptionController.text,
-                        createdAt: DateTime.now(),
-                        isCompleted: false,
                       ),
                     );
                 Navigator.pop(context);
