@@ -37,6 +37,8 @@ class HomePage extends HookWidget {
               GoogleFonts.montserrat(fontWeight: FontWeight.w600),
           selectedLabelStyle:
               GoogleFonts.montserrat(fontWeight: FontWeight.w600),
+          unselectedItemColor: Theme.of(context).colorScheme.secondary,
+          selectedItemColor: Colors.white,
           items: const [
             BottomNavigationBarItem(
                 icon: Icon(Icons.list_alt_rounded), label: 'HABITS'),

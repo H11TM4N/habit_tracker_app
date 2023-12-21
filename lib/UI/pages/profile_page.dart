@@ -71,8 +71,6 @@ class ProfilePage extends ConsumerWidget {
                   )),
               const SizedBox(height: 20),
               const SettingListView(),
-
-              //TODO: Add Display Info Dialog
             ],
           ),
         ),
