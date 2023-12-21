@@ -46,7 +46,7 @@ class EditHabitScreen extends HookConsumerWidget {
               labelText: 'Additional Notes',
             ),
             CustomTextField(
-              controller: descriptionController,
+              controller: notesController,
               keyboardType: TextInputType.multiline,
               hintText: 'Optional',
             ),
