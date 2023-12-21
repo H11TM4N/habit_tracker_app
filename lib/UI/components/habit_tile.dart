@@ -10,6 +10,7 @@ class HabitTile extends StatelessWidget {
   final VoidCallback onToggleCompletion;
   final VoidCallback onDelete;
   final Habit habit;
+  final void Function()? tileOnTap;
 
   const HabitTile({
     super.key,
@@ -18,6 +19,7 @@ class HabitTile extends StatelessWidget {
     required this.onToggleCompletion,
     required this.onDelete,
     required this.habit,
+    required this.tileOnTap,
   });
 
   @override
@@ -25,7 +27,7 @@ class HabitTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0, right: 8.0),
       child: ListTile(
-        
+        onTap: tileOnTap,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
