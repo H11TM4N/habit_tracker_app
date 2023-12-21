@@ -44,7 +44,7 @@ class HabitsHeader extends ConsumerWidget {
                       icon: const Icon(
                         FontAwesomeIcons.magnifyingGlass,
                         size: 20,
-                      ))
+                      )),
                 ],
               ),
               Padding(

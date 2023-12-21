@@ -25,6 +25,7 @@ class HabitTile extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 8.0, right: 8.0),
       child: ListTile(
+        
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -42,7 +43,7 @@ class HabitTile extends StatelessWidget {
           padding: EdgeInsets.zero,
           itemBuilder: (context) => [
             PopupMenuItem(
-              onTap: (){
+              onTap: () {
                 rightToLeftNavigation(context, EditHabitScreen(habit: habit));
               },
               child: Text(
@@ -83,6 +84,7 @@ class HabitTile extends StatelessWidget {
             ? Theme.of(context).colorScheme.secondary
             : Theme.of(context).colorScheme.primaryContainer,
         titleTextStyle: const TextStyle(color: Colors.white),
+        
       ),
     );
   }
