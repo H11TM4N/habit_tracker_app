@@ -7,3 +7,4 @@ export './utils/percentage_checker.dart';
 export './utils/wrapper.dart';
 export 'utils/dialogs/confirm_dialog.dart';
 export './utils/dialogs/change_gender_dialog.dart';
+export './utils/dialogs/display_info_dialog.dart';

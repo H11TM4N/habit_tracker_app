@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/common/utils/dialogs/change_name_dialog.dart';
+import 'package:habit_tracker_app/models/enums/gender.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:habit_tracker_app/services/providers/user_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -23,7 +24,7 @@ class SettingListView extends HookConsumerWidget {
       Text('CHANGE AVATAR', style: settingsStyle),
       Text('EDIT GENDER', style: settingsStyle),
       Text('ADD SOMETHING', style: settingsStyle),
-      Text('ADD SOMETHING', style: settingsStyle),
+      Text('DISPLAY INFORMATION', style: settingsStyle),
       Text('ERASE ALL DATA', style: settingsStyle),
     ];
 
@@ -52,7 +53,11 @@ class SettingListView extends HookConsumerWidget {
         );
       }, //* index 2
       () {}, //* index 3
-      () {}, //* index 4
+      () {
+        displayInfoDialog(context, GoogleFonts.montserrat(color: Colors.grey),
+            displayName: ref.watch(userProvider).name,
+            gender: enumToStr(ref.watch(userProvider).gender));
+      }, //* index 4
       () {
         confirmErasureDialog(context, () {
           ref.read(habitProvider.notifier).clearHabits();
@@ -105,5 +110,15 @@ class SettingListView extends HookConsumerWidget {
         ),
       ],
     );
+  }
+
+  enumToStr(Enum enm) {
+    if (enm == Gender.male) {
+      return 'male';
+    } else if (enm == Gender.female) {
+      return 'female';
+    } else {
+      return 'other';
+    }
   }
 }
