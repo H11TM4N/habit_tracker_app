@@ -17,7 +17,7 @@ class CreateHabitHeader extends StatelessWidget {
           bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
       child: Container(
         decoration: BoxDecoration(
-          color: isEditing ? Color(0xffFF8F8F) : theme.primaryContainer,
+          color: isEditing ? const Color(0xffFF8F8F) : theme.primaryContainer,
         ),
         width: MediaQuery.of(context).size.width,
         child: Column(

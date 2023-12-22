@@ -21,6 +21,7 @@ class HabitsLinearProgress extends ConsumerWidget {
         percentChecker((completedHabits.length / habits.length * 100)).toInt();
 
     return Container(
+      color: theme.background,
       padding: const EdgeInsets.all(15),
       child: Column(
         children: [
@@ -36,9 +37,11 @@ class HabitsLinearProgress extends ConsumerWidget {
                             ? 'You did it!'
                             : percentage < 100 && percentage > 79
                                 ? 'Almost there!'
-                                : percentage < 80 && percentage > 49
+                                : percentage < 80 && percentage > 50
                                     ? 'More than halfway!'
-                                    : 'Keep Going!',
+                                    : percentage == 50
+                                        ? 'Halfway there!'
+                                        : 'Keep Going!',
                     style: GoogleFonts.montserrat(
                       fontWeight: FontWeight.w600,
                     )),
