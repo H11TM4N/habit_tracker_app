@@ -5,7 +5,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/services/providers/user_provider.dart';
 
 class HabitsHeader extends ConsumerWidget {
-  const HabitsHeader({super.key});
+  final void Function()? onOpenDrawer;
+  const HabitsHeader({
+    super.key,
+    required this.onOpenDrawer,
+  });
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,7 +38,7 @@ class HabitsHeader extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                      onPressed: () {},
+                      onPressed: onOpenDrawer,
                       icon: const Icon(
                         FontAwesomeIcons.barsStaggered,
                         size: 20,
@@ -48,7 +52,7 @@ class HabitsHeader extends ConsumerWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                padding: const EdgeInsets.only(top: 20.0, bottom: 0),
                 child: Text(
                   'Hey, ${ref.watch(userProvider).name}',
                   style: GoogleFonts.montserrat(

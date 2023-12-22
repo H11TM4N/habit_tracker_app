@@ -283,6 +283,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_zoom_drawer:
+    dependency: "direct main"
+    description:
+      name: flutter_zoom_drawer
+      sha256: be25be3536e030096c356b7b0fbeaee418b5e0994d87ff74875032b349cb4079
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.1"
   font_awesome_flutter:
     dependency: "direct main"
     description:
@@ -728,6 +736,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
+  syncfusion_flutter_charts:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_charts
+      sha256: "6f2ea3eaa34b998ba68461f6c8457f01cf8c07cf376a57069f9995a9cae1eb33"
+      url: "https://pub.dev"
+    source: hosted
+    version: "24.1.41"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "69c827931957d5b121ee9f0b9b0b8d7d0d1ac537b61bcdd5c3fbffc044bbe86e"
+      url: "https://pub.dev"
+    source: hosted
+    version: "24.1.41"
   term_glyph:
     dependency: transitive
     description:
