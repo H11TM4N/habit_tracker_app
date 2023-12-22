@@ -16,7 +16,7 @@ changeNameDialog({
             content: NameTextField(
               controller: controller,
               hintText: 'Input new name',
-              maxLength: 20,
+              maxLength: 15,
             ),
             backgroundColor: theme.primary,
             actions: [

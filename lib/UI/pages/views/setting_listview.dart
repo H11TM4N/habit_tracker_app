@@ -10,11 +10,13 @@ import 'package:habit_tracker_app/services/providers/user_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class SettingListView extends HookConsumerWidget {
-  const SettingListView({super.key});
+  final String displayName;
+  const SettingListView({super.key, required this.displayName});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    TextEditingController nameController = useTextEditingController();
+    TextEditingController nameController =
+        useTextEditingController(text: displayName);
 
     TextStyle settingsStyle = GoogleFonts.montserrat(
         fontWeight: FontWeight.w700, color: Colors.white);

@@ -24,8 +24,6 @@ void main() async {
   );
 }
 
-final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override

@@ -2,18 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:habit_tracker_app/services/providers/user_provider.dart';
+import 'package:intl/intl.dart';
 
 class HabitsHeader extends ConsumerWidget {
-  final void Function()? onOpenDrawer;
-  const HabitsHeader({
-    super.key,
-    required this.onOpenDrawer,
-  });
+  const HabitsHeader({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).colorScheme;
+    final habits = ref.watch(habitProvider);
+    final completed = habits.where((habit) => habit.isCompleted).toList();
+
     return ClipRRect(
       borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(12), bottomRight: Radius.circular(12)),
@@ -37,12 +38,28 @@ class HabitsHeader extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  IconButton(
-                      onPressed: onOpenDrawer,
-                      icon: const Icon(
-                        FontAwesomeIcons.barsStaggered,
-                        size: 20,
-                      )),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Column(
+                      children: [
+                        Text(
+                          'TODAY',
+                          style: GoogleFonts.montserrat(
+                            fontSize: 18,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          DateFormat('MMM, dd').format(DateTime.now()),
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w500,
+                            color: Colors.black45,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                   IconButton(
                       onPressed: () {},
                       icon: const Icon(
@@ -52,13 +69,24 @@ class HabitsHeader extends ConsumerWidget {
                 ],
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 20.0, bottom: 0),
-                child: Text(
-                  'Hey, ${ref.watch(userProvider).name}',
-                  style: GoogleFonts.montserrat(
-                    fontSize: 35,
-                    fontWeight: FontWeight.bold,
-                  ),
+                padding: const EdgeInsets.only(top: 20.0, bottom: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      'Hey, ${ref.watch(userProvider).name}',
+                      style: GoogleFonts.montserrat(
+                        fontSize: 30,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'you have ${habits.length - completed.length} habits left to complete',
+                      style: GoogleFonts.montserrat(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w300,
+                          color: Colors.grey.shade400),
+                    ),
+                  ],
                 ),
               ),
             ],

@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/pages/views/setting_listview.dart';
+import 'package:habit_tracker_app/services/providers/user_provider.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -70,7 +71,7 @@ class ProfilePage extends ConsumerWidget {
                     ),
                   )),
               const SizedBox(height: 20),
-              const SettingListView(),
+              SettingListView(displayName: ref.watch(userProvider).name),
             ],
           ),
         ),

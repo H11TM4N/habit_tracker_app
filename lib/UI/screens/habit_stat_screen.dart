@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/UI/screens/edit_habit_screen.dart';
 import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/models/habit.dart';
@@ -95,6 +96,8 @@ class HabitStatScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            const SizedBox(height: 30),
+            const HabitsCalendar(),
           ],
         ),
       ),
