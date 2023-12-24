@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_tracker_app/UI/screens/search_screen.dart';
+import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:habit_tracker_app/services/providers/user_provider.dart';
 import 'package:intl/intl.dart';
@@ -61,7 +63,9 @@ class HabitsHeader extends ConsumerWidget {
                     ),
                   ),
                   IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        rightToLeftNavigation(context, const SearchScreen());
+                      },
                       icon: const Icon(
                         FontAwesomeIcons.magnifyingGlass,
                         size: 20,
