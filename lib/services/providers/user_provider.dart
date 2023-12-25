@@ -14,9 +14,24 @@ class UserNotifier extends StateNotifier<LocalUser> {
           name: 'Hermano',
           gender: Gender.male,
           avatarPath: 'assets/images/avatar.png',
-        )){
-          state = userBox.get('userKey')!;
-        }
+        )) {
+    // Check if the user data exists in userBox
+    if (userBox.containsKey('userKey')) {
+      state = userBox.get('userKey')!;
+    } else {
+      // If not, create a new default user and save it to userBox
+      _createDefaultUser();
+    }
+  }
+
+  void _createDefaultUser() {
+    state = LocalUser(
+      name: 'Hermano',
+      gender: Gender.male,
+      avatarPath: 'assets/images/avatar.png',
+    );
+    _saveToHive();
+  }
 
   void changeUsername(String newName) {
     if (newName.isNotEmpty) {

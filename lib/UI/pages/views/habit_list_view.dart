@@ -29,9 +29,8 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
             Checkbox(
               shape: const CircleBorder(),
               checkColor: theme.background,
-              value: habits[index].isCompleted,
+              value: habits[index].completionDates.isNotEmpty,
               onChanged: (value) {
-                value = habits[index].isCompleted;
                 ref
                     .read(habitProvider.notifier)
                     .toggleCompletion(habits[index]);
@@ -40,7 +39,7 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
             Expanded(
               child: HabitTile(
                 title: habits[index].title,
-                isCompleted: habits[index].isCompleted,
+                isCompleted: habits[index].completionDates.isNotEmpty,
                 onToggleCompletion: () {
                   ref
                       .read(habitProvider.notifier)
@@ -53,7 +52,8 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
                 },
                 habit: habits[index],
                 tileOnTap: () {
-                smoothNavigation(context, HabitStatScreen(habit: habits[index]));
+                  smoothNavigation(
+                      context, HabitStatScreen(habit: habits[index]));
                 },
               ),
             ),

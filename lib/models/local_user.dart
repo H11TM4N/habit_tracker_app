@@ -5,8 +5,6 @@ import 'enums/gender.dart';
 
 part 'local_user.g.dart';
 
-
-
 @HiveType(typeId: 2)
 class LocalUser {
   @HiveField(0)
@@ -19,7 +17,7 @@ class LocalUser {
   String avatarPath;
 
   LocalUser({
-    required this.name,
+    this.name = '',
     required this.gender,
     required this.avatarPath,
   });

@@ -41,16 +41,21 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   void toggleCompletion(Habit habit) {
     int index = state.indexWhere((h) => h.id.compareTo(habit.id) == 0);
     if (index > -1) {
-      habit.isCompleted = !habit.isCompleted;
       DateTime currentDate = dateFormatter(DateTime.now());
-      if (habit.isCompleted && !habit.completionDates.contains(currentDate)) {
-        habit.completionDates.add(currentDate); // Add completion date
-      } else if (!habit.isCompleted) {
-        habit.completionDates.remove(currentDate); // Remove completion date
+      bool isCompleted =
+          habit.completionDates.any((entry) => entry.keys.first == currentDate);
+
+      if (!isCompleted) {
+        // Add completion date
+        habit.completionDates.add({currentDate: true});
+      } else {
+        // Remove completion date
+        habit.completionDates
+            .removeWhere((entry) => entry.keys.first == currentDate);
       }
-      // print(habit.completionDates);
+
       habitBox.putAt(index, habit);
-      state = habitBox.values.toList();
+      state = List.from(state); // Trigger a rebuild
     }
   }
 }

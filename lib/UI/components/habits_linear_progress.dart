@@ -13,9 +13,7 @@ class HabitsLinearProgress extends ConsumerWidget {
     final theme = Theme.of(context).colorScheme;
 
     final habits = ref.watch(habitProvider);
-    final completedHabits = habits.where(
-      (habit) => habit.isCompleted == true,
-    );
+    final completedHabits = habits.where((habit) => habit.completionDates.isNotEmpty).toList();
 
     final percentage =
         percentChecker((completedHabits.length / habits.length * 100)).toInt();
