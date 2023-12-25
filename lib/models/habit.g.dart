@@ -20,9 +20,10 @@ class HabitAdapter extends TypeAdapter<Habit> {
       id: fields[0] as String,
       title: fields[1] as String,
       description: fields[2] as String,
-      notes: fields[5] as String,
+      notes: fields[6] as String,
+      isCompleted: fields[4] as bool,
       createdAt: fields[3] as DateTime,
-      completionDates: (fields[4] as List)
+      completionDates: (fields[5] as List)
           .map((dynamic e) => (e as Map).cast<DateTime, bool>())
           .toList(),
     );
@@ -31,7 +32,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
   @override
   void write(BinaryWriter writer, Habit obj) {
     writer
-      ..writeByte(6)
+      ..writeByte(7)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -41,8 +42,10 @@ class HabitAdapter extends TypeAdapter<Habit> {
       ..writeByte(3)
       ..write(obj.createdAt)
       ..writeByte(4)
-      ..write(obj.completionDates)
+      ..write(obj.isCompleted)
       ..writeByte(5)
+      ..write(obj.completionDates)
+      ..writeByte(6)
       ..write(obj.notes);
   }
 

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
+import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -56,9 +57,9 @@ class CreateHabitScreen extends HookConsumerWidget {
                           title: titleController.text,
                           description: descriptionController.text,
                           notes: notesController.text,
-                          createdAt: DateTime.now(),
+                          createdAt: dateFormatter(DateTime.now()),
                           completionDates: [
-                            {DateTime.now(): false}
+                            {dateFormatter(DateTime.now()): false}
                           ]),
                     );
                 Navigator.pop(context);

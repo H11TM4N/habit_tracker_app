@@ -26,6 +26,7 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   void clearHabits() {
     if (habitBox.isNotEmpty) {
       habitBox.clear();
+      state.clear();
     }
     state = habitBox.values.toList();
   }
@@ -40,22 +41,22 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
 
   void toggleCompletion(Habit habit) {
     int index = state.indexWhere((h) => h.id.compareTo(habit.id) == 0);
-    if (index > -1) {
-      DateTime currentDate = dateFormatter(DateTime.now());
-      bool isCompleted =
-          habit.completionDates.any((entry) => entry.keys.first == currentDate);
 
-      if (!isCompleted) {
-        // Add completion date
-        habit.completionDates.add({currentDate: true});
-      } else {
-        // Remove completion date
-        habit.completionDates
-            .removeWhere((entry) => entry.keys.first == currentDate);
-      }
+    DateTime currentDate = dateFormatter(DateTime.now());
 
-      habitBox.putAt(index, habit);
-      state = List.from(state); // Trigger a rebuild
+    if (!habit.isCompleted) {
+      // Add completion date
+      habit.completionDates.add({currentDate: true});
+    } else {
+      // Remove completion date
+      habit.completionDates
+          .removeWhere((entry) => entry.keys.first == currentDate);
     }
+
+    print(habit.completionDates);
+
+    habit.isCompleted = !habit.isCompleted; // Toggle isCompleted
+    habitBox.putAt(index, habit);
+    state = habitBox.values.toList();
   }
 }

@@ -14,16 +14,18 @@ class Habit {
   @HiveField(3)
   DateTime createdAt;
   @HiveField(4)
-  List<Map<DateTime, bool>> completionDates;
+  bool isCompleted;
   @HiveField(5)
+  List<Map<DateTime, bool>> completionDates;
+  @HiveField(6)
   String notes;
-  
 
   Habit({
     this.id = '',
     this.title = '',
     this.description = '',
     this.notes = '',
+    this.isCompleted = false,
     required this.createdAt,
     this.completionDates = const [],
   });
@@ -33,6 +35,7 @@ class Habit {
     String? title,
     String? description,
     DateTime? createdAt,
+    bool? isCompleted,
     List<Map<DateTime, bool>>? completionDates,
     String? notes,
   }) {
@@ -41,6 +44,7 @@ class Habit {
       title: title ?? this.title,
       description: description ?? this.description,
       createdAt: createdAt ?? this.createdAt,
+      isCompleted: isCompleted ?? this.isCompleted,
       completionDates: completionDates ?? this.completionDates,
       notes: notes ?? this.notes,
     );
