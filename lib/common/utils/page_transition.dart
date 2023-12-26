@@ -20,6 +20,11 @@ smoothNavigation(BuildContext context, Widget route) {
   return Navigator.of(context).push(MyCustomRouteTransition(route: route));
 }
 
+smoothReplacement(BuildContext context, Widget route) {
+  return Navigator.of(context)
+      .pushReplacement(MyCustomRouteTransition(route: route));
+}
+
 class SlideFromBottomToTopRouteTransition extends PageRouteBuilder {
   final Widget route;
 
