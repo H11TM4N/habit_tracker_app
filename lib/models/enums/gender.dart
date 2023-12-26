@@ -12,4 +12,7 @@ enum Gender {
 
   @HiveField(2)
   other,
+
+  @HiveField(3)
+  unknown;
 }

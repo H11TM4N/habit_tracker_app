@@ -11,14 +11,11 @@ editGenderDialog({
 }) {
   final theme = Theme.of(context).colorScheme;
 
-  List<String> text = [
-    'MALE',
-    'FEMALE',
-    'OTHER',
-  ];
+  List<String> text = ['MALE', 'FEMALE', 'OTHER', 'UNKNOWN'];
 
   List<TilePosition> tilePosition = [
     TilePosition.top,
+    TilePosition.center,
     TilePosition.center,
     TilePosition.bottom,
   ];
@@ -28,6 +25,8 @@ editGenderDialog({
       return Gender.male;
     } else if (txt == 'FEMALE') {
       return Gender.female;
+    } else if (txt == 'UNKNOWN') {
+      return Gender.unknown;
     } else {
       return Gender.other;
     }
@@ -41,7 +40,7 @@ editGenderDialog({
         mainAxisSize: MainAxisSize.min,
         children: [
           SizedBox(
-            height: 180,
+            height: 230,
             child: ListView.builder(
               itemCount: text.length,
               itemBuilder: (context, index) {

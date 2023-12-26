@@ -19,6 +19,8 @@ class GenderAdapter extends TypeAdapter<Gender> {
         return Gender.female;
       case 2:
         return Gender.other;
+      case 3:
+        return Gender.unknown;
       default:
         return Gender.male;
     }
@@ -35,6 +37,9 @@ class GenderAdapter extends TypeAdapter<Gender> {
         break;
       case Gender.other:
         writer.writeByte(2);
+        break;
+      case Gender.unknown:
+        writer.writeByte(3);
         break;
     }
   }

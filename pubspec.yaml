@@ -29,6 +29,7 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_iconpicker: ^3.2.4
   syncfusion_flutter_charts: ^24.1.41
+  restart_app: ^1.2.1
 
 flutter_native_splash:
   color: "#03001C"

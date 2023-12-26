@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
 confirmErasureDialog(
-  BuildContext context,
-  void Function() onPressed,
-  TextStyle style,
-) {
+    BuildContext context, void Function() onPressed, TextStyle style,
+    {required bool isErasingAllData}) {
   final theme = Theme.of(context).colorScheme;
   showDialog(
       context: context,
       builder: (context) => AlertDialog(
-            title: Text('erase all data', style: style),
-            content: const Text('This action cannot be undone'),
+            title: Text(isErasingAllData ? 'erase all data' : 'clear user data',
+                style: style),
+            content: Text(isErasingAllData
+                ? 'This action cannot be undone\nThe app will restart'
+                : 'user info will be set back to default'),
             backgroundColor: theme.primary,
             actions: [
               TextButton(

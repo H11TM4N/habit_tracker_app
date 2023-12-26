@@ -25,7 +25,7 @@ class SettingListView extends HookConsumerWidget {
       Text('CHANGE DISPLAY NAME', style: settingsStyle),
       Text('CHANGE AVATAR', style: settingsStyle),
       Text('EDIT GENDER', style: settingsStyle),
-      Text('ADD SOMETHING', style: settingsStyle),
+      Text('CLEAR USER INFO', style: settingsStyle),
       Text('DISPLAY INFORMATION', style: settingsStyle),
       Text('ERASE ALL DATA', style: settingsStyle),
     ];
@@ -54,7 +54,12 @@ class SettingListView extends HookConsumerWidget {
           ref: ref,
         );
       }, //* index 2
-      () {}, //* index 3
+      () {
+        confirmErasureDialog(context, () {
+          ref.read(userProvider.notifier).clearData();
+          Navigator.pop(context);
+        }, settingsStyle, isErasingAllData: false);
+      }, //* index 3
       () {
         displayInfoDialog(context, GoogleFonts.montserrat(color: Colors.grey),
             displayName: ref.watch(userProvider).name,
@@ -63,8 +68,9 @@ class SettingListView extends HookConsumerWidget {
       () {
         confirmErasureDialog(context, () {
           ref.read(habitProvider.notifier).clearHabits();
+          ref.read(userProvider.notifier).clearData();
           Navigator.pop(context);
-        }, settingsStyle);
+        }, settingsStyle, isErasingAllData: true);
       }, //* index 5
     ];
 
@@ -119,6 +125,8 @@ class SettingListView extends HookConsumerWidget {
       return 'male';
     } else if (enm == Gender.female) {
       return 'female';
+    } else if (enm == Gender.unknown) {
+      return 'unknown';
     } else {
       return 'other';
     }

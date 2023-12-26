@@ -12,7 +12,7 @@ class UserNotifier extends StateNotifier<LocalUser> {
   UserNotifier()
       : super(LocalUser(
           name: 'Hermano',
-          gender: Gender.male,
+          gender: Gender.unknown,
           avatarPath: 'assets/images/avatar.png',
         )) {
     // Check if the user data exists in userBox
@@ -27,7 +27,7 @@ class UserNotifier extends StateNotifier<LocalUser> {
   void _createDefaultUser() {
     state = LocalUser(
       name: 'Hermano',
-      gender: Gender.male,
+      gender: Gender.unknown,
       avatarPath: 'assets/images/avatar.png',
     );
     _saveToHive();
