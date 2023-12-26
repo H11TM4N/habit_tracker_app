@@ -23,9 +23,7 @@ class HabitAdapter extends TypeAdapter<Habit> {
       notes: fields[6] as String,
       isCompleted: fields[4] as bool,
       createdAt: fields[3] as DateTime,
-      completionDates: (fields[5] as List)
-          .map((dynamic e) => (e as Map).cast<DateTime, bool>())
-          .toList(),
+      completionDates: (fields[5] as List).cast<DateTime>(),
     );
   }
 

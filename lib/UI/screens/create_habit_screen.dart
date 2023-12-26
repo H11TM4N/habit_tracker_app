@@ -53,14 +53,13 @@ class CreateHabitScreen extends HookConsumerWidget {
               onTap: () {
                 ref.watch(habitProvider.notifier).addHabit(
                       Habit(
-                          id: const Uuid().v4(),
-                          title: titleController.text,
-                          description: descriptionController.text,
-                          notes: notesController.text,
-                          createdAt: dateFormatter(DateTime.now()),
-                          completionDates: [
-                            {dateFormatter(DateTime.now()): false}
-                          ]),
+                        id: const Uuid().v4(),
+                        title: titleController.text,
+                        description: descriptionController.text,
+                        notes: notesController.text,
+                        createdAt: dateFormatter(DateTime.now()),
+                        completionDates: [],
+                      ),
                     );
                 Navigator.pop(context);
               },

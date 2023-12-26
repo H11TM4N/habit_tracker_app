@@ -16,7 +16,7 @@ class Habit {
   @HiveField(4)
   bool isCompleted;
   @HiveField(5)
-  List<Map<DateTime, bool>> completionDates;
+  List<DateTime> completionDates;
   @HiveField(6)
   String notes;
 
@@ -36,7 +36,7 @@ class Habit {
     String? description,
     DateTime? createdAt,
     bool? isCompleted,
-    List<Map<DateTime, bool>>? completionDates,
+    List<DateTime>? completionDates,
     String? notes,
   }) {
     return Habit(
