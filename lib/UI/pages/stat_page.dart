@@ -12,8 +12,9 @@ class StatPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final theme = Theme.of(context).colorScheme;
     final habits = ref.watch(habitProvider);
-    final completed = habits.where((habit) => habit.completionDates.isNotEmpty).toList();
-    
+    final completed =
+        habits.where((habit) => habit.completionDates.isNotEmpty).toList();
+
     return Scaffold(
       body: SafeArea(
         child: Padding(
@@ -37,7 +38,6 @@ class StatPage extends ConsumerWidget {
               const SizedBox(height: 30),
               const HabitsBarChart(),
               const SizedBox(height: 30),
-              const HabitsHeatMap(),
             ],
           ),
         ),

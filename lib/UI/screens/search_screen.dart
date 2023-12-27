@@ -57,6 +57,8 @@ class SearchScreen extends HookConsumerWidget {
                   itemCount: results.value.length,
                   itemBuilder: (context, index) {
                     return CustomTile(
+                      index: habits.indexWhere(
+                          (h) => h.id.compareTo(habits[index].id) == 0),
                       title: results.value[index].title,
                       onTap: () {},
                     );

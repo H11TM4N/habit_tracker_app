@@ -97,7 +97,7 @@ class HabitStatScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 30),
-            const HabitsCalendar(),
+            const HabitsHeatMap()
           ],
         ),
       ),
