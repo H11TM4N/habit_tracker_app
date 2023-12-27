@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class CustomBackButton extends StatelessWidget {
   const CustomBackButton({super.key});
@@ -13,7 +14,8 @@ class CustomBackButton extends StatelessWidget {
           shape: BoxShape.circle,
         ),
         child: const Icon(
-          Icons.arrow_back,
+          FontAwesomeIcons.arrowLeft,
+          size: 20,
         ),
       ),
     );
