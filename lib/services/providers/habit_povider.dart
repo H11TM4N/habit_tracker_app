@@ -24,8 +24,10 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
   }
 
   void clearHabits() {
-    habitBox.clear();
-    state = habitBox.values.toList();
+    for (int i = state.length - 1; i >= 0; i--) {
+      habitBox.deleteAt(i);
+    }
+    state = [];
   }
 
   void editHabit(Habit habit) {

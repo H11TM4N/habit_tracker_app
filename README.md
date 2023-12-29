@@ -26,21 +26,27 @@ A simple, not so simple habit tracker app made with Flutter.
 ## Features
 
 1. **Cross-Platform Compatibility:**
+
    - Works seamlessly on both Android and iOS platforms.
 
 2. **User-Friendly Interface:**
+
    - Intuitive design for easy navigation and task management.
 
 3. **Task Management:**
+
    - Create, read, update, and delete (CRUD) habits.
 
 4. **Search:**
+
    - Search for specific habits.
 
 5. **Offline Usage:**
+
    - Access and manage habits without an internet connection.
 
 6. **Profile Page:**
+
    - Select from custom avatars or choose from the gallery.
 
 7. **Track Progress:**
@@ -66,4 +72,4 @@ A simple, not so simple habit tracker app made with Flutter.
 
 ## Feedback
 
-Reach out to me at my [email](jeremiah.devv@gmail.com)
+Feel free to reach out to me via email at [jeremiah.devv@gmail.com](mailto:jeremiah.devv@gmail.com) for any feedback or queries.

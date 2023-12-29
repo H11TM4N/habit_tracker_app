@@ -10,7 +10,7 @@ confirmErasureDialog(
             title: Text(isErasingAllData ? 'erase all data' : 'clear user data',
                 style: style),
             content: Text(isErasingAllData
-                ? 'This action cannot be undone\nThe app will restart'
+                ? 'This action cannot be undone'
                 : 'user info will be set back to default'),
             backgroundColor: theme.primary,
             actions: [
