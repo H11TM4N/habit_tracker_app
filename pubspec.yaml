@@ -29,13 +29,18 @@ dependencies:
   hive_flutter: ^1.1.0
   flutter_iconpicker: ^3.2.4
   syncfusion_flutter_charts: ^20.2.62
-  restart_app: ^1.2.1
 
 flutter_native_splash:
   color: "#03001C"
   image: assets/images/habit-splash.png
   android: true
   ios: true
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/habit-icon.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
 
 dev_dependencies:
   flutter_test:
@@ -45,6 +50,7 @@ dev_dependencies:
   hive_generator: ^2.0.1
   build_runner: ^2.4.7
   flutter_native_splash: ^2.3.7
+  flutter_launcher_icons: ^0.13.1
 
 flutter:
   uses-material-design: true
