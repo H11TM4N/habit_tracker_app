@@ -8,3 +8,4 @@ export './settings_tile.dart';
 export './name_textfield.dart';
 export './habits_bar_chart.dart';
 export './habits_heat_map.dart';
+export './stat_container.dart';

@@ -47,7 +47,7 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
       habit.completionStatus[currentDate] =
           !habit.completionStatus[currentDate]!;
     }
-    print('${habit.title}: ${habit.completionStatus}');
+    // print('${habit.title}: ${habit.completionStatus}');
     habitBox.putAt(index, habit);
     state = habitBox.values.toList();
   }

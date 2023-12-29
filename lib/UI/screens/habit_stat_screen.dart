@@ -15,10 +15,7 @@ class HabitStatScreen extends ConsumerWidget {
   });
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final theme = Theme.of(context).colorScheme;
-    final boxDecoration = BoxDecoration(
-        color: theme.primary, borderRadius: BorderRadius.circular(12));
-    const size = 140.0;
+    // final theme = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
@@ -71,28 +68,16 @@ class HabitStatScreen extends ConsumerWidget {
               ),
             ),
             const SizedBox(height: 20),
-            SingleChildScrollView(
+            const SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
                 children: [
-                  Container(
-                    height: size,
-                    width: size,
-                    decoration: boxDecoration,
-                  ),
-                  const SizedBox(width: 20),
-                  Container(
-                    height: size,
-                    width: size,
-                    decoration: boxDecoration,
-                  ),
-                  const SizedBox(width: 20),
-                  Container(
-                    height: size,
-                    width: size,
-                    decoration: boxDecoration,
-                  ),
-                  const SizedBox(width: 20),
+                  StatContainer(containerPos: StatContainerPos.left),
+                  SizedBox(width: 20),
+                  StatContainer(containerPos: StatContainerPos.center),
+                  SizedBox(width: 20),
+                  StatContainer(containerPos: StatContainerPos.right),
+                  SizedBox(width: 20),
                 ],
               ),
             ),
