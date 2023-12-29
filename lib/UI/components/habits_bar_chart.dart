@@ -1,29 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-class HabitsBarChart extends StatefulWidget {
-  const HabitsBarChart({
-    super.key,
-  });
+class HabitsBarChart extends ConsumerWidget {
+  const HabitsBarChart({super.key});
 
   @override
-  State<HabitsBarChart> createState() => _HabitsBarChartState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final habits = ref.watch(habitProvider);
+    final Map<String, int> habitsCountByDay = {
+      'Mon': 0,
+      'Tue': 0,
+      'Wed': 0,
+      'Thu': 0,
+      'Fri': 0,
+      'Sat': 0,
+      'Sun': 0,
+    };
 
-class _HabitsBarChartState extends State<HabitsBarChart> {
-  final List<ChartData> chartData = [
-    ChartData(day: 'Mon', completedHabits: 3),
-    ChartData(day: 'Tue', completedHabits: 5),
-    ChartData(day: 'Wed', completedHabits: 2),
-    ChartData(day: 'Thur', completedHabits: 4),
-    ChartData(day: 'Fri', completedHabits: 1),
-    ChartData(day: 'Sat', completedHabits: 6),
-    ChartData(day: 'Sun', completedHabits: 7),
-  ];
+    // Compute the completion count for each day
+    for (final habit in habits) {
+      for (final date in habit.completionStatus.keys) {
+        final day = getDayOfWeek(date);
+        habitsCountByDay[day] = (habitsCountByDay[day] ?? 0) + 1;
+      }
+    }
 
-  @override
-  Widget build(BuildContext context) {
-    // final theme = Theme.of(context).colorScheme;
+    // Convert data to chart data
+    final List<ChartData> chartData = habitsCountByDay.entries
+        .map((entry) => ChartData(day: entry.key, completedHabits: entry.value))
+        .toList();
+
     return SizedBox(
       height: 500,
       child: SfCartesianChart(
@@ -37,6 +45,11 @@ class _HabitsBarChartState extends State<HabitsBarChart> {
         ],
       ),
     );
+  }
+
+  String getDayOfWeek(DateTime date) {
+    final daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+    return daysOfWeek[date.weekday - 1];
   }
 }
 
