@@ -15,7 +15,10 @@ class HabitsHeader extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).colorScheme;
     final habits = ref.watch(habitProvider);
-    final completed = habits.where((habit) => habit.isCompleted).toList();
+    final currentDate = dateFormatter(DateTime.now());
+    final completed = habits.where((habit) {
+      return habit.completionStatus[currentDate] == true;
+    }).toList();
 
     return ClipRRect(
       borderRadius: const BorderRadius.only(

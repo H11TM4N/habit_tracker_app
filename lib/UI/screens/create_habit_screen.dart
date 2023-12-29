@@ -58,7 +58,9 @@ class CreateHabitScreen extends HookConsumerWidget {
                         description: descriptionController.text,
                         notes: notesController.text,
                         createdAt: dateFormatter(DateTime.now()),
-                        completionDates: [],
+                        completionStatus: {
+                          dateFormatter(DateTime.now()): false
+                        },
                       ),
                     );
                 Navigator.pop(context);

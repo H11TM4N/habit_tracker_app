@@ -41,15 +41,13 @@ class HabitNotifier extends StateNotifier<List<Habit>> {
 
     DateTime currentDate = dateFormatter(DateTime.now());
 
-    if (!habit.isCompleted) {
-      habit.completionDates.add(currentDate);
+    if (habit.completionStatus[currentDate] == null) {
+      habit.completionStatus[currentDate] = true;
     } else {
-      habit.completionDates
-          .removeWhere((date) => date.isAtSameMomentAs(currentDate));
+      habit.completionStatus[currentDate] =
+          !habit.completionStatus[currentDate]!;
     }
-    habit.isCompleted = !habit.isCompleted; // Toggle isCompleted
-
-    // print('name:${habit.title}, ${habit.completionDates}');
+    print('${habit.title}: ${habit.completionStatus}');
     habitBox.putAt(index, habit);
     state = habitBox.values.toList();
   }

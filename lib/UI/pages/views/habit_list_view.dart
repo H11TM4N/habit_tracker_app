@@ -68,14 +68,18 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
         child: ListView.builder(
           itemCount: habits.length,
           itemBuilder: (context, index) {
+            final habit = habits[index];
+            final currentDate = dateFormatter(DateTime.now());
+            final completionStatus =
+                habit.completionStatus[currentDate] ?? false;
             return Row(
               children: [
                 Checkbox(
                   shape: const CircleBorder(),
                   checkColor: theme.background,
-                  value: habits[index].isCompleted,
+                  value: completionStatus,
                   onChanged: (value) {
-                    value = habits[index].isCompleted;
+                    value = completionStatus;
                     ref
                         .read(habitProvider.notifier)
                         .toggleCompletion(habits[index]);
@@ -84,7 +88,7 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
                 Expanded(
                   child: HabitTile(
                     title: habits[index].title,
-                    isCompleted: habits[index].isCompleted,
+                    isCompleted: completionStatus,
                     onToggleCompletion: () {
                       ref
                           .read(habitProvider.notifier)

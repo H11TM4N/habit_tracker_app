@@ -14,20 +14,17 @@ class Habit {
   @HiveField(3)
   DateTime createdAt;
   @HiveField(4)
-  bool isCompleted;
+  Map<DateTime, bool> completionStatus;
   @HiveField(5)
-  List<DateTime> completionDates;
-  @HiveField(6)
   String notes;
 
   Habit({
     this.id = '',
     this.title = '',
     this.description = '',
+    this.completionStatus= const {},
     this.notes = '',
-    this.isCompleted = false,
     required this.createdAt,
-    this.completionDates = const [],
   });
 
   Habit copyWith({
@@ -35,8 +32,7 @@ class Habit {
     String? title,
     String? description,
     DateTime? createdAt,
-    bool? isCompleted,
-    List<DateTime>? completionDates,
+    Map<DateTime, bool>? completionStatus,
     String? notes,
   }) {
     return Habit(
@@ -44,8 +40,7 @@ class Habit {
       title: title ?? this.title,
       description: description ?? this.description,
       createdAt: createdAt ?? this.createdAt,
-      isCompleted: isCompleted ?? this.isCompleted,
-      completionDates: completionDates ?? this.completionDates,
+      completionStatus: completionStatus ?? this.completionStatus,
       notes: notes ?? this.notes,
     );
   }

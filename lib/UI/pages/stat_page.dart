@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/UI/pages/views/overview_card.dart';
+import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 
 class StatPage extends ConsumerWidget {
@@ -12,8 +13,11 @@ class StatPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     // final theme = Theme.of(context).colorScheme;
     final habits = ref.watch(habitProvider);
-    final completed =
-        habits.where((habit) => habit.completionDates.isNotEmpty).toList();
+    final currentDate = dateFormatter(DateTime.now());
+    final completed = habits.where((habit) {
+      return habit.completionStatus[currentDate] == true;
+    }).toList();
+
 
     return Scaffold(
       body: SafeArea(
