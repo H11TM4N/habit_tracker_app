@@ -9,11 +9,13 @@ class SettingTile extends StatelessWidget {
   final TilePosition tilePosition;
   final bool isSelectedTile;
   final IconData? icon;
+  final Color? fillColor;
   const SettingTile({
     super.key,
     required this.onTap,
     required this.title,
     required this.tilePosition,
+    this.fillColor,
     this.icon,
     this.isSelectedTile = false,
   });
@@ -21,7 +23,14 @@ class SettingTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      leading: Icon(icon),
+      leading: Container(
+        padding: const EdgeInsets.all(5),
+        decoration: BoxDecoration(
+          color: fillColor,
+          borderRadius: BorderRadius.circular(10),
+        ),
+        child: Icon(icon, size: 21),
+      ),
       contentPadding: const EdgeInsets.only(left: 12),
       shape: tilePosition == TilePosition.top
           ? const RoundedRectangleBorder(

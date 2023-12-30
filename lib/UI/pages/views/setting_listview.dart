@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
 import 'package:habit_tracker_app/common/common.dart';
@@ -8,6 +9,7 @@ import 'package:habit_tracker_app/models/enums/gender.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:habit_tracker_app/services/providers/user_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class SettingListView extends HookConsumerWidget {
   final String displayName;
@@ -42,7 +44,7 @@ class SettingListView extends HookConsumerWidget {
       Icons.delete_forever,
       Icons.share,
       Icons.rate_review,
-      Icons.feedback,
+      FontAwesomeIcons.penToSquare,
     ];
 
     List onTaps = [
@@ -99,16 +101,19 @@ class SettingListView extends HookConsumerWidget {
                 SettingTile(
                     title: titles[0],
                     icon: icons[0],
+                    fillColor: Colors.blue.shade700,
                     onTap: onTaps[0],
                     tilePosition: TilePosition.top),
                 SettingTile(
                     title: titles[1],
                     icon: icons[1],
+                    fillColor: Colors.yellow.shade700,
                     onTap: onTaps[1],
                     tilePosition: TilePosition.center),
                 SettingTile(
                     title: titles[2],
                     icon: icons[2],
+                    fillColor: Colors.purpleAccent.shade700,
                     onTap: onTaps[2],
                     tilePosition: TilePosition.bottom),
               ],
@@ -122,17 +127,20 @@ class SettingListView extends HookConsumerWidget {
               SettingTile(
                 title: titles[3],
                 icon: icons[3],
+                fillColor: Colors.red.shade300,
                 onTap: onTaps[3],
                 tilePosition: TilePosition.top,
               ),
               SettingTile(
                   title: titles[4],
                   icon: icons[4],
+                  fillColor: Colors.blue.shade700,
                   onTap: onTaps[4],
                   tilePosition: TilePosition.center),
               SettingTile(
                 title: titles[5],
                 icon: icons[5],
+                fillColor: Colors.red.shade900,
                 onTap: onTaps[5],
                 tilePosition: TilePosition.bottom,
               ),
@@ -146,17 +154,28 @@ class SettingListView extends HookConsumerWidget {
               SettingTile(
                 title: titles[6],
                 icon: icons[6],
-                onTap: () {},
+                fillColor: Colors.blue.shade700,
+                onTap: () async {
+                  const String appLink =
+                      'https://github.com/JER3MIAH/habit_tracker_app';
+                  const String message = 'Check out my new app: $appLink';
+
+                  await FlutterShare.share(
+                      title: 'Share App', text: message, linkUrl: appLink);
+                  //* Display flushbar: "Thanks for sharing"
+                },
                 tilePosition: TilePosition.top,
               ),
               SettingTile(
                   title: titles[7],
                   icon: icons[7],
+                  fillColor: Colors.green.shade700,
                   onTap: () {},
                   tilePosition: TilePosition.center),
               SettingTile(
                 title: titles[8],
                 icon: icons[8],
+                fillColor: Colors.purple.shade400,
                 onTap: () {},
                 tilePosition: TilePosition.bottom,
               ),
