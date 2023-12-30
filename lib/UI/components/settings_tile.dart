@@ -8,17 +8,20 @@ class SettingTile extends StatelessWidget {
   final void Function()? onTap;
   final TilePosition tilePosition;
   final bool isSelectedTile;
+  final IconData? icon;
   const SettingTile({
     super.key,
     required this.onTap,
     required this.title,
     required this.tilePosition,
+    this.icon,
     this.isSelectedTile = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      leading: Icon(icon),
       contentPadding: const EdgeInsets.only(left: 12),
       shape: tilePosition == TilePosition.top
           ? const RoundedRectangleBorder(

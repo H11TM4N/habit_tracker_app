@@ -28,6 +28,21 @@ class SettingListView extends HookConsumerWidget {
       Text('CLEAR USER INFO', style: settingsStyle),
       Text('DISPLAY INFORMATION', style: settingsStyle),
       Text('ERASE ALL DATA', style: settingsStyle),
+      Text('SHARE WITH FRIENDS', style: settingsStyle),
+      Text('RATE THE APP', style: settingsStyle),
+      Text('FEEDBACK', style: settingsStyle),
+    ];
+
+    List<IconData> icons = [
+      Icons.person,
+      Icons.image,
+      Icons.male,
+      Icons.delete,
+      Icons.info,
+      Icons.delete_forever,
+      Icons.share,
+      Icons.rate_review,
+      Icons.feedback,
     ];
 
     List onTaps = [
@@ -74,49 +89,81 @@ class SettingListView extends HookConsumerWidget {
       }, //* index 5
     ];
 
-    return Column(
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Column(
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: Column(
+              children: [
+                SettingTile(
+                    title: titles[0],
+                    icon: icons[0],
+                    onTap: onTaps[0],
+                    tilePosition: TilePosition.top),
+                SettingTile(
+                    title: titles[1],
+                    icon: icons[1],
+                    onTap: onTaps[1],
+                    tilePosition: TilePosition.center),
+                SettingTile(
+                    title: titles[2],
+                    icon: icons[2],
+                    onTap: onTaps[2],
+                    tilePosition: TilePosition.bottom),
+              ],
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          Column(
             children: [
               SettingTile(
-                  title: titles[0],
-                  onTap: onTaps[0],
-                  tilePosition: TilePosition.top),
+                title: titles[3],
+                icon: icons[3],
+                onTap: onTaps[3],
+                tilePosition: TilePosition.top,
+              ),
               SettingTile(
-                  title: titles[1],
-                  onTap: onTaps[1],
+                  title: titles[4],
+                  icon: icons[4],
+                  onTap: onTaps[4],
                   tilePosition: TilePosition.center),
               SettingTile(
-                  title: titles[2],
-                  onTap: onTaps[2],
-                  tilePosition: TilePosition.bottom),
+                title: titles[5],
+                icon: icons[5],
+                onTap: onTaps[5],
+                tilePosition: TilePosition.bottom,
+              ),
             ],
           ),
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Column(
-          children: [
-            SettingTile(
-              title: titles[3],
-              onTap: onTaps[3],
-              tilePosition: TilePosition.top,
-            ),
-            SettingTile(
-                title: titles[4],
-                onTap: onTaps[4],
-                tilePosition: TilePosition.center),
-            SettingTile(
-              title: titles[5],
-              onTap: onTaps[5],
-              tilePosition: TilePosition.bottom,
-            ),
-          ],
-        ),
-      ],
+          const SizedBox(
+            height: 20,
+          ),
+          Column(
+            children: [
+              SettingTile(
+                title: titles[6],
+                icon: icons[6],
+                onTap: () {},
+                tilePosition: TilePosition.top,
+              ),
+              SettingTile(
+                  title: titles[7],
+                  icon: icons[7],
+                  onTap: () {},
+                  tilePosition: TilePosition.center),
+              SettingTile(
+                title: titles[8],
+                icon: icons[8],
+                onTap: () {},
+                tilePosition: TilePosition.bottom,
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
