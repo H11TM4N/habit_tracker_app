@@ -62,7 +62,21 @@ class SettingListView extends HookConsumerWidget {
             controller: nameController);
       }, //* index 0
       () {
-        //! Change Avatar
+        imageDialog(
+          context,
+          onTakePic: () {
+            ref.read(userProvider.notifier).pickImageFromCamera();
+            if (context.mounted) {
+              Navigator.pop(context);
+            }
+          },
+          onSelectPic: () {
+            ref.read(userProvider.notifier).pickImageFromGallery();
+            if (context.mounted) {
+              Navigator.pop(context);
+            }
+          },
+        );
       }, //* index 1
       () {
         editGenderDialog(

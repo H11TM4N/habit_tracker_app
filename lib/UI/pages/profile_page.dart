@@ -11,6 +11,7 @@ class ProfilePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).colorScheme;
+    final avatarPath = ref.watch(userProvider).avatarPath;
 
     return Scaffold(
       body: SafeArea(
@@ -46,9 +47,17 @@ class ProfilePage extends ConsumerWidget {
                   Center(
                     child: CircleAvatar(
                       backgroundColor: theme.primary,
-                      backgroundImage:
-                          const AssetImage('assets/images/avatar.png'),
+                      // backgroundImage:
+                      //     const AssetImage('assets/images/avatar.png'),
                       radius: 80,
+                      child: avatarPath == null
+                          ? Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: theme.primary,
+                              ),
+                            )
+                          : Image.file(avatarPath),
                     ),
                   ),
                 ],

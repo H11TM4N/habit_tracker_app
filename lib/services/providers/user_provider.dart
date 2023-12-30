@@ -1,6 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/models/local_user.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../models/enums/gender.dart';
 
@@ -13,7 +16,6 @@ class UserNotifier extends StateNotifier<LocalUser> {
       : super(LocalUser(
           name: 'Hermano',
           gender: Gender.unknown,
-          avatarPath: 'assets/images/avatar.png',
         )) {
     // Check if the user data exists in userBox
     if (userBox.containsKey('userKey')) {
@@ -23,12 +25,12 @@ class UserNotifier extends StateNotifier<LocalUser> {
       _createDefaultUser();
     }
   }
+  final _picker = ImagePicker();
 
   void _createDefaultUser() {
     state = LocalUser(
       name: 'Hermano',
       gender: Gender.unknown,
-      avatarPath: 'assets/images/avatar.png',
     );
     _saveToHive();
   }
@@ -45,9 +47,26 @@ class UserNotifier extends StateNotifier<LocalUser> {
     _saveToHive();
   }
 
+  Future<void> pickImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      state.avatarPath = File(pickedFile.path);
+    }
+    _saveToHive();
+  }
+
+  Future<void> pickImageFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    if (pickedFile != null) {
+      state.avatarPath = File(pickedFile.path);
+    }
+    _saveToHive();
+  }
+
   void clearData() {
-    if (userBox.isNotEmpty) {
-      userBox.clear();
+    final keysToRemove = userBox.keys.toList();
+    for (final String key in keysToRemove) {
+      userBox.delete(key);
     }
   }
 

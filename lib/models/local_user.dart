@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'dart:io';
+
 import 'package:hive/hive.dart';
 
 import 'enums/gender.dart';
@@ -14,18 +16,18 @@ class LocalUser {
   Gender gender;
 
   @HiveField(2)
-  String avatarPath;
+  File? avatarPath;
 
   LocalUser({
     this.name = '',
     required this.gender,
-    required this.avatarPath,
+    this.avatarPath,
   });
 
   LocalUser copyWith({
     String? name,
     Gender? gender,
-    String? avatarPath,
+    File? avatarPath,
   }) {
     return LocalUser(
       name: name ?? this.name,

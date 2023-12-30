@@ -19,7 +19,7 @@ class LocalUserAdapter extends TypeAdapter<LocalUser> {
     return LocalUser(
       name: fields[0] as String,
       gender: fields[1] as Gender,
-      avatarPath: fields[2] as String,
+      avatarPath: fields[2] as File?,
     );
   }
 
