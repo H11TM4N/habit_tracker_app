@@ -10,9 +10,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'common/boxes/boxes.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(LocalUserAdapter());
+  Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(GenderAdapter());
   habitBox = await Hive.openBox<Habit>('habitBox');
   userBox = await Hive.openBox<LocalUser>('userBox');

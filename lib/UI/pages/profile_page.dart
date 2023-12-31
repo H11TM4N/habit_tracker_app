@@ -45,20 +45,27 @@ class ProfilePage extends ConsumerWidget {
                     ),
                   ),
                   Center(
-                    child: CircleAvatar(
-                      backgroundColor: theme.primary,
-                      // backgroundImage:
-                      //     const AssetImage('assets/images/avatar.png'),
-                      radius: 80,
-                      child: avatarPath == null
-                          ? Container(
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: theme.primary,
-                              ),
-                            )
-                          : Image.file(avatarPath),
-                    ),
+                    key: UniqueKey(),
+                    child: Builder(builder: (context) {
+                      return CircleAvatar(
+                        backgroundColor: theme.primary,
+                        backgroundImage:
+                            avatarPath == null ? null : MemoryImage(avatarPath),
+                        radius: 80,
+                        child: avatarPath == null
+                            ? Container(
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: theme.primary,
+                                  image: const DecorationImage(
+                                    image:
+                                        AssetImage('assets/images/avatar.png'),
+                                  ),
+                                ),
+                              )
+                            : null,
+                      );
+                    }),
                   ),
                 ],
               ),

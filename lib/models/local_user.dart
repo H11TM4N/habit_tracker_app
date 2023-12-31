@@ -1,5 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:hive/hive.dart';
 
@@ -16,7 +16,7 @@ class LocalUser {
   Gender gender;
 
   @HiveField(2)
-  File? avatarPath;
+  Uint8List? avatarPath;
 
   LocalUser({
     this.name = '',
@@ -27,7 +27,7 @@ class LocalUser {
   LocalUser copyWith({
     String? name,
     Gender? gender,
-    File? avatarPath,
+    Uint8List? avatarPath,
   }) {
     return LocalUser(
       name: name ?? this.name,

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/common/common.dart';
@@ -50,7 +51,9 @@ class UserNotifier extends StateNotifier<LocalUser> {
   Future<void> pickImageFromGallery() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
     if (pickedFile != null) {
-      state.avatarPath = File(pickedFile.path);
+      final bytes = File(pickedFile.path).readAsBytesSync();
+      state.avatarPath = Uint8List.fromList(bytes);
+      state = state.copyWith(avatarPath: Uint8List.fromList(bytes));
     }
     _saveToHive();
   }
@@ -58,16 +61,16 @@ class UserNotifier extends StateNotifier<LocalUser> {
   Future<void> pickImageFromCamera() async {
     final pickedFile = await _picker.pickImage(source: ImageSource.camera);
     if (pickedFile != null) {
-      state.avatarPath = File(pickedFile.path);
+      final bytes = File(pickedFile.path).readAsBytesSync();
+      state.avatarPath = Uint8List.fromList(bytes);
+      state = state.copyWith(avatarPath: Uint8List.fromList(bytes));
     }
     _saveToHive();
   }
 
   void clearData() {
-    final keysToRemove = userBox.keys.toList();
-    for (final String key in keysToRemove) {
-      userBox.delete(key);
-    }
+    userBox.clear();
+    _createDefaultUser();
   }
 
   // void changeAvatarPath(String newAvatarPath) {
