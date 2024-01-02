@@ -14,7 +14,11 @@ A simple, not so simple habit tracker app made with Flutter.
 
 ## Screenshots
 
-<img src="./assets/screenshots/habit-app-sc.jpg" width="200" alt="main screen" />
+| <img src="./assets/screenshots/habit-app-sc.jpg" width="200" alt="main screen" /> | <img src="./assets/screenshots/create-habit-sc.jpg" width="200" alt="main screen" /> |
+
+| <img src="./assets/screenshots/overview-sc.jpg" width="200" alt="main screen" /> | <img src="./assets/screenshots/profile-sc.jpg" width="200" alt="main screen" /> |
+
+<img src="./assets/screenshots/view-habit-sc.jpg" width="200" alt="main screen" /> |
 
 ## Built with
 
