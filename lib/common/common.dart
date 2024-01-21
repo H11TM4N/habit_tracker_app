@@ -8,3 +8,4 @@ export 'utils/dialogs/confirm_dialog.dart';
 export './utils/dialogs/change_gender_dialog.dart';
 export './utils/dialogs/display_info_dialog.dart';
 export './utils/dialogs/image_picker_dialog.dart';
+export './utils/date_time.dart';

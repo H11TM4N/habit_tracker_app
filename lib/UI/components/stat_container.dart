@@ -13,7 +13,7 @@ class StatContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // final theme = Theme.of(context).colorScheme;
-    const size = 140.0;
+    const size = 150.0;
 
     return Container(
       padding: const EdgeInsets.all(8.0),
