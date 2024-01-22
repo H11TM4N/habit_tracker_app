@@ -20,6 +20,13 @@ class HabitStatScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
+        title: Text(
+          habit.title,
+          style: GoogleFonts.montserrat(
+            fontSize: 22,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         actions: [
           IconButton(
               onPressed: () {
@@ -57,33 +64,62 @@ class HabitStatScreen extends ConsumerWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              habit.title,
-              style: GoogleFonts.montserrat(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              habit.description.isNotEmpty
+                  ? Text(
+                      habit.description,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              habit.description.isNotEmpty
+                  ? const SizedBox(height: 20)
+                  : const SizedBox.shrink(),
+              habit.notes.isNotEmpty && habit.description.isNotEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.only(bottom: 10),
+                      child: Divider(
+                        endIndent: 0,
+                        height: 1,
+                        thickness: 0.2,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              habit.notes.isNotEmpty
+                  ? Text(
+                      habit.notes,
+                      style: GoogleFonts.lato(
+                        fontSize: 17,
+                        color: Colors.grey,
+                        fontWeight: FontWeight.w600,
+                      ),
+                    )
+                  : const SizedBox.shrink(),
+              habit.notes.isNotEmpty
+                  ? const SizedBox(height: 20)
+                  : const SizedBox.shrink(),
+              const SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    StatContainer(containerPos: StatContainerPos.left),
+                    SizedBox(width: 20),
+                    StatContainer(containerPos: StatContainerPos.center),
+                    SizedBox(width: 20),
+                    StatContainer(containerPos: StatContainerPos.right),
+                    SizedBox(width: 20),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 20),
-            const SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  StatContainer(containerPos: StatContainerPos.left),
-                  SizedBox(width: 20),
-                  StatContainer(containerPos: StatContainerPos.center),
-                  SizedBox(width: 20),
-                  StatContainer(containerPos: StatContainerPos.right),
-                  SizedBox(width: 20),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            const HabitsHeatMap()
-          ],
+              const SizedBox(height: 30),
+              const HabitsHeatMap()
+            ],
+          ),
         ),
       ),
     );

@@ -54,9 +54,9 @@ class CreateHabitScreen extends HookConsumerWidget {
                 ref.watch(habitProvider.notifier).addHabit(
                       Habit(
                         id: const Uuid().v4(),
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        notes: notesController.text,
+                        title: titleController.text.trim(),
+                        description: descriptionController.text.trim(),
+                        notes: notesController.text.trim(),
                         createdAt: dateFormatter(DateTime.now()),
                         completionStatus: {
                           dateFormatter(DateTime.now()): false

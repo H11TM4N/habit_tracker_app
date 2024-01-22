@@ -4,6 +4,7 @@ import 'package:habit_tracker_app/UI/components/habit_tile.dart';
 import 'package:habit_tracker_app/UI/screens/create_habit_screen.dart';
 import 'package:habit_tracker_app/UI/screens/habit_stat_screen.dart';
 import 'package:habit_tracker_app/common/common.dart';
+import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -19,6 +20,7 @@ class HabitListView extends StatefulHookConsumerWidget {
 class _HabitListViewState extends ConsumerState<HabitListView> {
   @override
   Widget build(BuildContext context) {
+    // final GlobalKey<AnimatedListState> key = GlobalKey();
     final theme = Theme.of(context).colorScheme;
     final habits = ref.watch(habitProvider);
     final textStyle = GoogleFonts.montserrat(
@@ -72,45 +74,43 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
             final currentDate = dateFormatter(DateTime.now());
             final completionStatus =
                 habit.completionStatus[currentDate] ?? false;
-            return Row(
-              children: [
-                Checkbox(
-                  shape: const CircleBorder(),
-                  checkColor: theme.background,
-                  value: completionStatus,
-                  onChanged: (value) {
-                    value = completionStatus;
-                    ref
-                        .read(habitProvider.notifier)
-                        .toggleCompletion(habits[index]);
-                  },
-                ),
-                Expanded(
-                  child: HabitTile(
-                    title: habits[index].title,
-                    isCompleted: completionStatus,
-                    onToggleCompletion: () {
-                      ref
-                          .read(habitProvider.notifier)
-                          .toggleCompletion(habits[index]);
-                    },
-                    onDelete: () {
-                      ref
-                          .read(habitProvider.notifier)
-                          .removeHabit(habits[index].id);
-                    },
-                    habit: habits[index],
-                    tileOnTap: () {
-                      smoothNavigation(
-                          context, HabitStatScreen(habit: habits[index]));
-                    },
-                  ),
-                ),
-              ],
-            );
+            return habitItem(theme, completionStatus, habits, index, context);
           },
         ),
       );
     }
+  }
+
+  Widget habitItem(ColorScheme theme, bool completionStatus, List<Habit> habits,
+      int index, BuildContext context) {
+    return Row(
+      children: [
+        Checkbox(
+          shape: const CircleBorder(),
+          checkColor: theme.background,
+          value: completionStatus,
+          onChanged: (value) {
+            value = completionStatus;
+            ref.read(habitProvider.notifier).toggleCompletion(habits[index]);
+          },
+        ),
+        Expanded(
+          child: HabitTile(
+            title: habits[index].title,
+            isCompleted: completionStatus,
+            onToggleCompletion: () {
+              ref.read(habitProvider.notifier).toggleCompletion(habits[index]);
+            },
+            onDelete: () {
+              ref.read(habitProvider.notifier).removeHabit(habits[index].id);
+            },
+            habit: habits[index],
+            tileOnTap: () {
+              smoothNavigation(context, HabitStatScreen(habit: habits[index]));
+            },
+          ),
+        ),
+      ],
+    );
   }
 }

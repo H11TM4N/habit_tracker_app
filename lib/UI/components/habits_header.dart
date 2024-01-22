@@ -87,7 +87,9 @@ class HabitsHeader extends ConsumerWidget {
                       ),
                     ),
                     Text(
-                      'you have ${habits.length - completed.length} habits left to complete',
+                      habits.isEmpty
+                          ? 'No habits added yet'
+                          : 'you have ${habits.length - completed.length} habits left to complete',
                       style: GoogleFonts.montserrat(
                           fontSize: 15,
                           fontWeight: FontWeight.w300,

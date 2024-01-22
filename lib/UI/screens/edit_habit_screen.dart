@@ -56,9 +56,9 @@ class EditHabitScreen extends HookConsumerWidget {
               onTap: () {
                 ref.watch(habitProvider.notifier).editHabit(
                       habit.copyWith(
-                        title: titleController.text,
-                        description: descriptionController.text,
-                        notes: notesController.text,
+                        title: titleController.text.trim(),
+                        description: descriptionController.text.trim(),
+                        notes: notesController.text.trim(),
                       ),
                     );
                 Navigator.pop(context);
