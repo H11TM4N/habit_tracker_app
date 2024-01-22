@@ -117,7 +117,9 @@ class HabitStatScreen extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 30),
-              const HabitsHeatMap()
+              HabitsHeatMap(
+                habit: habit,
+              )
             ],
           ),
         ),

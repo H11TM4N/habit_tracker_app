@@ -1,39 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
+import 'package:habit_tracker_app/models/habit.dart';
 
 class HabitsHeatMap extends StatelessWidget {
-  const HabitsHeatMap({
-    super.key,
-  });
+  final Habit habit;
+  const HabitsHeatMap({super.key, required this.habit});
 
   @override
   Widget build(BuildContext context) {
     // final theme = Theme.of(context).colorScheme;
+    List<DateTime> completedDates() {
+      final List<DateTime> result = [];
+
+      for (var entry in habit.completionStatus.entries) {
+        if (entry.value) {
+          result.add(entry.key);
+        }
+      }
+      return result;
+    }
+
+    final Map<DateTime, int> datasets = {
+      for (var date in completedDates()) date: 9
+    };
+
     return SizedBox(
       height: 400,
       child: HeatMapCalendar(
-        defaultColor: Colors.white,
+        defaultColor: Colors.white.withOpacity(0.1),
         flexible: true,
+        showColorTip: false,
         colorMode: ColorMode.color,
-        datasets: {
-          DateTime(2021, 1, 6): 3,
-          DateTime(2021, 1, 7): 7,
-          DateTime(2021, 1, 8): 10,
-          DateTime(2021, 1, 9): 13,
-          DateTime(2021, 1, 13): 6,
-        },
+        datasets: datasets,
         colorsets: const {
-          1: Colors.red,
-          3: Colors.orange,
-          5: Colors.yellow,
-          7: Colors.green,
-          9: Colors.blue,
-          11: Colors.indigo,
-          13: Colors.purple,
-        },
-        onClick: (value) {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(value.toString())));
+          9: Colors.greenAccent,
         },
       ),
     );

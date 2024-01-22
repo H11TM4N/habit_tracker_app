@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 confirmErasureDialog(
     BuildContext context, void Function() onPressed, TextStyle style,
@@ -8,7 +9,8 @@ confirmErasureDialog(
       context: context,
       builder: (context) => AlertDialog(
             title: Text(isErasingAllData ? 'erase all data' : 'clear user data',
-                style: style),
+                style: GoogleFonts.montserrat(
+                    fontWeight: FontWeight.w700, color: Colors.red)),
             content: Text(isErasingAllData
                 ? 'This action cannot be undone'
                 : 'user info will be set back to default'),
