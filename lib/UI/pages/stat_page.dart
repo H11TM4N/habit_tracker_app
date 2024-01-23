@@ -13,7 +13,7 @@ class StatPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final theme = Theme.of(context).colorScheme;
-    final habits = ref.watch(habitProvider);
+    final habits = ref.watch(habitProvider).habits;
     final currentDate = dateFormatter(DateTime.now());
     final completed = habits.where((habit) {
       return habit.completionStatus[currentDate] == true;

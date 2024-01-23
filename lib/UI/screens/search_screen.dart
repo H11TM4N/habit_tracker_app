@@ -14,7 +14,7 @@ class SearchScreen extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final searchController = useTextEditingController();
 
-    final habits = ref.watch(habitProvider);
+    final habits = ref.watch(habitProvider).habits;
     final foundUsers = useState(<Habit>[]);
     var results = useState(<Habit>[]);
 

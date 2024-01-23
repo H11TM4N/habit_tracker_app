@@ -1,43 +1,62 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
+import 'package:table_calendar/table_calendar.dart';
 
-class HabitsBarChart extends ConsumerWidget {
+class HabitsBarChart extends ConsumerStatefulWidget {
   const HabitsBarChart({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final habits = ref.watch(habitProvider);
+  ConsumerState<HabitsBarChart> createState() => _HabitsBarChartState();
+}
 
-    // final ha = habits.where((habit) => habit.completionStatus.,)
+class _HabitsBarChartState extends ConsumerState<HabitsBarChart> {
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
 
-    return HeatMapCalendar(
-      datasets: {
-        DateTime(2021, 1, 6): 1,
-        DateTime(2021, 1, 7): 2,
-        DateTime(2021, 1, 8): 3,
-        DateTime(2021, 1, 9): 4,
-        DateTime(2021, 1, 13): 5,
-      },
-      colorMode: ColorMode.opacity,
-      colorsets: {
-        1: Colors.green.shade100,
-        2: Colors.green.shade200,
-        3: Colors.green.shade300,
-        4: Colors.green.shade400,
-        5: Colors.green.shade500,
-        6: Colors.green.shade600,
-        7: Colors.green.shade700,
-        8: Colors.green.shade800,
-        9: Colors.green.shade900,
-        10: const Color(0xff294B29),
-      },
-      onClick: (value) {
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(value.toString())));
-      },
+  @override
+  Widget build(BuildContext context) {
+    final events = ref.watch(habitProvider).events;
+    return Column(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Theme.of(context).colorScheme.primary),
+          padding: const EdgeInsets.all(4),
+          child: TableCalendar(
+            headerStyle: const HeaderStyle(formatButtonVisible: false),
+            focusedDay: _focusedDay,
+            firstDay: DateTime.utc(2024, 1, 1),
+            lastDay: DateTime.utc(2024, 12, 31),
+            selectedDayPredicate: (day) {
+              return isSameDay(_selectedDay, day);
+            },
+            onDaySelected: (selectedDay, focusedDay) {
+              setState(() {
+                _selectedDay = selectedDay;
+                _focusedDay = focusedDay; // update `_focusedDay` here as well
+              });
+            },
+            onPageChanged: (focusedDay) {
+              _focusedDay = focusedDay;
+            },
+            eventLoader: (day) {
+              return events[day] ?? [];
+            },
+          ),
+        ),
+        // ListView.builder(
+        //   itemCount: events.length,
+        //   itemBuilder: (context, index) {
+        //     return ListTile(
+        //       onTap: () {},
+        //       title: Text('jojo'),
+        //     );
+        //   },
+        // ),
+      ],
     );
   }
 }

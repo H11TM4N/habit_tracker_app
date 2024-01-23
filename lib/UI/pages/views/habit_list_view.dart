@@ -22,7 +22,7 @@ class _HabitListViewState extends ConsumerState<HabitListView> {
   Widget build(BuildContext context) {
     // final GlobalKey<AnimatedListState> key = GlobalKey();
     final theme = Theme.of(context).colorScheme;
-    final habits = ref.watch(habitProvider);
+    final habits = ref.watch(habitProvider).habits;
     final textStyle = GoogleFonts.montserrat(
       fontSize: 15,
       fontWeight: FontWeight.w600,

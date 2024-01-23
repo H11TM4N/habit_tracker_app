@@ -17,7 +17,7 @@ class CustomTile extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final habits = ref.watch(habitProvider);
+    final habits = ref.watch(habitProvider).habits;
     final habit = habits[index];
     final currentDate = dateFormatter(DateTime.now());
     final completionStatus = habit.completionStatus[currentDate] ?? false;

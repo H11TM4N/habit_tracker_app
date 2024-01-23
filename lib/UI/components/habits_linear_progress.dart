@@ -12,7 +12,7 @@ class HabitsLinearProgress extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).colorScheme;
 
-    final habits = ref.watch(habitProvider);
+    final habits = ref.watch(habitProvider).habits;
     final currentDate = dateFormatter(DateTime.now());
     final completedHabits = habits.where((habit) {
       return habit.completionStatus[currentDate] == true;
