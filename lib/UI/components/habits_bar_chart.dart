@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
@@ -9,56 +10,34 @@ class HabitsBarChart extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final habits = ref.watch(habitProvider);
-    final Map<String, int> habitsCountByDay = {
-      'Mon': 0,
-      'Tue': 0,
-      'Wed': 0,
-      'Thu': 0,
-      'Fri': 0,
-      'Sat': 0,
-      'Sun': 0,
-    };
 
-    // Compute the completion count for each day
-    for (final habit in habits) {
-      for (final date in habit.completionStatus.keys) {
-        final day = getDayOfWeek(date);
-        habitsCountByDay[day] = (habitsCountByDay[day] ?? 0) + 1;
-      }
-    }
+    // final ha = habits.where((habit) => habit.completionStatus.,)
 
-    // Convert data to chart data
-    final List<ChartData> chartData = habitsCountByDay.entries
-        .map((entry) => ChartData(day: entry.key, completedHabits: entry.value))
-        .toList();
-
-    return SizedBox(
-      height: 500,
-      child: SfCartesianChart(
-        primaryXAxis: CategoryAxis(),
-        series: <ChartSeries>[
-          StackedColumnSeries<ChartData, String>(
-            dataSource: chartData,
-            xValueMapper: (ChartData ch, _) => ch.day,
-            yValueMapper: (ChartData ch, _) => ch.completedHabits,
-          ),
-        ],
-      ),
+    return HeatMapCalendar(
+      datasets: {
+        DateTime(2021, 1, 6): 1,
+        DateTime(2021, 1, 7): 2,
+        DateTime(2021, 1, 8): 3,
+        DateTime(2021, 1, 9): 4,
+        DateTime(2021, 1, 13): 5,
+      },
+      colorMode: ColorMode.opacity,
+      colorsets: {
+        1: Colors.green.shade100,
+        2: Colors.green.shade200,
+        3: Colors.green.shade300,
+        4: Colors.green.shade400,
+        5: Colors.green.shade500,
+        6: Colors.green.shade600,
+        7: Colors.green.shade700,
+        8: Colors.green.shade800,
+        9: Colors.green.shade900,
+        10: const Color(0xff294B29),
+      },
+      onClick: (value) {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(value.toString())));
+      },
     );
   }
-
-  String getDayOfWeek(DateTime date) {
-    final daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
-    return daysOfWeek[date.weekday - 1];
-  }
-}
-
-class ChartData {
-  final String day;
-  final int completedHabits;
-
-  ChartData({
-    required this.day,
-    required this.completedHabits,
-  });
 }
