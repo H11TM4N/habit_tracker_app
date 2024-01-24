@@ -40,7 +40,7 @@ class StatPage extends ConsumerWidget {
                 habits: habits,
               ),
               const SizedBox(height: 30),
-              const HabitsBarChart(),
+              const HabitsCalendar(),
               const SizedBox(height: 30),
               const HistoryView(),
             ],

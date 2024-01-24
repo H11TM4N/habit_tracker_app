@@ -1,47 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:habit_tracker_app/services/providers/habit_povider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:table_calendar/table_calendar.dart';
 
-class HabitsBarChart extends StatefulHookConsumerWidget {
-  const HabitsBarChart({super.key});
+class HabitsCalendar extends ConsumerWidget {
+  const HabitsCalendar({super.key});
 
   @override
-  ConsumerState<HabitsBarChart> createState() => _HabitsBarChartState();
-}
-
-class _HabitsBarChartState extends ConsumerState<HabitsBarChart> {
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDay;
-
-  Map<DateTime, List<String>> events = {};
-  late final ValueNotifier<List<String>> _selectedEvents;
-
-  @override
-  void initState() {
-    super.initState();
-    _selectedDay = _focusedDay;
-    _selectedEvents = ValueNotifier(_getEventForDay(_selectedDay!));
-  }
-
-  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
-    if (!isSameDay(_selectedDay, selectedDay)) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-        _selectedEvents.value = _getEventForDay(_selectedDay!);
-      });
-    }
-  }
-
-  List<String> _getEventForDay(DateTime day) {
-    return events[day] ?? [];
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    // final events = ref.watch(habitProvider).events;
-    TextEditingController textController = TextEditingController();
+  Widget build(BuildContext context, ref) {
+    const CalendarFormat calendarFormat = CalendarFormat.month;
+    DateTime focusedDayy = ref.watch(habitProvider).habitEvent.focusedDay;
+    DateTime selectedDay = ref.watch(habitProvider).habitEvent.selectedDay;
+    final selectedEvents = ref.watch(habitProvider).habitEvent.selectedEvents;
 
     return Column(
       children: [
@@ -52,65 +22,38 @@ class _HabitsBarChartState extends ConsumerState<HabitsBarChart> {
           padding: const EdgeInsets.all(4),
           child: TableCalendar(
             headerStyle: const HeaderStyle(formatButtonVisible: false),
-            calendarFormat: _calendarFormat,
-            focusedDay: _focusedDay,
+            calendarFormat: calendarFormat,
+            focusedDay: focusedDayy,
             firstDay: DateTime.utc(2024, 1, 1),
             lastDay: DateTime.utc(2024, 12, 31),
             selectedDayPredicate: (day) {
-              return isSameDay(_selectedDay, day);
+              return isSameDay(selectedDay, day);
             },
-            onDaySelected: onDaySelected,
+            onDaySelected: (selectedDay, focusedDay) {
+              ref
+                  .read(habitProvider.notifier)
+                  .onDaySelected(selectedDay, focusedDay);
+            },
             onPageChanged: (focusedDay) {
-              _focusedDay = focusedDay;
+              ref.read(habitProvider.notifier).onPageChanged(focusedDay);
             },
-            eventLoader: _getEventForDay,
+            eventLoader: (day) {
+              return ref.read(habitProvider.notifier).getEventForDay(day);
+            },
           ),
         ),
-        TextButton(
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                content: Column(
-                  children: [
-                    TextField(
-                      controller: textController,
-                    ),
-                  ],
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () {
-                      events.addAll({
-                        _selectedDay!: [textController.text]
-                      });
-                      _selectedEvents.value = _getEventForDay(_selectedDay!);
-                      Navigator.pop(context);
-                    },
-                    child: const Text('submit'),
-                  ),
-                ],
-              ),
-            );
-          },
-          child: const Text('Add'),
-        ),
-        ValueListenableBuilder(
-            valueListenable: _selectedEvents,
-            builder: (context, value, _) {
-              return SizedBox(
-                height: 300,
-                child: ListView.builder(
-                  itemCount: value.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      onTap: () {},
-                      title: Text(value[index]),
-                    );
-                  },
-                ),
+        SizedBox(
+          height: 500,
+          child: ListView.builder(
+            itemCount: selectedEvents.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                onTap: () {},
+                title: Text(selectedEvents[index].title),
               );
-            }),
+            },
+          ),
+        ),
       ],
     );
   }

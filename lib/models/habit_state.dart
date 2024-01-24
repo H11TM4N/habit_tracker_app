@@ -1,22 +1,23 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:habit_tracker_app/models/habit.dart';
+import 'package:habit_tracker_app/models/habit_event.dart';
 
 class HabitState {
   final List<Habit> habits;
-  final Map<DateTime, List<Habit>> events;
+  final HabitEvent habitEvent;
 
   HabitState({
     required this.habits,
-    required this.events,
+    required this.habitEvent,
   });
 
   HabitState copyWith({
     List<Habit>? habits,
-    Map<DateTime, List<Habit>>? events,
+    HabitEvent? habitEvent,
   }) {
     return HabitState(
       habits: habits ?? this.habits,
-      events: events ?? this.events,
+      habitEvent: habitEvent ?? this.habitEvent,
     );
   }
 }

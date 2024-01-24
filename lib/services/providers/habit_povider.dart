@@ -1,29 +1,47 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/models/habit.dart';
+import 'package:habit_tracker_app/models/habit_event.dart';
 import 'package:habit_tracker_app/models/habit_state.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 final habitProvider = StateNotifierProvider<HabitNotifier, HabitState>((ref) {
   return HabitNotifier();
 });
 
 class HabitNotifier extends StateNotifier<HabitState> {
-  HabitNotifier() : super(HabitState(habits: [], events: {})) {
+  HabitNotifier()
+      : super(
+          HabitState(
+              habits: [],
+              habitEvent: HabitEvent(
+                events: {},
+                focusedDay: DateTime.now(),
+                selectedDay: DateTime.now(),
+                selectedEvents: [],
+              )),
+        ) {
     state = state.copyWith(
       habits: habitBox.values.toList(),
+      habitEvent: state.habitEvent.copyWith(
+        selectedDay: state.habitEvent.focusedDay,
+        selectedEvents: getEventForDay(state.habitEvent.selectedDay),
+      ),
     );
   }
 
   void addHabit(Habit habit) {
     habitBox.add(habit);
+    //* add event
+    state.habitEvent.events.addAll({
+      state.habitEvent.selectedDay: [...state.habitEvent.selectedEvents, habit]
+    });
     state = state.copyWith(
       habits: habitBox.values.toList(),
-      events: {
-        ...state.events,
-        dateFormatter(DateTime.now()): [...state.habits, habit],
-      },
+      habitEvent: state.habitEvent.copyWith(
+        selectedEvents: getEventForDay(state.habitEvent.selectedDay),
+      ),
     );
-    print(state.events);
   }
 
   void removeHabit(String id) {
@@ -39,7 +57,7 @@ class HabitNotifier extends StateNotifier<HabitState> {
 
       // Remove the corresponding event from the events map
       final Map<DateTime, List<Habit>> updatedEvents = {
-        for (final entry in state.events.entries)
+        for (final entry in state.habitEvent.events.entries)
           if (entry.value.contains(removedHabit))
             entry.key: entry.value.where((h) => h != removedHabit).toList()
       };
@@ -47,9 +65,8 @@ class HabitNotifier extends StateNotifier<HabitState> {
       // Update the state with the new habits and events
       state = state.copyWith(
         habits: habitBox.values.toList(),
-        events: updatedEvents,
+        habitEvent: state.habitEvent.copyWith(events: updatedEvents),
       );
-      print(state.events);
     }
   }
 
@@ -57,7 +74,13 @@ class HabitNotifier extends StateNotifier<HabitState> {
     for (int i = state.habits.length - 1; i >= 0; i--) {
       habitBox.deleteAt(i);
     }
-    state = state.copyWith(habits: [], events: {});
+    state = state.copyWith(
+      habits: [],
+      habitEvent: state.habitEvent.copyWith(
+        events: {},
+        selectedEvents: [],
+      ),
+    );
   }
 
   void editHabit(Habit habit) {
@@ -85,6 +108,31 @@ class HabitNotifier extends StateNotifier<HabitState> {
     habitBox.putAt(index, habit);
     state = state.copyWith(
       habits: habitBox.values.toList(),
+    );
+  }
+
+  //* events
+  void onDaySelected(DateTime selectedDay, DateTime focusedDay) {
+    if (!isSameDay(state.habitEvent.selectedDay, selectedDay)) {
+      state = state.copyWith(
+        habitEvent: state.habitEvent.copyWith(
+          selectedDay: selectedDay,
+          focusedDay: focusedDay,
+          selectedEvents: getEventForDay(state.habitEvent.selectedDay),
+        ),
+      );
+    }
+  }
+
+  List<Habit> getEventForDay(DateTime day) {
+    return state.habitEvent.events[day] ?? [];
+  }
+
+  void onPageChanged(DateTime focusedDay) {
+    state.copyWith(
+      habitEvent: state.habitEvent.copyWith(
+        focusedDay: focusedDay,
+      ),
     );
   }
 }
