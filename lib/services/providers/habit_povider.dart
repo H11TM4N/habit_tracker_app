@@ -15,7 +15,6 @@ class HabitNotifier extends StateNotifier<HabitState> {
   }
 
   void addHabit(Habit habit) {
-    
     habitBox.add(habit);
     state = state.copyWith(
       habits: habitBox.values.toList(),
