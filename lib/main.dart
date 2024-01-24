@@ -16,6 +16,7 @@ void main() async {
   Hive.registerAdapter(HabitAdapter());
   Hive.registerAdapter(GenderAdapter());
   habitBox = await Hive.openBox<Habit>('habitBox');
+  selectedEventBox = await Hive.openBox<Habit>('selectedEventBox');
   userBox = await Hive.openBox<LocalUser>('userBox');
 
   runApp(

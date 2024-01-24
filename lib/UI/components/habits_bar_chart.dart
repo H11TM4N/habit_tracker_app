@@ -14,6 +14,7 @@ class HabitsCalendar extends ConsumerWidget {
     final selectedEvents = ref.watch(habitProvider).habitEvent.selectedEvents;
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
           decoration: BoxDecoration(
@@ -23,6 +24,7 @@ class HabitsCalendar extends ConsumerWidget {
           child: TableCalendar(
             headerStyle: const HeaderStyle(formatButtonVisible: false),
             calendarFormat: calendarFormat,
+            availableGestures: AvailableGestures.none,
             focusedDay: focusedDayy,
             firstDay: DateTime.utc(2024, 1, 1),
             lastDay: DateTime.utc(2024, 12, 31),
@@ -43,13 +45,20 @@ class HabitsCalendar extends ConsumerWidget {
           ),
         ),
         SizedBox(
-          height: 500,
+          height: 400,
           child: ListView.builder(
             itemCount: selectedEvents.length,
             itemBuilder: (context, index) {
-              return ListTile(
-                onTap: () {},
-                title: Text(selectedEvents[index].title),
+              return Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ListTile(
+                  onTap: () {},
+                  tileColor: Theme.of(context).colorScheme.primary,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  title: Text(selectedEvents[index].title),
+                ),
               );
             },
           ),

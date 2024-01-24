@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_tracker_app/UI/components/components.dart';
-import 'package:habit_tracker_app/UI/pages/views/history_view.dart';
 import 'package:habit_tracker_app/UI/pages/views/overview_card.dart';
 import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/services/providers/habit_povider.dart';
@@ -41,8 +40,6 @@ class StatPage extends ConsumerWidget {
               ),
               const SizedBox(height: 30),
               const HabitsCalendar(),
-              const SizedBox(height: 30),
-              const HistoryView(),
             ],
           ),
         ),

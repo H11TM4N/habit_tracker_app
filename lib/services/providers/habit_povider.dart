@@ -3,6 +3,7 @@ import 'package:habit_tracker_app/common/common.dart';
 import 'package:habit_tracker_app/models/habit.dart';
 import 'package:habit_tracker_app/models/habit_event.dart';
 import 'package:habit_tracker_app/models/habit_state.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 final habitProvider = StateNotifierProvider<HabitNotifier, HabitState>((ref) {
@@ -24,22 +25,24 @@ class HabitNotifier extends StateNotifier<HabitState> {
     state = state.copyWith(
       habits: habitBox.values.toList(),
       habitEvent: state.habitEvent.copyWith(
-        selectedDay: state.habitEvent.focusedDay,
-        selectedEvents: getEventForDay(state.habitEvent.selectedDay),
-      ),
+          selectedDay: state.habitEvent.focusedDay,
+          selectedEvents: selectedEventBox.values.toList()),
     );
   }
 
   void addHabit(Habit habit) {
     habitBox.add(habit);
+
+    final selectedEventBox = Hive.box<Habit>('selectedEventBox');
     //* add event
+    selectedEventBox.add(habit);
     state.habitEvent.events.addAll({
       state.habitEvent.selectedDay: [...state.habitEvent.selectedEvents, habit]
     });
     state = state.copyWith(
       habits: habitBox.values.toList(),
       habitEvent: state.habitEvent.copyWith(
-        selectedEvents: getEventForDay(state.habitEvent.selectedDay),
+        selectedEvents: selectedEventBox.values.toList(),
       ),
     );
   }

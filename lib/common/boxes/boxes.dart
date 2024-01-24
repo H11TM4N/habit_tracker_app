@@ -4,3 +4,4 @@ import 'package:hive_flutter/hive_flutter.dart';
 
 late Box<Habit> habitBox;
 late Box<LocalUser> userBox;
+late Box<Habit> selectedEventBox;
