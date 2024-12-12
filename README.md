@@ -9,8 +9,6 @@ A simple, not so simple habit tracker app made with Flutter.
 - [Features](#features)
 - [Useful Resources](#useful-resources)
 - [Installation and Usage Instructions](#installation-and-usage-instructions)
-- [Author](#author)
-- [Feedback](#feedback)
 
 ## Screenshots
 
@@ -69,11 +67,3 @@ A simple, not so simple habit tracker app made with Flutter.
 2. Install dependencies using `flutter pub get`.
 3. Run the app on your preferred emulator or physical device.
 
-## Author
-
-- Github - [JER3MIAH](https://github.com/)
-- Twitter - [@jeremiah_008](https://twitter.com/jeremiah_008)
-
-## Feedback
-
-Feel free to reach out to me via email at [jeremiah.devv@gmail.com](mailto:jeremiah.devv@gmail.com) for any feedback or queries.
